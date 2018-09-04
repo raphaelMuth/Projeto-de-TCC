@@ -14,6 +14,7 @@ obj
 .vs
 bin
 *.js
+!/external/*
 *.map
 *.config
 # Packages #
