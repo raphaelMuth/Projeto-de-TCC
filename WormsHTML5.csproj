@@ -1,0 +1,848 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <ProjectGuid>{446EADF5-2CF5-4859-947E-2D5703408E40}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UpgradeBackupLocation />
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\Game.ts" />
+    <TypeScriptCompile Include="src\system\AssetManager.ts" />
+    <Content Include=".gitignore" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
+    <Content Include="data\images\arrowdnb.png" />
+    <Content Include="data\images\blob.png" />
+    <Content Include="data\images\circl100.png" />
+    <Content Include="data\images\cloudl.png" />
+    <Content Include="data\images\cloudm.png" />
+    <Content Include="data\images\clouds.png" />
+    <Content Include="data\images\crshairr.png" />
+    <Content Include="data\images\dynamite.png" />
+    <Content Include="data\images\elipse75.png" />
+    <Content Include="data\images\exbiff.png" />
+    <Content Include="data\images\exhaust.png" />
+    <Content Include="data\images\flame1.png" />
+    <Content Include="data\images\grave1.png" />
+    <Content Include="data\images\grave2.png" />
+    <Content Include="data\images\grave3.png" />
+    <Content Include="data\images\grave4.png" />
+    <Content Include="data\images\grave5.png" />
+    <Content Include="data\images\grave6.png" />
+    <Content Include="data\images\grenade.png" />
+    <Content Include="data\images\hexhaust.png" />
+    <Content Include="data\images\hgrenade.png" />
+    <Content Include="data\images\Ireland.png" />
+    <Content Include="data\images\levels\castles.png" />
+    <Content Include="data\images\levels\level2.png" />
+    <Content Include="data\images\levels\level20.png" />
+    <Content Include="data\images\levels\level3.png" />
+    <Content Include="data\images\levels\level5.png" />
+    <Content Include="data\images\levels\smallcastles.png" />
+    <Content Include="data\images\levels\smalllevel2.png" />
+    <Content Include="data\images\levels\smalllevel20.png" />
+    <Content Include="data\images\levels\smalllevel3.png" />
+    <Content Include="data\images\levels\smalllevel5.png" />
+    <Content Include="data\images\menu\stick.png" />
+    <Content Include="data\images\mineoff.png" />
+    <Content Include="data\images\mineon.png" />
+    <Content Include="data\images\missile.png" />
+    <Content Include="data\images\ropecuff.png" />
+    <Content Include="data\images\shotcase.png" />
+    <Content Include="data\images\shothit.png" />
+    <Content Include="data\images\smklt75.png" />
+    <Content Include="data\images\water3.png" />
+    <Content Include="data\images\wbackflp.png" />
+    <Content Include="data\images\wbataim.png" />
+    <Content Include="data\images\wbatlnk.png" />
+    <Content Include="data\images\wbaz.png" />
+    <Content Include="data\images\wbazlnk.png" />
+    <Content Include="data\images\wblink1u.png" />
+    <Content Include="data\images\wblowlk.png" />
+    <Content Include="data\images\wbloww.png" />
+    <Content Include="data\images\wbrth2.png" />
+    <Content Include="data\images\wdie.png" />
+    <Content Include="data\images\wdrill.png" />
+    <Content Include="data\images\wdrllnk.png" />
+    <Content Include="data\images\wdynlnk.png" />
+    <Content Include="data\images\weaponicons\drill.png" />
+    <Content Include="data\images\weaponicons\iconbazooka.png" />
+    <Content Include="data\images\weaponicons\iconblowtorch.png" />
+    <Content Include="data\images\weaponicons\icondynamite.png" />
+    <Content Include="data\images\weaponicons\icongrenade.png" />
+    <Content Include="data\images\weaponicons\iconhgrenade.png" />
+    <Content Include="data\images\weaponicons\iconjetpack.png" />
+    <Content Include="data\images\weaponicons\iconmine.png" />
+    <Content Include="data\images\weaponicons\iconminigun.png" />
+    <Content Include="data\images\weaponicons\iconrope.png" />
+    <Content Include="data\images\weaponicons\iconsheep.png" />
+    <Content Include="data\images\weaponicons\iconshotgun.png" />
+    <Content Include="data\images\wfall.png" />
+    <Content Include="data\images\wflyup.png" />
+    <Content Include="data\images\wgrnlnk.png" />
+    <Content Include="data\images\whgrlnk.png" />
+    <Content Include="data\images\wjetbak.png" />
+    <Content Include="data\images\wjetflmb.png" />
+    <Content Include="data\images\wjetflmd.png" />
+    <Content Include="data\images\wjetlnk.png" />
+    <Content Include="data\images\wmgnbak.png" />
+    <Content Include="data\images\wmgnlnk.png" />
+    <Content Include="data\images\wmini.png" />
+    <Content Include="data\images\wminif.png" />
+    <Content Include="data\images\wminlnk.png" />
+    <Content Include="data\images\wselbak.png" />
+    <Content Include="data\images\wshgbak.png" />
+    <Content Include="data\images\wshglnk.png" />
+    <Content Include="data\images\wshotf.png" />
+    <Content Include="data\images\wshotg.png" />
+    <Content Include="data\images\wshotp.png" />
+    <Content Include="data\images\wshplnk.png" />
+    <Content Include="data\images\wthrgrn.png" />
+    <Content Include="data\images\wthrhgr.png" />
+    <Content Include="data\images\wtwangd.png" />
+    <Content Include="data\images\wwalk.png" />
+    <Content Include="data\images\wwinner.png" />
+    <Content Include="data\img\wormsBackGround.png" />
+    <Content Include="data\sounds\cantclickhere.wav" />
+    <Content Include="data\sounds\CursorSelect.wav" />
+    <Content Include="data\sounds\drill.wav" />
+    <Content Include="data\sounds\explosion1.wav" />
+    <Content Include="data\sounds\explosion2.wav" />
+    <Content Include="data\sounds\explosion3.wav" />
+    <Content Include="data\sounds\fanfare\Ireland.wav" />
+    <Content Include="data\sounds\fuse.wav" />
+    <Content Include="data\sounds\GRENADEIMPACT.wav" />
+    <Content Include="data\sounds\holygrenade.wav" />
+    <Content Include="data\sounds\HOLYGRENADEIMPACT.wav" />
+    <Content Include="data\sounds\Ireland.wav" />
+    <Content Include="data\sounds\JetPackLoop1.wav" />
+    <Content Include="data\sounds\JetPackLoop2.wav" />
+    <Content Include="data\sounds\JUMP1.wav" />
+    <Content Include="data\sounds\MINEIMPACT.wav" />
+    <Content Include="data\sounds\MINETICK.wav" />
+    <Content Include="data\sounds\MiniGunFire.wav" />
+    <Content Include="data\sounds\NinjaRopeFire.wav" />
+    <Content Include="data\sounds\NinjaRopeImpact.wav" />
+    <Content Include="data\sounds\ROCKETPOWERUP.wav" />
+    <Content Include="data\sounds\ShotGunFire.wav" />
+    <Content Include="data\sounds\SHOTGUNRELOAD.wav" />
+    <Content Include="data\sounds\Speech\Irish\byebye.wav" />
+    <Content Include="data\sounds\Speech\Irish\fatality.wav" />
+    <Content Include="data\sounds\Speech\Irish\fire.wav" />
+    <Content Include="data\sounds\Speech\Irish\grenade.wav" />
+    <Content Include="data\sounds\Speech\Irish\hurry.wav" />
+    <Content Include="data\sounds\Speech\Irish\incoming.wav" />
+    <Content Include="data\sounds\Speech\Irish\justyouwait.wav" />
+    <Content Include="data\sounds\Speech\Irish\laugh.wav" />
+    <Content Include="data\sounds\Speech\Irish\ohdear.wav" />
+    <Content Include="data\sounds\Speech\Irish\ow1.wav" />
+    <Content Include="data\sounds\Speech\Irish\ow2.wav" />
+    <Content Include="data\sounds\Speech\Irish\ow3.wav" />
+    <Content Include="data\sounds\Speech\Irish\traitor.wav" />
+    <Content Include="data\sounds\Speech\Irish\victory.wav" />
+    <Content Include="data\sounds\Speech\Irish\watchthis.wav" />
+    <Content Include="data\sounds\Speech\Irish\yessir.wav" />
+    <Content Include="data\sounds\Speech\Irish\youllregretthat.wav" />
+    <Content Include="data\sounds\StartRound.wav" />
+    <Content Include="data\sounds\THROWPOWERUP.wav" />
+    <Content Include="data\sounds\THROWRELEASE.wav" />
+    <Content Include="data\sounds\TIMERTICK.wav" />
+    <Content Include="data\sounds\WalkCompress.wav" />
+    <Content Include="data\sounds\WalkExpand.wav" />
+    <Content Include="data\sounds\WormLanding.wav" />
+    <Content Include="external\bootstrap.min.js" />
+    <Content Include="external\Box2dWeb-2.1.a.3.js" />
+    <Content Include="external\Box2dWeb-2.1.a.3.min.js" />
+    <Content Include="external\jquery.1.8.2.min.js" />
+    <Content Include="external\Stats.js" />
+    <TypeScriptCompile Include="src\animation\Sprite.ts" />
+    <Content Include="external\test\qunit.css" />
+    <Content Include="external\test\qunit.js" />
+    <TypeScriptCompile Include="src\animation\ParticleEffect.ts" />
+    <TypeScriptCompile Include="src\animation\Particle.ts" />
+    <TypeScriptCompile Include="src\animation\HealthReduction.ts" />
+    <TypeScriptCompile Include="src\animation\BounceArrow.ts" />
+    <Content Include="LICENSE.txt" />
+    <Content Include="src\animation\BounceArrow.js">
+      <DependentUpon>BounceArrow.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\BounceArrow.min.js">
+      <DependentUpon>BounceArrow.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\EffectsManager.js">
+      <DependentUpon>EffectsManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\EffectsManager.min.js">
+      <DependentUpon>EffectsManager.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\ForceIndicator.ts" />
+    <Content Include="src\animation\HealthReduction.min.js">
+      <DependentUpon>HealthReduction.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\gui\SettingsMenu.ts" />
+    <Content Include="src\animation\ParticleEffect.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ParticleEffect.min.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\PhysicsSprite.min.js">
+      <DependentUpon>PhysicsSprite.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\gui\LeaderBoardView.ts" />
+    <Content Include="src\gui\LeaderBoardView.js">
+      <DependentUpon>LeaderBoardView.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\LeaderBoardView.min.js">
+      <DependentUpon>LeaderBoardView.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\SettingsMenu.js">
+      <DependentUpon>SettingsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\SettingsMenu.min.js">
+      <DependentUpon>SettingsMenu.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Tutorial.ts" />
+    <TypeScriptCompile Include="src\networking\LeaderBoard\GooglePlus.ts" />
+    <TypeScriptCompile Include="src\networking\LeaderBoard\Api.ts" />
+    <Content Include="src\networking\LeaderBoard\Api.js">
+      <DependentUpon>Api.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\LeaderBoard\LeaderBoardApi.ts" />
+    <Content Include="src\networking\LeaderBoard\Api.min.js">
+      <DependentUpon>Api.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\GooglePlus.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\GooglePlus.min.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.js">
+      <DependentUpon>LeaderBoardApi.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.min.js">
+      <DependentUpon>LeaderBoardApi.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\Leaderboards.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\LeaderBoard\Leaderboards.min.js">
+      <DependentUpon>GooglePlus.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Tutorial.js">
+      <DependentUpon>Tutorial.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Tutorial.min.js">
+      <DependentUpon>Tutorial.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ForceIndicator.js">
+      <DependentUpon>ForceIndicator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ForceIndicator.min.js">
+      <DependentUpon>ForceIndicator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\HealthReduction.js">
+      <DependentUpon>HealthReduction.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Particle.js">
+      <DependentUpon>Particle.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Particle.min.js">
+      <DependentUpon>Particle.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ParticleSystem.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ParticleSystem.min.js">
+      <DependentUpon>ParticleEffect.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\animation\PhysicsSprite.ts" />
+    <TypeScriptCompile Include="src\animation\EffectsManager.ts" />
+    <Content Include="src\animation\PhysicsSprite.js">
+      <DependentUpon>PhysicsSprite.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Sprite.js">
+      <DependentUpon>Sprite.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Sprite.min.js">
+      <DependentUpon>Sprite.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Player.ts" />
+    <TypeScriptCompile Include="src\gui\CountDownTimer.ts" />
+    <TypeScriptCompile Include="src\animation\SpriteDefinitions.ts" />
+    <Content Include="src\animation\SpriteDefinitions.js">
+      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\SpriteDefinitions.min.js">
+      <DependentUpon>SpriteDefinitions.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\WormAnimationManger.ts" />
+    <TypeScriptCompile Include="src\gui\HealthMenu.ts" />
+    <TypeScriptCompile Include="src\animation\Effects.ts" />
+    <Content Include="src\animation\Effects.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Effects.min.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\ExplosionEffect.js">
+      <DependentUpon>Effects.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\GameStateManager.ts" />
+    <Content Include="src\environment\Terrain.js">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\TerrainBoundary.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\TerrainBoundary.min.js">
+      <DependentUpon>TerrainBoundary.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\environment\Waves.ts" />
+    <Content Include="src\environment\Waves.js">
+      <DependentUpon>Waves.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\Waves.min.js">
+      <DependentUpon>Waves.ts</DependentUpon>
+    </Content>
+    <Content Include="src\GameStateManager.js">
+      <DependentUpon>GameStateManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\GameStateManager.min.js">
+      <DependentUpon>GameStateManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\HealthMenu.js">
+      <DependentUpon>HealthMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\HealthMenu.min.js">
+      <DependentUpon>HealthMenu.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\environment\Maps.ts" />
+    <TypeScriptCompile Include="src\gui\LobbyMenu.ts" />
+    <Content Include="src\gui\LobbyMenu.js">
+      <DependentUpon>LobbyMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\LobbyMenu.min.js">
+      <DependentUpon>LobbyMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\Maps.js">
+      <DependentUpon>Maps.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\Maps.min.js">
+      <DependentUpon>Maps.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\Server.ts" />
+    <TypeScriptCompile Include="src\networking\Client.ts" />
+    <Content Include="src\networking\Client.js">
+      <DependentUpon>Client.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Client.min.js">
+      <DependentUpon>Client.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\ClientGame.js">
+      <DependentUpon>Client.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\ClientGame.min.js">
+      <DependentUpon>Client.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\GameLobby.ts" />
+    <TypeScriptCompile Include="src\networking\Events.ts" />
+    <Content Include="src\networking\Events.js">
+      <DependentUpon>Events.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Events.min.js">
+      <DependentUpon>Events.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\GameLobby.js">
+      <DependentUpon>GameLobby.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\GameLobby.min.js">
+      <DependentUpon>GameLobby.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\Lobby.ts" />
+    <TypeScriptCompile Include="src\networking\InstructionChain.ts" />
+    <Content Include="src\networking\InstructionChain.js">
+      <DependentUpon>InstructionChain.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\InstructionChain.min.js">
+      <DependentUpon>InstructionChain.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Lobby.js">
+      <DependentUpon>Lobby.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Lobby.min.js">
+      <DependentUpon>Lobby.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\NetworkTimer.ts" />
+    <Content Include="src\networking\NetworkTimer.js">
+      <DependentUpon>NetworkTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\NetworkTimer.min.js">
+      <DependentUpon>NetworkTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Server.js">
+      <DependentUpon>Server.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Server.min.js">
+      <DependentUpon>Server.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\networking\ServerUtilies.ts" />
+    <TypeScriptCompile Include="src\networking\ServerSettings.ts" />
+    <Content Include="src\networking\ServerSettings.js">
+      <DependentUpon>ServerSettings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\ServerSettings.min.js">
+      <DependentUpon>ServerSettings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\ServerUtilies.js">
+      <DependentUpon>ServerUtilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\ServerUtilies.min.js">
+      <DependentUpon>ServerUtilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Settings.js">
+      <DependentUpon>ServerSettings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Settings.min.js">
+      <DependentUpon>ServerSettings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Utilies.js">
+      <DependentUpon>ServerUtilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\networking\Utilies.min.js">
+      <DependentUpon>ServerUtilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\StateAnimationManger.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <Content Include="src\StateAnimationManger.min.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\CountDownTimer.js">
+      <DependentUpon>CountDownTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\CountDownTimer.min.js">
+      <DependentUpon>CountDownTimer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Player.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Settings.ts" />
+    <Content Include="src\Settings.js">
+      <DependentUpon>Settings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Settings.min.js">
+      <DependentUpon>Settings.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\AssetManager.js">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\audio\SoundBufferLoader.js" />
+    <TypeScriptCompile Include="src\audio\Sound.ts" />
+    <Content Include="src\audio\Sound.js">
+      <DependentUpon>Sound.ts</DependentUpon>
+    </Content>
+    <Content Include="src\audio\Sound.min.js">
+      <DependentUpon>Sound.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Game.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\Graphics.ts" />
+    <Content Include="src\Game.min.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\AssetManager.min.js">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\Controls.ts" />
+    <TypeScriptCompile Include="src\system\Camera.ts" />
+    <Content Include="src\system\Camera.js">
+      <DependentUpon>Camera.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Camera.min.js">
+      <DependentUpon>Camera.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Controls.js">
+      <DependentUpon>Controls.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Controls.min.js">
+      <DependentUpon>Controls.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\GamePad.ts" />
+    <Content Include="src\system\GamePad.js">
+      <DependentUpon>GamePad.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\GamePad.min.js">
+      <DependentUpon>GamePad.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Graphics.js">
+      <DependentUpon>Graphics.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Graphics.min.js">
+      <DependentUpon>Graphics.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\gui\StartMenu.ts" />
+    <Content Include="src\gui\StartMenu.js">
+      <DependentUpon>StartMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\StartMenu.min.js">
+      <DependentUpon>StartMenu.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\gui\WeaponsMenu.ts" />
+    <Content Include="src\gui\WeaponsMenu.js">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\WeaponsMenu.min.js">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\main.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\Physics.ts" />
+    <Content Include="src\main.min.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\NameGenerator.ts" />
+    <Content Include="src\system\NameGen.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.min.js">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Physics.js">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\environment\Terrain.ts" />
+    <TypeScriptCompile Include="src\Team.ts" />
+    <Content Include="src\system\Physics.min.js">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\system\Timer.ts" />
+    <Content Include="src\system\Timer.js">
+      <DependentUpon>Timer.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Timer.min.js">
+      <DependentUpon>Timer.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\Target.ts" />
+    <Content Include="src\Target.js">
+      <DependentUpon>Target.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Target.min.js">
+      <DependentUpon>Target.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Team.js">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Team.min.js">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
+    <TypeScriptCompile Include="src\system\Utilies.ts" />
+    <Content Include="src\system\Utilies.js">
+      <DependentUpon>Utilies.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\ProjectileWeapon.ts" />
+    <Content Include="src\system\Utilies.min.js">
+      <DependentUpon>Utilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\environment\Terrain.min.js">
+      <DependentUpon>Terrain.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\Drill.ts" />
+    <TypeScriptCompile Include="src\tests\AllTest.ts" />
+    <Content Include="src\tests\AllTest.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\tests\AllTest.min.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\tests\TimerTest.min.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Drill.js">
+      <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\HolyGrenade.ts" />
+    <TypeScriptCompile Include="src\weapons\Dynamite.ts" />
+    <Content Include="src\weapons\Dynamite.js">
+      <DependentUpon>Dynamite.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Dynamite.min.js">
+      <DependentUpon>Dynamite.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\HandGrenade.ts" />
+    <Content Include="src\weapons\HandGrenade.js">
+      <DependentUpon>HandGrenade.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\HandGrenade.min.js">
+      <DependentUpon>HandGrenade.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\HolyGrenade.js">
+      <DependentUpon>HolyGrenade.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\HolyGrenade.min.js">
+      <DependentUpon>HolyGrenade.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\NinjaRope.ts" />
+    <TypeScriptCompile Include="src\weapons\JetPack.ts" />
+    <Content Include="src\weapons\JetPack.js">
+      <DependentUpon>JetPack.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\JetPack.min.js">
+      <DependentUpon>JetPack.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\Minigun.ts" />
+    <Content Include="src\weapons\Minigun.js">
+      <DependentUpon>Minigun.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Minigun.min.js">
+      <DependentUpon>Minigun.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\NinjaRope.js">
+      <DependentUpon>NinjaRope.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\environment\TerrainBoundary.ts" />
+    <Content Include="src\weapons\NinjaRope.min.js">
+      <DependentUpon>NinjaRope.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\RayWeapon.ts" />
+    <Content Include="src\weapons\RayWeapon.js">
+      <DependentUpon>RayWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\RayWeapon.min.js">
+      <DependentUpon>RayWeapon.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\Shotgun.ts" />
+    <Content Include="src\weapons\Shotgun.js">
+      <DependentUpon>Shotgun.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Shotgun.min.js">
+      <DependentUpon>Shotgun.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WormAnimationManger.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WormAnimationManger.min.js">
+      <DependentUpon>WormAnimationManger.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\WormManager.ts" />
+    <Content Include="src\WormManager.js">
+      <DependentUpon>WormManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\WormManager.min.js">
+      <DependentUpon>WormManager.ts</DependentUpon>
+    </Content>
+    <Content Include="test.html" />
+    <Content Include="src\tests\TimerTest.js">
+      <DependentUpon>AllTest.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\Drill.min.js">
+      <DependentUpon>Drill.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\BaseWeapon.ts" />
+    <Content Include="src\weapons\BaseWeapon.js">
+      <DependentUpon>BaseWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\BaseWeapon.min.js">
+      <DependentUpon>BaseWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ProjectileWeapon.js">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ProjectileWeapon.min.js">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ThrowableWeapon.js">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="src\weapons\WeaponManager.ts" />
+    <Content Include="src\weapons\ThrowableWeapon.min.js">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\WeaponManager.js">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\WeaponManager.min.js">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.js">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.min.js">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.ts" />
+    <Content Include="css\custom.css" />
+    <Content Include="index.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\main.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="external\Box2dWeb-2.1.a.3.min.js.map">
+      <DependentUpon>Box2dWeb-2.1.a.3.js</DependentUpon>
+    </Content>
+    <Content Include="src\Player.js.map">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Worm.js.map">
+      <DependentUpon>Worm.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Graphics.js.map">
+      <DependentUpon>Graphics.ts</DependentUpon>
+    </Content>
+    <Content Include="src\animation\Sprite.js.map">
+      <DependentUpon>Sprite.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Game.js.map">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\WeaponsMenu.js.map">
+      <DependentUpon>WeaponsMenu.ts</DependentUpon>
+    </Content>
+    <Content Include="src\main.js.map">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\AssetManager.js.map">
+      <DependentUpon>AssetManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\NameGenerator.js.map">
+      <DependentUpon>NameGenerator.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Physics.js.map">
+      <DependentUpon>Physics.ts</DependentUpon>
+    </Content>
+    <Content Include="src\system\Utilies.js.map">
+      <DependentUpon>Utilies.ts</DependentUpon>
+    </Content>
+    <Content Include="src\Team.js.map">
+      <DependentUpon>Team.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ThrowableWeapon.js.map">
+      <DependentUpon>ThrowableWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\WeaponManager.js.map">
+      <DependentUpon>WeaponManager.ts</DependentUpon>
+    </Content>
+    <Content Include="src\weapons\ProjectileWeapon.js.map">
+      <DependentUpon>ProjectileWeapon.ts</DependentUpon>
+    </Content>
+    <Content Include="src\gui\StartMenu.js.map">
+      <DependentUpon>StartMenu.ts</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\networking\GameServer.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="offline.appcache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\networking\LeaderBoard\package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <Content Include="web.config" />
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>WormsHTML5</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <WarningLevel>0</WarningLevel>
+    <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <FileAlignment>4096</FileAlignment>
+    <DefineConstants>
+    </DefineConstants>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51631</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52559/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>"$(PROGRAMFILES)\Microsoft SDKs\TypeScript\2.8\tsc" "$(ProjectDir)src\main.ts" --out "$(ProjectDir)src\Worms.js"</PreBuildEvent>
+  </PropertyGroup>
+</Project>
