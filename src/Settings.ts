@@ -31,8 +31,8 @@ module Settings
     export var BUILD_MANIFEST_FILE = false;
 
     export var REMOTE_ASSERT_SERVER = "../"; //"../college/fyp/"
-
-    export var API_KEY = "AIzaSyA1aZhcIhRQ2gbmyxV5t9pGK47hGsiIO7U";
+    //remover essa api key
+    export var API_KEY = "";
 
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
