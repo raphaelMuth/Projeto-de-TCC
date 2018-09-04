@@ -118,8 +118,9 @@ class SoundFallback extends Sound
             //if (this.playing == false || allowSoundOverLay == true)
             {
 
-                this.audio.volume = volume;    
-                this.audio.play();
+                this.audio.volume = volume;
+                this.audio.play()
+                    .catch(c => Logger.debug("Erro ao tocar som " + c));
                 this.playing = true;
             }
 
