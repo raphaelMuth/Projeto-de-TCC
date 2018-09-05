@@ -135,9 +135,10 @@ class WeaponsMenu
         $($(this.htmlElement).children().get(1)).append(html);
 
         
-        $("#" + this.cssId + " li").click( () =>
+        $("#" + this.cssId + " li").click( (event) =>
         {
-            var weaponId = parseInt($(this).attr('id'));
+
+            var weaponId = parseInt($(event.currentTarget).attr('id'));
 
             if (weaponId == -1)
             {
