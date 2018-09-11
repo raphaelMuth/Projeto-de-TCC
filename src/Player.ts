@@ -26,27 +26,13 @@ class Player
         this.team = new Team(playerId);
 
         // Global window keyup event
-        $(window).keyup( (e) =>
-        {
-            // Dectects keyup on fire button
-            if (e.which == Controls.fire.keyboard)
-            {
-                var wormWeapon = this.team.getCurrentWorm().getWeapon()
-
-                // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
-                {
-                    this.team.getCurrentWorm().fire();
-                    Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                    GameInstance.weaponMenu.refresh();
-                }
-            }
-        });
+        $(window).keyup((e) => this.FireOnKeyUp(e) );
 
         this.timer = new Timer(10);
         this.gamePad = new GamePad();
     }
 
+    // methods
     getPlayerNetData()
     {
         return this.team.getTeamNetData();
@@ -218,6 +204,21 @@ class Player
         this.team.draw(ctx);
     }
 
+    FireOnKeyUp(e: any) {
+        // Dectects keyup on fire button
+        if (e.which == Controls.fire.keyboard) {
+            var wormWeapon = this.team.getCurrentWorm().getWeapon()
+
+            // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
+            if (this.CanFireChargable) {
+                this.team.getCurrentWorm().fire();
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
+                GameInstance.weaponMenu.refresh();
+            }
+        }
+    }
+
+    // verifications
     MayCameraFollowProjectile(currentWeapon: BaseWeapon): boolean {
         let isProjectile = currentWeapon instanceof ThrowableWeapon ||
             currentWeapon instanceof ProjectileWeapon;
@@ -226,6 +227,7 @@ class Player
                isProjectile &&
                currentWeapon.getIsActive();
     }
+
     MayCameraFollowFastestWorm(fastestWorm: Worm): boolean {
 
         return fastestWorm != null &&
@@ -296,6 +298,13 @@ class Player
             wormWeapon.getForceIndicator().isRequired() &&
             wormWeapon.getForceIndicator().getForce() > 5 &&
             wormWeapon.getIsActive() == false
+    }
+
+    get CanFireChargable() {
+        var wormWeapon = this.team.getCurrentWorm().getWeapon();
+        return wormWeapon.getForceIndicator().isRequired() &&
+            wormWeapon.getForceIndicator().getForce() > 1 &&
+            wormWeapon.getIsActive() == false;
     }
 }
 
