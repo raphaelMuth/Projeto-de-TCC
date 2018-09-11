@@ -130,7 +130,7 @@ class ThrowableWeapon extends BaseWeapon
         bodyDef.type = b2Body.b2_dynamicBody;
         bodyDef.position = initalPosition;
 
-        if ( (this instanceof Dynamite) == false)
+        if ((this.IsADynamite()) == false)
         {
             bodyDef.angle = Utilies.vectorToAngle(initalVelocity);
         }
@@ -139,7 +139,7 @@ class ThrowableWeapon extends BaseWeapon
         this.body = this.fixture.GetBody();
         this.body.SetLinearVelocity(initalVelocity);
         
-        if ((this instanceof Dynamite) == false)
+        if ((this.IsADynamite()) == false)
         {
             //Visual hack, as box2d doesn't have air resistence
             //objects won't rotate in the air, so add some AngularVelcoity.

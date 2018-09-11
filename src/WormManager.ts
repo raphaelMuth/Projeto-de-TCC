@@ -17,7 +17,6 @@
 
 class WormManager
 {
-
     allWorms: Worm[];
 
     constructor (players : Player[])
@@ -26,27 +25,25 @@ class WormManager
 
         // Get a reference to all the worms from each team
         // for fast acessing, when asking quetions of all them.
-        for (var i = 0; i < players.length; i++)
-        {
-            var worms = players[i].getTeam().getWorms();
-            for (var j = 0; j < worms.length; j++)
-            {
-                this.allWorms.push(worms[j]);
-            }
-        }
-
+        this.getReferencesOfAllWorms(players);
+        
         Logger.log( this.allWorms);
     }
 
-    findWormWithName(name: string)
-    {
-        for (var i = this.allWorms.length - 1; i >= 0; --i)
-        {
-            if (this.allWorms[i].name == name)
-            {
-                return this.allWorms[i];
-            }
-        }
+    getReferencesOfAllWorms(players: Player[]) {
+        players
+            .forEach(player => {
+                player
+                    .getTeam()
+                    .getWorms()
+                    .forEach(worm => this.allWorms.push(worm) );
+        });
+    }
+
+    findWormWithName(name: string) {
+        var worm = this.allWorms.filter(worm => worm.name == name)[0];
+        if (worm)
+            return worm
 
         Logger.error("Unable to find worm with name " + name);
     }
@@ -54,40 +51,34 @@ class WormManager
     // are all the worms completely finished, animations, health reduction, actions etc.
     areAllWormsReadyForNextTurn()
     {
-        return WormAnimationManger.playerAttentionSemaphore == 0 && this.areAllWormsStationary() && this.areAllWormsDamageTaken() && this.areAllWeaponsDeactived();
+        return WormAnimationManger.playerAttentionSemaphore == 0 &&
+            this.areAllWormsStationary() &&
+            this.areAllWormsDamageTaken() && 
+            this.areAllWeaponsDeactived();
     }
 
     // Are all the worms stop, not moving at all. 
     areAllWormsStationary()
     {
-
-        for (var i = this.allWorms.length-1; i >= 0; --i)
-        {
-            if (this.allWorms[i].isStationary() == false)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return this.allWorms.every(worm => worm.isStationary());
     }
 
     findFastestMovingWorm()
     {
+
         var highestVecloity = 0;
         var wormWithHighestVelocity : Worm = null;
         var lenght = 0;
 
-        for (var i = this.allWorms.length-1; i >= 0; --i)
-        {
-            lenght = this.allWorms[i].body.GetLinearVelocity().Length();
+        this.allWorms.forEach(worm => {
+            lenght = worm.body.GetLinearVelocity().Length();
 
-            if (lenght > highestVecloity)
-            {
+            if (lenght > highestVecloity) {
                 highestVecloity = lenght;
-                wormWithHighestVelocity = this.allWorms[i];
+                wormWithHighestVelocity = worm;
             }
-        }
+
+        });
 
         return wormWithHighestVelocity ;
     }
@@ -95,33 +86,19 @@ class WormManager
 
     areAllWeaponsDeactived()
     {
-        for (var i = this.allWorms.length-1; i >= 0; --i)
-        {
-            if (this.allWorms[i].team.getWeaponManager().getCurrentWeapon().getIsActive() == true)
-            {
-                return false;
-            }
-        }
-
-        return true;
+        this.allWorms.every(worm => !worm.team.getWeaponManager().getCurrentWeapon().getIsActive());
     }
 
     //deactivate all non-time based weapons, such as jetpacks and ropes etc. 
     deactivedAllNonTimeBasedWeapons()
     {
-        for (var i = this.allWorms.length-1; i >= 0; --i)
-        {
-            var weapon = this.allWorms[i].team.getWeaponManager().getCurrentWeapon();
-            if (weapon.getIsActive() == true)
-            {
-                if ((weapon instanceof ThrowableWeapon || weapon instanceof ProjectileWeapon) == false)
-                {
-                    weapon.deactivate();
-                }
+        this.allWorms.forEach(worm => {
+            var weapon = worm.team.getWeaponManager().getCurrentWeapon();
+            if ((weapon.IsAThrowableWeapon() ||
+                weapon.IsAProjectileWeapon()) == false) {
+                weapon.deactivate();
             }
-        }
-
-        return true;
+        });
     }
 
     // Are all worm accumlated damage pionts taken from their total health yet?
