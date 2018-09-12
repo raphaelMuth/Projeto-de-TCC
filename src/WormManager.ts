@@ -86,7 +86,9 @@ class WormManager
 
     areAllWeaponsDeactived()
     {
-        this.allWorms.every(worm => !worm.team.getWeaponManager().getCurrentWeapon().getIsActive());
+        return this
+            .allWorms
+            .every(worm => !worm.team.getWeaponManager().getCurrentWeapon().isActive);
     }
 
     //deactivate all non-time based weapons, such as jetpacks and ropes etc. 
