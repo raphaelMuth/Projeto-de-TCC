@@ -40,7 +40,7 @@ class Target extends PhysicsSprite
 
     draw(ctx)
     {
-        if (this.worm.isActiveWorm() && this.worm.getWeapon().requiresAiming)
+        if (this.isAimable())
         {
 
             var radius = this.worm.fixture.GetShape().GetRadius() * Physics.worldScale;
@@ -60,6 +60,10 @@ class Target extends PhysicsSprite
         }
     }
 
+    isAimable() {
+        return this.worm.isActiveWorm() &&
+            this.worm.getWeapon().requiresAiming;
+    }
     getTargetDirection()
     {
         return this.targetDirection;

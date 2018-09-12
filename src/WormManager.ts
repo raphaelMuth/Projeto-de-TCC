@@ -108,13 +108,16 @@ class WormManager
     {
         for (var i = 0; i < this.allWorms.length; i++)
         {
-            if (this.allWorms[i].damageTake != 0)
+            let worm = this.allWorms[i];
+            if (worm.damageTake != 0)
             {
                 return false;
             }
 
             // May have taken the health away but are now waiting for the death squence to start, so contine to return false
-            if (this.allWorms[i].getHealth() == 0 && this.allWorms[i].damageTake == 0 && this.allWorms[i].isDead == false)
+            if (worm.getHealth() == 0 &&
+                worm.damageTake == 0 &&
+                worm.isDead == false)
             {
                 return false;
             }
