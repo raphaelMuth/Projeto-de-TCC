@@ -51,12 +51,7 @@ class WeaponManager
  
     checkWeaponHasAmmo(weaponIndex)
     {
-        if (this.weaponsAndTools[weaponIndex].ammo)
-        {
-            return true;
-        }
-
-        return false;
+        return this.weaponsAndTools[weaponIndex].ammo != null;
     }
 
     getCurrentWeapon()
@@ -66,13 +61,14 @@ class WeaponManager
 
     setCurrentWeapon(index)
     {
+        var currentWeapon = this.getCurrentWeapon();
         //Allows the user to switch weapon once its active if its a jetpack or ninjia rope
-        if (this.getCurrentWeapon().getIsActive() == false || this.getCurrentWeapon() instanceof JetPack || this.getCurrentWeapon() instanceof NinjaRope)
+        if (!currentWeapon.getIsActive() || currentWeapon.IsAJetPack() || currentWeapon.IsANinjaRope())
         {
-            
-            if (this.getCurrentWeapon() instanceof NinjaRope)
+
+            if (currentWeapon.IsANinjaRope())
             {
-                this.getCurrentWeapon().deactivate();
+                currentWeapon.deactivate();
             }
 
             this.currentWeaponIndex = index;

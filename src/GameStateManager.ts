@@ -95,47 +95,37 @@ class GameStateManager
 
         //Networked games need this
         this.nextTurnTrigger = false;
-
-
+        
         if (this.currentPlayerIndex + 1 == this.players.length)
-        {
             this.currentPlayerIndex = 0;
-        }
         else
-        {
             this.currentPlayerIndex++;
-        }
 
+        var team = this.getCurrentPlayer().getTeam();
         //If the team is all dead return -1 to sign move to next player.
-        if (this.getCurrentPlayer().getTeam().getPercentageHealth() <= 0)
-        {
+        if (team.getPercentageHealth() <= 0)
             return null;
-        }
 
         this.getCurrentPlayer().getTeam().nextWorm();
         GameInstance.camera.cancelPan();
-        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(this.getCurrentPlayer().getTeam().getCurrentWorm().body.GetPosition()));
+        GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(team.getCurrentWorm().body.GetPosition()));
 
         //gives back the server id tag
         return this.getCurrentPlayer().id;
-    }
+    } 
 
     checkForWinner()
     {
         var playersStillLive = [];
-        for (var i = this.players.length - 1; i >= 0; --i)
-        {
-            if (this.players[i].getTeam().areAllWormsDead() == false)
-            {
-                playersStillLive.push(this.players[i]);
-            }
-        }
+
+        this.players.forEach(player => {
+            if (player.getTeam().areAllWormsDead()) 
+                playersStillLive.push(player); 
+        })
 
         if (playersStillLive.length == 1)
-        {
             return playersStillLive[0];
-
-        }
+        
 
         return null;
     }

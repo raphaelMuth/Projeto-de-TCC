@@ -26,27 +26,13 @@ class Player
         this.team = new Team(playerId);
 
         // Global window keyup event
-        $(window).keyup( (e) =>
-        {
-            // Dectects keyup on fire button
-            if (e.which == Controls.fire.keyboard)
-            {
-                var wormWeapon = this.team.getCurrentWorm().getWeapon()
-
-                // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                if (wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 1 && wormWeapon.getIsActive() == false)
-                {
-                    this.team.getCurrentWorm().fire();
-                    Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                    GameInstance.weaponMenu.refresh();
-                }
-            }
-        });
+        $(window).keyup((e) => this.FireOnKeyUp(e) );
 
         this.timer = new Timer(10);
         this.gamePad = new GamePad();
     }
 
+    // methods
     getPlayerNetData()
     {
         return this.team.getTeamNetData();
@@ -88,7 +74,7 @@ class Player
         }
 
     }
-
+    
     update()
     {
         this.timer.update();
@@ -100,55 +86,38 @@ class Player
 
         if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
-
-            //Player controls 
-           
-            if (keyboard.isKeyDown(Controls.jump.keyboard, true) || 
-                this.gamePad.isButtonPressed(0) ||
-                TouchUI.isJumpDown(true))
+            if (this.HasJumped())
             {
                 this.team.getCurrentWorm().jump();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
             }
 
-            if (keyboard.isKeyDown(Controls.backFlip.keyboard, true) || this.gamePad.isButtonPressed(0))
+            if (this.HasBackfliped())
             {
                 this.team.getCurrentWorm().backFlip();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("backFlip"));
             }
 
-            if (keyboard.isKeyDown(Controls.walkLeft.keyboard) ||
-                 this.gamePad.isButtonPressed(14) || 
-                this.gamePad.getAxis(0) > 0.5 ||
-                GameInstance.sticks.getNormal(0).x < -0.5)
+            if (this.HasWalkedLeft())
             {
                 this.team.getCurrentWorm().walkLeft();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
             }
 
-            if (keyboard.isKeyDown(Controls.walkRight.keyboard) || 
-                this.gamePad.isButtonPressed(15) || 
-                this.gamePad.getAxis(0) > 0.5 ||
-                GameInstance.sticks.getNormal(0).x  > 0.5)
+            if (this.HasWalkedRight())
             {
                 this.team.getCurrentWorm().walkRight();
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkRight"));
             }
 
-            if (keyboard.isKeyDown(Controls.aimUp.keyboard) ||
-             this.gamePad.getAxis(2) >= 0.2 || 
-             this.gamePad.getAxis(3) >= 0.2 ||
-              GameInstance.sticks.getNormal(0).y < -0.6)
+            if (this.HasAimedUp())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(-0.8);
                 Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 
-            if (keyboard.isKeyDown(Controls.aimDown.keyboard) || 
-                this.gamePad.getAxis(2) <= -0.2 || 
-                this.gamePad.getAxis(3) <= -0.2 || 
-                 GameInstance.sticks.getNormal(0).y > 0.6)
+            if (this.HasAimedDown())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(0.8);           
@@ -156,26 +125,16 @@ class Player
             }
 
             // While holding the
-            if (
-                keyboard.isKeyDown(Controls.fire.keyboard, true) ||
-                this.gamePad.isButtonPressed(7) ||
-                TouchUI.isFireButtonDown())
+            if (this.HasFired())
             {
                 this.weaponFireOrCharge();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
-            } else
+            }
+            else if (this.HasFiredTouchingScreen())
             {
-                if (TouchUI.isTouchDevice())
-                {
-                    var wormWeapon = this.team.getCurrentWorm().getWeapon()
-                    // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
-                    if (!TouchUI.isFireButtonDown() && wormWeapon.getForceIndicator().isRequired() && wormWeapon.getForceIndicator().getForce() > 5 && wormWeapon.getIsActive() == false)
-                    {
-                        this.team.getCurrentWorm().fire();
-                        Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                        GameInstance.weaponMenu.refresh();
-                    }
-                }
+                this.team.getCurrentWorm().fire();
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
+                GameInstance.weaponMenu.refresh();
             }
 
             // end of player controls
@@ -184,8 +143,9 @@ class Player
          //Finds the worm traveling at the highest velocity and if its over a therosold
          // the camera will then pan to the position of that worm. 
          // So when their is an explosion it gives the player somthing interesting and fun to look at
-         var fastestWorm : Worm = GameInstance.wormManager.findFastestMovingWorm();
-         if (GameInstance.state.physicsWorldSettled && fastestWorm != null && fastestWorm.body.GetLinearVelocity().Length() > 3)
+
+        var fastestWorm = GameInstance.wormManager.findFastestMovingWorm();
+        if (this.MayCameraFollowFastestWorm(fastestWorm))
          {
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(fastestWorm.body.GetPosition()));
          }
@@ -220,18 +180,15 @@ class Player
             }
 
             //The camera tracks the player while they move
-            var currentWorm = this.team.getCurrentWorm();
-           
-            if (GameInstance.state.physicsWorldSettled && currentWorm.body.GetLinearVelocity().Length() >= 0.1)
+            let currentWorm = this.team.getCurrentWorm();
+            let currentWeapon = this.getTeam().getWeaponManager().getCurrentWeapon();
+            if (this.MayCameraFollowCurrentWorm(currentWorm))
             {
-
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(currentWorm.body.GetPosition()));
             }          
                 //if the players weapon is active and is a throwable then track it with the camera
-            else if ( GameInstance.state.physicsWorldSettled && (this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ThrowableWeapon
-                || this.getTeam().getWeaponManager().getCurrentWeapon() instanceof ProjectileWeapon) &&
-                this.getTeam().getWeaponManager().getCurrentWeapon().getIsActive())
-                {
+            else if (this.MayCameraFollowProjectile(currentWeapon))
+            {
                 var weapon: ThrowableWeapon = <ThrowableWeapon>this.getTeam().getWeaponManager().getCurrentWeapon();
                 GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(weapon.body.GetPosition()));
             }
@@ -247,7 +204,108 @@ class Player
         this.team.draw(ctx);
     }
 
+    FireOnKeyUp(e: any) {
+        // Dectects keyup on fire button
+        if (e.which == Controls.fire.keyboard) {
+            var wormWeapon = this.team.getCurrentWorm().getWeapon()
 
+            // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
+            if (this.CanFireChargable()) {
+                this.team.getCurrentWorm().fire();
+                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
+                GameInstance.weaponMenu.refresh();
+            }
+        }
+    }
+
+    // verifications
+    MayCameraFollowProjectile(currentWeapon: BaseWeapon): boolean {
+        let isProjectile = currentWeapon.IsAThrowableWeapon() ||
+            currentWeapon.IsAProjectileWeapon();
+
+        return GameInstance.state.physicsWorldSettled &&
+               isProjectile &&
+               currentWeapon.getIsActive();
+    }
+
+    MayCameraFollowFastestWorm(fastestWorm: Worm): boolean {
+
+        return fastestWorm != null &&
+            fastestWorm.body.GetLinearVelocity().Length() > 3 &&
+            GameInstance.state.physicsWorldSettled;
+
+    }
+    
+    MayCameraFollowCurrentWorm(currentWorm: Worm): boolean {
+        return currentWorm.body.GetLinearVelocity().Length() >= 0.1 &&
+            GameInstance.state.physicsWorldSettled;
+    }
+
+    HasJumped(): boolean {
+        return keyboard.isKeyDown(Controls.jump.keyboard, true) ||
+            this.gamePad.isButtonPressed(0) ||
+            TouchUI.isJumpDown(true);
+    }
+
+    HasBackfliped(): boolean {
+        return keyboard.isKeyDown(Controls.backFlip.keyboard, true) ||
+            this.gamePad.isButtonPressed(0);
+    }
+
+    HasWalkedRight(): boolean {
+        return keyboard.isKeyDown(Controls.walkRight.keyboard) ||
+            this.gamePad.isButtonPressed(15) ||
+            this.gamePad.getAxis(0) > 0.5 ||
+            GameInstance.sticks.getNormal(0).x > 0.5;
+    }
+
+    HasWalkedLeft(): boolean {
+        return keyboard.isKeyDown(Controls.walkLeft.keyboard) ||
+            this.gamePad.isButtonPressed(14) ||
+            this.gamePad.getAxis(0) > 0.5 ||
+            GameInstance.sticks.getNormal(0).x < -0.5;
+    }
+
+    HasAimedUp(): boolean {
+        return keyboard.isKeyDown(Controls.aimUp.keyboard) ||
+            this.gamePad.getAxis(2) >= 0.2 ||
+            this.gamePad.getAxis(3) >= 0.2 ||
+            GameInstance.sticks.getNormal(0).y < -0.6;
+    }
+
+    HasAimedDown(): boolean {
+        return keyboard.isKeyDown(Controls.aimDown.keyboard) ||
+            this.gamePad.getAxis(2) <= -0.2 ||
+            this.gamePad.getAxis(3) <= -0.2 ||
+            GameInstance.sticks.getNormal(0).y > 0.6;
+    }
+
+    HasFired(): boolean {
+        return keyboard.isKeyDown(Controls.fire.keyboard, true) ||
+            this.gamePad.isButtonPressed(7) ||
+            TouchUI.isFireButtonDown();
+    }
+
+    HasFiredTouchingScreen(): boolean{
+
+        if (!TouchUI.isTouchDevice()) {
+            return false;
+        }
+
+        var wormWeapon = this.team.getCurrentWorm().getWeapon();
+
+        return !TouchUI.isFireButtonDown() &&
+            wormWeapon.getForceIndicator().isRequired() &&
+            wormWeapon.getForceIndicator().getForce() > 5 &&
+            wormWeapon.getIsActive() == false
+    }
+
+    CanFireChargable() {
+        var wormWeapon = this.team.getCurrentWorm().getWeapon();
+        return wormWeapon.getForceIndicator().isRequired() &&
+            wormWeapon.getForceIndicator().getForce() > 1 &&
+            wormWeapon.getIsActive() == false;
+    }
 }
 
 

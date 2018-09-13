@@ -88,23 +88,7 @@ class Game
 
         this.setupCanvas();
 
-        //If the window gets resize, resize the canvas
-        $(window).resize(() => {
-            this.setupCanvas();
-        });
-
-        //If we go full screen also resize
-        document.addEventListener("fullscreenchange", () => {
-            this.setupCanvas();
-        }, false);
-
-        document.addEventListener("mozfullscreenchange", () => {
-            this.setupCanvas();
-        }, false);
-
-        document.addEventListener("webkitfullscreenchange", () => {
-            this.setupCanvas();
-        }, false);
+        this.addCanvasListeners();
 
         Physics.init(this.actionCanvasContext);
 
@@ -115,18 +99,38 @@ class Game
 
         // Development stuff
         this.spawns = [];
-        if (Settings.DEVELOPMENT_MODE && this.particleEffectMgmt != null)
-        {
-            window.addEventListener("click", (evt: any) =>
-            {
-                this.particleEffectMgmt.add(new ParticleEffect(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
-                this.spawns.push(new b2Vec2(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY));
+        this.defineSpawnsForDevMode();
+
+        this.lobby = new Lobby();
+    }
+
+    defineSpawnsForDevMode() {
+        if (Settings.DEVELOPMENT_MODE &&
+            this.particleEffectMgmt != null) {
+
+            window.addEventListener("click", (evt: any) => {
+                var particles = new ParticleEffect(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY);
+                this.particleEffectMgmt.add(particles);
+
+                var box2dVector = new b2Vec2(this.camera.getX() + evt.pageX, this.camera.getY() + evt.pageY);
+                this.spawns.push(box2dVector);
+
                 Logger.log(JSON.stringify(this.spawns));
 
             }, false);
         }
+    }
 
-        this.lobby = new Lobby();
+    addCanvasListeners() {
+        //If the window gets resize, resize the canvas
+        $(window).resize(() => this.setupCanvas());
+
+        //If we go full screen also resize
+        document.addEventListener("fullscreenchange", () => this.setupCanvas(), false);
+
+        document.addEventListener("mozfullscreenchange", () => this.setupCanvas(), false);
+
+        document.addEventListener("webkitfullscreenchange", () => this.setupCanvas(), false);
     }
 
     getGameNetData()
@@ -182,25 +186,9 @@ class Game
         this.camera = new Camera(this.terrain.getWidth(), this.terrain.getHeight(), this.actionCanvas.width, this.actionCanvas.height);
         this.camera.setX(this.terrain.getWidth() / 2);
         this.camera.setY(this.terrain.getHeight() / 2);
-
-
-        if (this.gameType == Game.types.LOCAL_GAME)
-        {
-            for (var i = 0; i < 2; i++)
-            {
-                this.players.push(new Player());
-            }
-
-        } else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null)
-        {
-
-            for (var i = 0; i < playerIds.length; i++)
-            {
-                this.players.push(new Player(playerIds[i]));
-            }
-        }
-
-
+        
+        this.createPlayers(playerIds);
+        
         this.state.init(this.players);
 
         // Allows for a easily accissble way of asking questions of all worms regardless of team
@@ -217,33 +205,22 @@ class Game
         this.enviormentEffects = new EffectsManager();
 
         //Add some random clouds to the enviorment
-        for (var i = 0; i < 15; i++)
-        {
-            this.enviormentEffects.add(new Cloud());
-        }
+        this.createClouds();
 
         this.healthMenu.show();
         this.gameTimer.show();
         this.weaponMenu.show();
-
         
-
         // Need to fire the menu call back to remove it and start the game
 
         if (this.gameType == Game.types.ONLINE_GAME)
         {
             StartMenu.callback();
         }
-
+        
         //Diable certain keys
-        $(document).keydown( (e) =>
-        {
-            if (e.keyCode == keyboard.keyCodes.Backspace)
-            {
-                e.preventDefault();
-            }
-        });
-
+        this.setKeyDisableListeners(keyboard.keyCodes.Backspace);
+        
         //Only inited if its a touch device
         TouchUI.init();
 
@@ -257,6 +234,20 @@ class Game
 
     }
 
+    setKeyDisableListeners(...args: number[]) {
+        $(document).keydown((e) => {
+            if (args.indexOf(e.keyCode) != -1) {
+                e.preventDefault();
+            }
+        });
+    }
+
+    createClouds(qtd = 15) {
+        for (var i = 0; i < qtd; i++) {
+            this.enviormentEffects.add(new Cloud());
+        }
+    }
+
     // This method allows for quick use of the instruction chain
     // mechanisim over the network to call nextPlayer.
     nextTurn()
@@ -267,7 +258,8 @@ class Game
         if (id == null)
         {
             this.nextTurn()
-        } else
+        }
+        else
         {
             Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
             this.lobby.client_GameLobby.currentPlayerId = id;
@@ -330,14 +322,10 @@ class Game
             }
 
             if (this.tutorial != null)
-            {
                 this.tutorial.update();
-            }
 
             for (var i = this.players.length - 1; i >= 0; --i)
-            {
                 this.players[i].update();
-            }
 
             this.terrain.update();
             this.camera.update();
@@ -347,9 +335,8 @@ class Game
             this.gameTimer.update();
 
             if (Client.isClientsTurn())
-            {
                 GameInstance.sticks.update();
-            }
+            
         }
     }
 
@@ -359,8 +346,8 @@ class Game
         {
             Physics.world.Step(
                   (1 / 60)
-               , 10       //velocity iterations
-               , 10       //position iterations
+                   , 10       //velocity iterations
+                   , 10       //position iterations
             );
 
             //While there is physics objects to sync do so
@@ -393,7 +380,7 @@ class Game
         {
             Physics.world.DrawDebugData();
         }
-
+        
         for (var i = this.players.length - 1; i >= 0; --i)
         {
             this.players[i].draw(this.actionCanvasContext);
@@ -409,6 +396,14 @@ class Game
             GameInstance.sticks.draw(this.actionCanvasContext);
     }
 
+    createPlayers(playerIds) {
+        if (this.gameType == Game.types.LOCAL_GAME) 
+            for (var i = 0; i < 2; i++) 
+                this.players.push(new Player());
+         else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null) 
+            for (var i = 0; i < playerIds.length; i++) 
+                this.players.push(new Player(playerIds[i]));
+    }
 }
 
 
@@ -419,10 +414,8 @@ class GameDataPacket
     constructor(game: Game, physics = Physics)
     {
         this.players = [];
-        for (var p in game.players)
-        {
-            this.players.push(new PlayerDataPacket(game.players[p]));
-        }
+        game.players.forEach(player =>
+            this.players.push(new PlayerDataPacket(player)))
     }
 
     override(game: Game, physics = Physics)

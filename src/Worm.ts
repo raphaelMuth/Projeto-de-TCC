@@ -228,12 +228,12 @@ class Worm extends Sprite
             var impactTheroshold = 8 * Worm.DENSITY
 
             // If the worm is using the Jetpack don't take damage
-            if ((this.getWeapon() instanceof JetPack) && this.getWeapon().getIsActive())
+            if ((this.getWeapon().IsAJetPack()) && this.getWeapon().getIsActive())
             {
                 impactTheroshold += 2 * Worm.DENSITY
             }
             //If the worm is using the NijaRope don't take damage
-            if ((this.getWeapon() instanceof NinjaRope) == false || this.getWeapon().getIsActive() == false)
+            if ((this.getWeapon().IsANinjaRope()) == false || this.getWeapon().getIsActive() == false)
             {
                 if (impulse.normalImpulses[0] > impactTheroshold)
                 {
@@ -427,7 +427,7 @@ class Worm extends Sprite
                 }
 
                 //If worm using Jetpack, deactive it if they get hurt.
-                if (this.getWeapon() instanceof JetPack)
+                if (this.getWeapon().IsAJetPack())
                 {
                     this.getWeapon().deactivate();
                 }

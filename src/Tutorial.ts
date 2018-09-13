@@ -143,7 +143,7 @@ var tutorialCommandBank = [
         message: " Lets have some fun! Pick a weapon by pressing <strong>"+ keyboard.getKeyName(Controls.toggleWeaponMenu.keyboard) +"</strong> or right mouse click. Click on the Holy Gernade in the menu",
         detection: function ()
         {
-            if ( GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon() instanceof HolyGrenade )
+            if (GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon().IsAHolyGrenade())
             {
                 return true;
             }
@@ -184,7 +184,7 @@ var tutorialCommandBank = [
         detection: function ()
         {
             var weapon = GameInstance.state.getCurrentPlayer().getTeam().getWeaponManager().getCurrentWeapon();
-            if ( weapon.isActive && weapon instanceof JetPack)
+            if (weapon.isActive && weapon.IsAJetPack())
             {
                 return true;
             }
