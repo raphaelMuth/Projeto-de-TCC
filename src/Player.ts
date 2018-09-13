@@ -130,13 +130,6 @@ class Player
                 this.weaponFireOrCharge();
                 Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
-            else if (this.HasFiredTouchingScreen())
-            {
-                this.team.getCurrentWorm().fire();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                GameInstance.weaponMenu.refresh();
-            }
-
             // end of player controls
         }
         
@@ -243,8 +236,7 @@ class Player
 
     HasJumped(): boolean {
         return keyboard.isKeyDown(Controls.jump.keyboard, true) ||
-            this.gamePad.isButtonPressed(0) ||
-            TouchUI.isJumpDown(true);
+            this.gamePad.isButtonPressed(0);
     }
 
     HasBackfliped(): boolean {
@@ -282,23 +274,9 @@ class Player
 
     HasFired(): boolean {
         return keyboard.isKeyDown(Controls.fire.keyboard, true) ||
-            this.gamePad.isButtonPressed(7) ||
-            TouchUI.isFireButtonDown();
+            this.gamePad.isButtonPressed(7);
     }
 
-    HasFiredTouchingScreen(): boolean{
-
-        if (!TouchUI.isTouchDevice()) {
-            return false;
-        }
-
-        var wormWeapon = this.team.getCurrentWorm().getWeapon();
-
-        return !TouchUI.isFireButtonDown() &&
-            wormWeapon.getForceIndicator().isRequired() &&
-            wormWeapon.getForceIndicator().getForce() > 5 &&
-            wormWeapon.getIsActive() == false
-    }
 
     CanFireChargable() {
         var wormWeapon = this.team.getCurrentWorm().getWeapon();

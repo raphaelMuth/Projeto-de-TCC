@@ -221,9 +221,6 @@ class Game
         //Diable certain keys
         this.setKeyDisableListeners(keyboard.keyCodes.Backspace);
         
-        //Only inited if its a touch device
-        TouchUI.init();
-
         setTimeout(() =>
         {
             this.state.physicsWorldSettled = true;

@@ -69,10 +69,6 @@ class StartMenu
                         $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
                             '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
                             '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
-                    } else if (TouchUI.isTouchDevice())
-                    {
-                        $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
-                            '<strong>Hey tablet user</strong> There may be performance problems and some missing features in the tablet version. You can still play though!</div> ');
                     }
                     else
                     {
