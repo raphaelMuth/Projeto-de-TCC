@@ -68,7 +68,6 @@ class WeaponsMenu
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
         {
             weaponMgmt.setCurrentWeapon(weaponId);
-            //Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
         }
     }
 

@@ -44,12 +44,10 @@ class NinjaRope extends BaseWeapon
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.contract();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.contract"));
 
             } else if (keyboard.isKeyDown(Controls.aimDown.keyboard))
             {
                 this.expand();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.expand"));
             }
 
         }

@@ -422,7 +422,6 @@ class Worm extends Sprite
                 {
                     console.log("CLIENT HIT");
                     this.damageTake += damage;
-                    //GameInstance.wormManager.syncHit(this.name, damage)
                     AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
                 }
 
@@ -451,7 +450,7 @@ class Worm extends Sprite
     {
         
         //This makes no sence, but it works.
-        //if (GameInstance.gameType == Game.types.LOCAL_GAME || !Client.isClientsTurn()) 
+        if (GameInstance.gameType == Game.types.LOCAL_GAME) 
         {
             var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
             this.arrow = new BounceArrow(pos);

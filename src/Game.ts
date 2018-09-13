@@ -232,7 +232,6 @@ class Game
         }
         else
         {
-            //this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
@@ -264,19 +263,7 @@ class Game
                 {
                     this.gameTimer.timer.pause();
                     this.winner.getTeam().celebrate();
-
-                    ////TODO fix this up, do server side, just putting in for demo 2moro.
-                    //if (this.winner.id == Client.id && GameInstance.gameType != Game.types.LOCAL_GAME)
-                    //{
-                    //    Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
-                    //    $.ajax({
-                    //        url: "http://96.126.111.211/updateUser/",
-                    //        dataType: 'jsonp'
-                    //    });
-                    //} else
-                    //{
-                    //    Notify.display("Unlucky you lost, better luck next time", "", -1, Notify.levels.error,true);
-                    //}
+                    
                 }
             }
 
@@ -286,7 +273,6 @@ class Game
                 //If this player is the host they will decide when to move to next player
                 if (GameInstance.gameType == Game.types.LOCAL_GAME)
                 {
-                    //Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
                     this.nextTurn();
                 }
             }
@@ -320,11 +306,6 @@ class Game
                    , 10       //position iterations
             );
 
-            //While there is physics objects to sync do so
-            //if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
-            //{
-            //    Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
-            //}
         }
         //Physics.world.ClearForces();
     }

@@ -127,7 +127,6 @@ class JetPack extends BaseWeapon
         if (this.fuel <= 0)
         {
             this.deactivate();
-            //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.deactivate"));
         }
 
         if (this.isActive)
@@ -136,19 +135,16 @@ class JetPack extends BaseWeapon
             if (keyboard.isKeyDown(Controls.aimUp.keyboard))
             {
                 this.up();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.up"));
             }
 
             if (keyboard.isKeyDown(Controls.walkLeft.keyboard))
             {
                 this.left();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.left"));
             }
 
             if (keyboard.isKeyDown(Controls.walkRight.keyboard))
             {
                 this.right();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("getWeapon.right"));
             }
 
             if (this.forceDir.Length() > 0)

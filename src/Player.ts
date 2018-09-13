@@ -89,46 +89,39 @@ class Player
             if (this.HasJumped())
             {
                 this.team.getCurrentWorm().jump();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
             }
 
             if (this.HasBackfliped())
             {
                 this.team.getCurrentWorm().backFlip();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("backFlip"));
             }
 
             if (this.HasWalkedLeft())
             {
                 this.team.getCurrentWorm().walkLeft();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
             }
 
             if (this.HasWalkedRight())
             {
                 this.team.getCurrentWorm().walkRight();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkRight"));
             }
 
             if (this.HasAimedUp())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(-0.8);
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 
             if (this.HasAimedDown())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(0.8);           
-               // Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [0.8]));
             }
 
             // While holding the
             if (this.HasFired())
             {
                 this.weaponFireOrCharge();
-               // Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
             // end of player controls
         }
@@ -205,7 +198,6 @@ class Player
             // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
             if (this.CanFireChargable()) {
                 this.team.getCurrentWorm().fire();
-                //Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
                 GameInstance.weaponMenu.refresh();
             }
         }
