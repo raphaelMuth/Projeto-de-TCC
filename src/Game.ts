@@ -27,6 +27,7 @@
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
 ///<reference path="Tutorial.ts"/>
+///<reference path="networking/Events.ts"/>
 
 class Game
 {
