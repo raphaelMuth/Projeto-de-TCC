@@ -9,7 +9,6 @@
  */
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Controls.ts"/>
-///<reference path="LobbyMenu.ts"/>
 ///<reference path="SettingsMenu.ts"/>
 declare var $;
 
@@ -108,21 +107,7 @@ class StartMenu
 
             $('#startOnline').click(() =>
             {
-                  $('#startOnline').off('click');
-                if (AssetManager.isReady())
-                {
-                    if (GameInstance.lobby.client_init() != false)
-                    {
-                        $('#notice').empty();
-                        GameInstance.lobby.menu.show(callback);
-                        AssetManager.getSound("CursorSelect").play();
-                    } else
-                    {
-                        $('#notice').empty();
-                        $('#notice').append('<div class="alert alert-error"> <strong> Oh Dear! </strong> Looks like the multiplayer server is down. Try a local game for a while?</div> ');
 
-                    }
-                }
 
             });
 

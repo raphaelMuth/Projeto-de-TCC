@@ -156,28 +156,7 @@ class Game
 
     goFullScreen()
     {
-
-        //var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard method  
-        //        (document.mozFullScreen || document.webkitIsFullScreen);
-
-        //var docElm = document.documentElement;
-        //if (!isInFullScreen)
-        //{
-
-        //    if (docElm.requestFullscreen)
-        //    {
-        //        docElm.requestFullscreen();
-        //    }
-        //    else if (docElm.mozRequestFullScreen)
-        //    {
-        //        docElm.mozRequestFullScreen();
-
-        //    }
-        //    else if (docElm.webkitRequestFullScreen)
-        //    {
-        //        docElm.webkitRequestFullScreen();
-        //    }
-        //}
+        
     }
 
     start(playerIds = null)
@@ -293,11 +272,11 @@ class Game
                     this.winner.getTeam().celebrate();
 
                     //TODO fix this up, do server side, just putting in for demo 2moro.
-                    if (this.winner.id == Client.id && access_token && GameInstance.gameType != Game.types.LOCAL_GAME)
+                    if (this.winner.id == Client.id && GameInstance.gameType != Game.types.LOCAL_GAME)
                     {
                         Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
                         $.ajax({
-                            url: "http://96.126.111.211/updateUser/" + access_token,
+                            url: "http://96.126.111.211/updateUser/",
                             dataType: 'jsonp'
                         });
                     } else
