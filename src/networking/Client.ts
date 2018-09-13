@@ -94,7 +94,8 @@ module Client
     //Spefic to online games, allows returns true in single player
     export const isClientsTurn = () => 
     {
-        return GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id
+        return GameInstance.gameType == Game.types.LOCAL_GAME
+        //return GameInstance.gameType == Game.types.LOCAL_GAME || GameInstance.lobby.client_GameLobby.currentPlayerId == Client.id
     }
 
     export const sendImmediately = (event, packet, rateLimiter = 0) => {

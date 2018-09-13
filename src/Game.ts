@@ -26,7 +26,6 @@
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
 ///<reference path="networking/Client.ts"/>
-///<reference path="networking/Lobby.ts"/>
 ///<reference path="Tutorial.ts"/>
 
 class Game
@@ -58,9 +57,7 @@ class Game
 
     //Manages things like the clouds
     enviormentEffects: EffectsManager;
-
-    lobby: Lobby;
-
+    
     winner: Player;
 
     static map: GameMap = new GameMap(Maps.castle);
@@ -100,8 +97,6 @@ class Game
         // Development stuff
         this.spawns = [];
         this.defineSpawnsForDevMode();
-
-        this.lobby = new Lobby();
     }
 
     defineSpawnsForDevMode() {
@@ -237,8 +232,8 @@ class Game
         }
         else
         {
-            Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
-            this.lobby.client_GameLobby.currentPlayerId = id;
+            //Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
+            //this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
@@ -327,10 +322,10 @@ class Game
             );
 
             //While there is physics objects to sync do so
-            if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
-            {
-                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
-            }
+            //if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
+            //{
+            //    Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
+            //}
         }
         //Physics.world.ClearForces();
     }

@@ -351,7 +351,6 @@
     <Content Include="src\networking\ClientGame.min.js">
       <DependentUpon>Client.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\networking\GameLobby.ts" />
     <TypeScriptCompile Include="src\networking\Events.ts" />
     <Content Include="src\networking\Events.js">
       <DependentUpon>Events.ts</DependentUpon>
@@ -359,25 +358,12 @@
     <Content Include="src\networking\Events.min.js">
       <DependentUpon>Events.ts</DependentUpon>
     </Content>
-    <Content Include="src\networking\GameLobby.js">
-      <DependentUpon>GameLobby.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\GameLobby.min.js">
-      <DependentUpon>GameLobby.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\Lobby.ts" />
     <TypeScriptCompile Include="src\networking\InstructionChain.ts" />
     <Content Include="src\networking\InstructionChain.js">
       <DependentUpon>InstructionChain.ts</DependentUpon>
     </Content>
     <Content Include="src\networking\InstructionChain.min.js">
       <DependentUpon>InstructionChain.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Lobby.js">
-      <DependentUpon>Lobby.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Lobby.min.js">
-      <DependentUpon>Lobby.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\networking\NetworkTimer.ts" />
     <Content Include="src\networking\NetworkTimer.js">
