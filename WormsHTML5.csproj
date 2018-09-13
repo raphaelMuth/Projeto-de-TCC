@@ -337,32 +337,6 @@
     <Content Include="src\networking\InstructionChain.min.js">
       <DependentUpon>InstructionChain.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\networking\ServerUtilies.ts" />
-    <TypeScriptCompile Include="src\networking\ServerSettings.ts" />
-    <Content Include="src\networking\ServerSettings.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerSettings.min.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerUtilies.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerUtilies.min.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Settings.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Settings.min.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Utilies.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Utilies.min.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
     <Content Include="src\StateAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
