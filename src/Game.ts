@@ -25,7 +25,6 @@
 ///<reference path="environment/Maps.ts"/>
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
-///<reference path="networking/Client.ts"/>
 ///<reference path="Tutorial.ts"/>
 ///<reference path="networking/Events.ts"/>
 
@@ -233,12 +232,11 @@ class Game
         }
         else
         {
-            //Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
             //this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
-            if (this.tutorial == null && Client.isClientsTurn())
+            if (this.tutorial == null && GameInstance.gameType == Game.types.LOCAL_GAME)
             {
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
             } else if (this.tutorial == null)
@@ -267,18 +265,18 @@ class Game
                     this.gameTimer.timer.pause();
                     this.winner.getTeam().celebrate();
 
-                    //TODO fix this up, do server side, just putting in for demo 2moro.
-                    if (this.winner.id == Client.id && GameInstance.gameType != Game.types.LOCAL_GAME)
-                    {
-                        Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
-                        $.ajax({
-                            url: "http://96.126.111.211/updateUser/",
-                            dataType: 'jsonp'
-                        });
-                    } else
-                    {
-                        Notify.display("Unlucky you lost, better luck next time", "", -1, Notify.levels.error,true);
-                    }
+                    ////TODO fix this up, do server side, just putting in for demo 2moro.
+                    //if (this.winner.id == Client.id && GameInstance.gameType != Game.types.LOCAL_GAME)
+                    //{
+                    //    Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
+                    //    $.ajax({
+                    //        url: "http://96.126.111.211/updateUser/",
+                    //        dataType: 'jsonp'
+                    //    });
+                    //} else
+                    //{
+                    //    Notify.display("Unlucky you lost, better luck next time", "", -1, Notify.levels.error,true);
+                    //}
                 }
             }
 
@@ -286,9 +284,9 @@ class Game
             if (this.state.readyForNextTurn() && this.winner == null)
             {
                 //If this player is the host they will decide when to move to next player
-                if (Client.isClientsTurn())
+                if (GameInstance.gameType == Game.types.LOCAL_GAME)
                 {
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
+                    //Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
                     this.nextTurn();
                 }
             }
@@ -306,7 +304,7 @@ class Game
             this.enviormentEffects.update();
             this.gameTimer.update();
 
-            if (Client.isClientsTurn())
+            if (GameInstance.gameType == Game.types.LOCAL_GAME)
                 GameInstance.sticks.update();
             
         }
@@ -364,7 +362,7 @@ class Game
 
         this.actionCanvasContext.restore();
 
-        if (Client.isClientsTurn())
+        if (GameInstance.gameType == Game.types.LOCAL_GAME)
             GameInstance.sticks.draw(this.actionCanvasContext);
     }
 

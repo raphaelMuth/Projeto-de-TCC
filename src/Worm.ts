@@ -418,11 +418,11 @@ class Worm extends Sprite
             if (this.isDead == false)
             {
 
-                if (overrideClientOnlyUse || Client.isClientsTurn())
+                if (overrideClientOnlyUse || GameInstance.gameType == Game.types.LOCAL_GAME)
                 {
                     console.log("CLIENT HIT");
                     this.damageTake += damage;
-                    GameInstance.wormManager.syncHit(this.name, damage)
+                    //GameInstance.wormManager.syncHit(this.name, damage)
                     AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
                 }
 
@@ -520,7 +520,7 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
-            if (this.isDead == false && Client.isClientsTurn())
+            if (this.isDead == false && GameInstance.gameType == Game.types.LOCAL_GAME)
             {
                 this.target.draw(ctx);
             }

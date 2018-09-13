@@ -310,19 +310,6 @@
     <Content Include="src\environment\Maps.min.js">
       <DependentUpon>Maps.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\networking\Client.ts" />
-    <Content Include="src\networking\Client.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Client.min.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ClientGame.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ClientGame.min.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\networking\Events.ts" />
     <Content Include="src\networking\Events.js">
       <DependentUpon>Events.ts</DependentUpon>

@@ -32,7 +32,7 @@ class WeaponsMenu
 
          $('#'+this.toggleButtonCssId).click(() =>
          {
-             if (Client.isClientsTurn())
+             if (GameInstance.gameType == Game.types.LOCAL_GAME)
             {
                 this.toggle();
             }
@@ -40,7 +40,7 @@ class WeaponsMenu
         
         $(window).keypress((event) =>
         {
-            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (GameInstance.gameType == Game.types.LOCAL_GAME && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
@@ -48,7 +48,7 @@ class WeaponsMenu
 
         $('body').mousedown((event) =>
         {
-            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (GameInstance.gameType == Game.types.LOCAL_GAME && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
@@ -68,7 +68,7 @@ class WeaponsMenu
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
         {
             weaponMgmt.setCurrentWeapon(weaponId);
-            Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
+            //Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
         }
     }
 
