@@ -36,97 +36,82 @@ class StartMenu
     {
         $('#startMenu').remove();
     }
-
-
+    
     onGameReady(callback)
     {
-
-
         StartMenu.callback = callback;
         if (!Settings.DEVELOPMENT_MODE)
         {
-            var loading = setInterval(() =>
-            {
-
-                $('#notice').empty();
-                if (AssetManager.getPerAssetsLoaded() >= 100)
-                {
-                    clearInterval(loading);
-                    this.settingsMenu = new SettingsMenu();
-                    $('#startLocal').removeAttr("disabled");
-                  
-
-                    // IE tell the user to get a better browser, but still allow them to play
-                    if ($.browser.msie)
-                    {
-                         $('#startTutorial').removeAttr("disabled");
-                        $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
-                            '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
-                            '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
-                    }
-                    else
-                    {
-                        $('#startTutorial').removeAttr("disabled");
-                        $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong><br> Also thanks for using a modern browser. <a href="#" id="awesome">Your awesome!</a></div> ');
-                        $('#awesome').click( () => {
-                            Notify.display("Awesome!", "<img src='../data/images/awesome.jpg'/>", 5000);
-                        });
-                    }
-
-                } else
-                {
-                    $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
-                    '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
-                }
-
-            }, 500);
-
-
-            $('#startLocal').click(() =>
-            {
-                if (AssetManager.isReady())
-                {
-                    $('#startLocal').off('click');
-                    AssetManager.getSound("CursorSelect").play();
-                    $('.slide').empty();
-                    $('.slide').append(this.settingsMenu.getView());
-                    this.settingsMenu.bind(() => {
-                        AssetManager.getSound("CursorSelect").play();
-                        this.controlsMenu(callback);
-                    });
-
-                }
-
-
-            });
-            
-
-            $('#startTutorial').click(() =>
-            {
-                $('#startTutorial').off('click');
-                if (AssetManager.isReady())
-                {
-                    AssetManager.getSound("CursorSelect").play();
-
-                    //Initalizse the tutorial object so its used in the game
-                    GameInstance.tutorial = new Tutorial();
-
-                    this.controlsMenu(callback);
-                }
-            });
-
-
+            this.setLoadingInterval();
+            $('#startLocal').click(() => this.startLocalGame(callback));
+            $('#startTutorial').click(() => this.startTutorialGame(callback));
         } else
         {
-            //Development Mode - Just make sure all assets are loaded first
-            var loading = setInterval( () =>
-            {   
-                if (AssetManager.getPerAssetsLoaded() == 100)
-                {
-                    clearInterval(loading);
-                    callback();               
+            this.setLoadingIntervalForDevelopmentMode(callback);
+        }
+    }
+
+    setLoadingIntervalForDevelopmentMode(callback: any) {
+        var loading = setInterval(() => {
+            if (AssetManager.getPerAssetsLoaded() == 100) {
+                clearInterval(loading);
+                callback();
+            }
+        }, 2)
+    }
+
+    setLoadingInterval() {
+        var loading = setInterval(() => {
+
+            $('#notice').empty();
+            if (AssetManager.getPerAssetsLoaded() >= 100) {
+                clearInterval(loading);
+                this.settingsMenu = new SettingsMenu();
+                $('#startLocal').removeAttr("disabled");
+
+
+                // IE tell the user to get a better browser, but still allow them to play
+                if ($.browser.msie) {
+                    $('#startTutorial').removeAttr("disabled");
+                    $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
+                        '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
+                        '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
                 }
-            },2)
+                else {
+                    $('#startTutorial').removeAttr("disabled");
+                    $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong> ');
+                }
+
+            } else {
+                $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
+                    '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
+            }
+
+        }, 500);
+    }
+
+    startTutorialGame(callback: any) {
+        $('#startTutorial').off('click');
+        if (AssetManager.isReady()) {
+            AssetManager.getSound("CursorSelect").play();
+
+            //Initalizse the tutorial object so its used in the game
+            GameInstance.tutorial = new Tutorial();
+
+            this.controlsMenu(callback);
+        }
+    }
+    
+    startLocalGame(callback: any) {
+        if (AssetManager.isReady()) {
+            $('#startLocal').off('click');
+            AssetManager.getSound("CursorSelect").play();
+            $('.slide').empty();
+            $('.slide').append(this.settingsMenu.getView());
+            this.settingsMenu.bind(() => {
+                AssetManager.getSound("CursorSelect").play();
+                this.controlsMenu(callback);
+            });
         }
     }
 
