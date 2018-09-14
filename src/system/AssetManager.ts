@@ -1,12 +1,8 @@
 /**
- * AssetManager.js
  * This manages the loading of image and sound assets. 
  * The loaded images and sounds are then acessable from any where by the following. 
  * AssetManager.images["myImageName"] no need for the full url or the extenision
  * 
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../audio/Sound.ts"/>
 declare var BufferLoader;
@@ -120,12 +116,7 @@ module AssetManager
             if (images[name] == null)
             {
                 images[name] = new Image();
-
-                if (Settings.BUILD_MANIFEST_FILE)
-                {
-                    $('body').append(images[name]);
-                }
-
+                
                 images[name].onload = () =>
                 {
                     // Logger.log(" Image " + this.src + " loaded sucessfully ");
@@ -217,11 +208,6 @@ module AssetManager
         //First lets try load our audio using the web audio API
         try
         {
-            if (Settings.BUILD_MANIFEST_FILE)
-            {
-                throw "LOL"
-            }
-
             Sound.context = new webkitAudioContext();
             var bufferLoader = new BufferLoader(Sound.context, sources, (bufferList) =>
             {

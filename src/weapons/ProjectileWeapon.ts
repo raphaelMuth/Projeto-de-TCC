@@ -1,11 +1,7 @@
 /**
- * ProjectileWeapon
  * Projectiles explode when they collide with the terrain.
  * thats the main different between them and throwable weapons
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Graphics.ts"/>
 ///<reference path="../system/AssetManager.ts"/>

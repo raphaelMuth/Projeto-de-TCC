@@ -2,11 +2,7 @@
  *  
  * Centrialized location for controls and input
  *
- *  TODO Complete this when intergrating gamepad
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 module Controls
 {

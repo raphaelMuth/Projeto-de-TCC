@@ -1,10 +1,4 @@
-/**
- * WorldBoundary.js
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
+
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../system/Utilies.ts" />
 ///<reference path="Terrain.ts" />

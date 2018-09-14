@@ -181,7 +181,6 @@
     <TypeScriptCompile Include="src\animation\BounceArrow.ts" />
     <Content Include="external\test\qunit.js" />
     <Content Include="favicon.ico" />
-    <Content Include="LICENSE.txt" />
     <Content Include="src\animation\BounceArrow.js">
       <DependentUpon>BounceArrow.ts</DependentUpon>
     </Content>
@@ -607,9 +606,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="offline.appcache" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />

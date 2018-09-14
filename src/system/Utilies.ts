@@ -1,5 +1,4 @@
 /**
- * Utitles 
  * This namespace contains helper functions that I use a lot around the code base
  * or encapluate snippets of code I use a lot in the codebase though by naming it 
  * asa function gives the code more readablity.
@@ -11,9 +10,6 @@
  * Keeps track of which keys are pressed and allows for polling in gameloop
  * which is faster then event based input.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Settings.ts" />
 ///<reference path="Physics.ts" />

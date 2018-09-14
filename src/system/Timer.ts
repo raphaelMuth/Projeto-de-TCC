@@ -1,11 +1,7 @@
 /**
- * Timer.js
  * Handy Timer class, as I use timelapses alot thoughout
  * the codebase and window.SetTimeOut() isn't as fexible as I would like
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 class Timer
 {

@@ -1,10 +1,6 @@
 /**
- * Camera.js
  * This controls the viewport
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="Utilies.ts"/>
 

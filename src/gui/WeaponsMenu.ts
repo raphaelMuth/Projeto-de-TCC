@@ -1,12 +1,8 @@
 /**
- * WeaponsMenu.js
  * This is the menu which slides out from the right side
  * Its shows the player all the infomation from their teams weapon manager.
  * It displays all the weapons + ammo and allows the user to select a weapon.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>

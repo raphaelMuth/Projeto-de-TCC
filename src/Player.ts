@@ -1,11 +1,7 @@
 /**
- * Player
  * The player class contains a team objects, which is the team of worms. 
  * It also defines the controls for the worms movements.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
@@ -31,17 +27,7 @@ class Player
         this.timer = new Timer(10);
         this.gamePad = new GamePad();
     }
-
-    // methods
-    getPlayerNetData()
-    {
-        return this.team.getTeamNetData();
-    }
-
-    setPlayerNetData(data)
-    {
-        this.team.setTeamNetData(data);
-    }
+        
 
     getTeam()
     {
@@ -273,22 +259,5 @@ class Player
         return wormWeapon.getForceIndicator().isRequired() &&
             wormWeapon.getForceIndicator().getForce() > 1 &&
             wormWeapon.getIsActive() == false;
-    }
-}
-
-
-class PlayerDataPacket
-{
-    teamDataPacket: TeamDataPacket;
-    position;
-
-    constructor(player: Player)
-    {
-        this.teamDataPacket = new TeamDataPacket(player.getTeam());
-    }
-
-    override(player: Player)
-    {
-        this.teamDataPacket.override(player.getTeam());
     }
 }

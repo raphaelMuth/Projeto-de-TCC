@@ -1,11 +1,7 @@
 /**
- * Graphics.js
  * Graphics namespace provides helper functions for creating a canvas 
  * it also setup the request animation frame shim and the stats.js fps counter
  * 
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 declare var Stats;
 declare var $;

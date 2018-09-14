@@ -1,10 +1,6 @@
 /**
- * Game.js
  * This is the main game object which controls gameloop and basically everything in the game
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Camera.ts"/>
 ///<reference path="system/Graphics.ts"/>
@@ -118,18 +114,7 @@ class Game
 
         document.addEventListener("webkitfullscreenchange", () => this.setupCanvas(), false);
     }
-
-    getGameNetData()
-    {
-        return new GameDataPacket(this);
-    }
-
-    setGameNetData(data)
-    {
-        var gameDataPacket: GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
-        gameDataPacket.override(this);
-    }
-
+    
     setupCanvas()
     {
         //Set canvas font stuff
@@ -204,7 +189,6 @@ class Game
     }
 
     // This method allows for quick use of the instruction chain
-    // mechanisim over the network to call nextPlayer.
     nextTurn()
     {
         var id = this.state.nextPlayer();
@@ -329,27 +313,5 @@ class Game
     createPlayers() {
         for (var i = 0; i < 2; i++) 
             this.players.push(new Player());
-    }
-}
-
-
-class GameDataPacket
-{
-    players: PlayerDataPacket[];
-
-    constructor(game: Game, physics = Physics)
-    {
-        this.players = [];
-        game.players.forEach(player =>
-            this.players.push(new PlayerDataPacket(player)))
-    }
-
-    override(game: Game, physics = Physics)
-    {
-        for (var p in this.players)
-        {
-            this.players[p].override(game.players[p]);
-        }
-
     }
 }

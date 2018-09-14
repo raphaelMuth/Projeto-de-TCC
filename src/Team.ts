@@ -1,12 +1,8 @@
 /**
- * Team
  * This manages all the worms a player controls and it also stores the weapons 
  * manager which controls what weapons a player has at there disposal.
  * It is also reponsibale for updating and drawing all the worms
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
@@ -53,25 +49,7 @@ class Team
 
         }
     }
-
-    getTeamNetData()
-    {
-        var packet = {};
-        for (var w in this.worms)
-        {
-            packet[w] = this.worms[w].getWormNetData();
-        }
-
-        return packet;
-    }
-
-    setTeamNetData( packetStream )
-    {
-        for (var w in packetStream)
-        {
-            this.worms[w].setWormNetData(packetStream[w]);
-        }
-    }
+    
 
     getPercentageHealth()
     {
@@ -177,38 +155,4 @@ class Team
     }
 
 
-}
-
-class TeamDataPacket
-{
-    wormsDataPacket: WormDataPacket[];
-    name;
-    graveStone;
-    color;
-
-    constructor(team : Team)
-    {
-        this.graveStone = team.graveStone;
-        this.name = team.name;
-        this.color = team.color;
-        this.wormsDataPacket = [];
-
-        for (var w in team.worms)
-        {
-            this.wormsDataPacket.push( new WormDataPacket( team.worms[w] ));
-        }
-    }
-
-    override(team : Team)
-    {
-        team.name = this.name;
-        team.graveStone = this.graveStone;
-        team.color = this.color;
-        
-        for (var w in this.wormsDataPacket)
-        {
-            this.wormsDataPacket[w].override(team.getWorms()[w]);
-        }
-
-    }
 }

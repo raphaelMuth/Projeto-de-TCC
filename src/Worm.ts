@@ -1,12 +1,8 @@
 /**
- * Worm.js inherts Sprite.js
  *
  * This contains all the logic for each indvdiual worm entity. 
  * Its physics objects, sprite drawing, movements etc
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
@@ -111,18 +107,6 @@ class Worm extends Sprite
 
         this.fallHeight = this.body.GetPosition().y;
         Physics.addToFastAcessList(this.body);
-    }
-
-    getWormNetData()
-    {
-        return { "x": this.body.GetPosition().x, "y": this.body.GetPosition().y, "arrow": this.arrow };
-    }
-
-    setWormNetData(packetStream)
-    {
-        Logger.log(" old pos " + this.body.m_xf.position.x + " new pos " + packetStream.x);
-
-        this.body.SetPosition(new b2Vec2(packetStream.x, packetStream.y));
     }
 
     // Pre-renders the boxes above their heads with name and health
@@ -412,8 +396,6 @@ class Worm extends Sprite
 
     hit(damage, worm = null)
     {
-        //For Networked games.
-
         {
             if (this.isDead == false)
             {
@@ -558,23 +540,4 @@ class Worm extends Sprite
         }
     }
 
-}
-
-class WormDataPacket
-{
-    name;
-    position;
-
-    constructor(worm: Worm)
-    {
-        this.name = worm.name;
-        this.position = worm.body.GetPosition();
-    }
-
-    override(worm: Worm)
-    {
-        worm.name = this.name;
-        worm.body.SetPosition(new b2Vec2(this.position.x, this.position.y));
-        worm.preRendering(); // Regenerate their names
-    }
 }

@@ -1,11 +1,7 @@
 /**
- * ThrowableWeapon.js
  * This is a base type of weapon which is thrown like a generade 
  * it lands and generally explodes after a set time. 
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Graphics.ts"/>
 ///<reference path="../system/AssetManager.ts"/>

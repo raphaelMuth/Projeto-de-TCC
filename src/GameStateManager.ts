@@ -1,10 +1,4 @@
-/**
- * GameStateManager.js
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
+
 ///<reference path="system/Camera.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
@@ -92,8 +86,7 @@ class GameStateManager
     // Selects the next players to have a go and selects the next worm they use
     nextPlayer() : string
     {
-
-        //Networked games need this
+        
         this.nextTurnTrigger = false;
         
         if (this.currentPlayerIndex + 1 == this.players.length)

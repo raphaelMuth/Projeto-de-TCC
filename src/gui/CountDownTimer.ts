@@ -1,11 +1,7 @@
 /**
- * CountDownTimer.js
  * This is encpluates the count down timer position in the bottom left hand couter
  * It also handles the switching of players when their time runs out. 
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
