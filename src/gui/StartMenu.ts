@@ -16,7 +16,6 @@ class StartMenu
 
     constructor()
     {
-        //TODO gamepad controls
         //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
             ' <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>' +

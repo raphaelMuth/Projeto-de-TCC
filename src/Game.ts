@@ -56,10 +56,7 @@ class Game
     spawns;
 
     tutorial: Tutorial;
-
-    sticks;
-
-
+    
     constructor()
     {
         Graphics.init();
@@ -67,9 +64,7 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-
-        this.sticks = new TwinStickControls(this.actionCanvas);
-
+        
         this.setupCanvas();
 
         this.addCanvasListeners();
@@ -255,7 +250,6 @@ class Game
             this.enviormentEffects.update();
             this.gameTimer.update();
             
-            GameInstance.sticks.update();
             
         }
     }
@@ -307,7 +301,6 @@ class Game
 
         this.actionCanvasContext.restore();
         
-        GameInstance.sticks.draw(this.actionCanvasContext);
     }
 
     createPlayers() {

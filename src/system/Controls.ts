@@ -8,63 +8,47 @@ module Controls
 {
     export var toggleWeaponMenu =
     {
-        gamepad: -1,
-        keyboard: 101,
-        mouse: 3
+        keyboard: 101
     }
 
     export var walkLeft =
     {
-        gamepad: -1,
-        keyboard: 65,
-        mouse: -1
+        keyboard: 65
     }
 
     export var walkRight =
     {
-        gamepad: -1,
-        keyboard: 68,
-        mouse: -1
+        keyboard: 68
     }
 
     export var jump =
     {
-        gamepad: -1,
-        keyboard: 32,
-        mouse: -1
+        keyboard: 32
     }
 
     export var backFlip =
     {
-        gamepad: -1,
-        keyboard: keyboard.keyCodes.Backspace,
-        mouse: -1
+        keyboard: keyboard.keyCodes.Backspace
     }
 
     export var aimUp =
     {
-        gamepad: -1,
-        keyboard: 87,
-        mouse: -1
+        keyboard: 87
     }
 
     export var aimDown =
     {
-        gamepad: -1,
-        keyboard: 83,
-        mouse: -1
+        keyboard: 83
     }
 
     export var fire =
     {
-        gamepad: -1,
-        keyboard: 13,
-        mouse: 1
+        keyboard: 13
     }
 
     export const checkControls = (control, key)  =>
     {
-        return (key == control.gamepad || key == control.keyboard ||  key == control.mouse);
+        return (key == control.keyboard);
     }
 
 

@@ -6,7 +6,6 @@
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/Timer.ts"/>
-///<reference path="system/GamePad.ts"/>
 ///<reference path="system/Controls.ts"/>
 
 class Player
@@ -14,7 +13,7 @@ class Player
     private team: Team;
     id: string;
     timer: Timer;
-    gamePad: GamePad;
+    //gamePad: GamePad;
 
     constructor(playerId = Utilies.pickUnqine([1, 2, 3, 4], "playerids"))
     {
@@ -25,7 +24,7 @@ class Player
         $(window).keyup((e) => this.FireOnKeyUp(e) );
 
         this.timer = new Timer(10);
-        this.gamePad = new GamePad();
+        //this.gamePad = new GamePad();
     }
         
 
@@ -65,8 +64,8 @@ class Player
     {
         this.timer.update();
 
-        this.gamePad.connect();
-        this.gamePad.update();
+        //this.gamePad.connect();
+        //this.gamePad.update();
         
         if (GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
@@ -211,46 +210,31 @@ class Player
     }
 
     HasJumped(): boolean {
-        return keyboard.isKeyDown(Controls.jump.keyboard, true) ||
-            this.gamePad.isButtonPressed(0);
+        return keyboard.isKeyDown(Controls.jump.keyboard, true);
     }
 
     HasBackfliped(): boolean {
-        return keyboard.isKeyDown(Controls.backFlip.keyboard, true) ||
-            this.gamePad.isButtonPressed(0);
+        return keyboard.isKeyDown(Controls.backFlip.keyboard, true);
     }
 
     HasWalkedRight(): boolean {
-        return keyboard.isKeyDown(Controls.walkRight.keyboard) ||
-            this.gamePad.isButtonPressed(15) ||
-            this.gamePad.getAxis(0) > 0.5 ||
-            GameInstance.sticks.getNormal(0).x > 0.5;
+        return keyboard.isKeyDown(Controls.walkRight.keyboard);
     }
 
     HasWalkedLeft(): boolean {
-        return keyboard.isKeyDown(Controls.walkLeft.keyboard) ||
-            this.gamePad.isButtonPressed(14) ||
-            this.gamePad.getAxis(0) > 0.5 ||
-            GameInstance.sticks.getNormal(0).x < -0.5;
+        return keyboard.isKeyDown(Controls.walkLeft.keyboard);
     }
 
     HasAimedUp(): boolean {
-        return keyboard.isKeyDown(Controls.aimUp.keyboard) ||
-            this.gamePad.getAxis(2) >= 0.2 ||
-            this.gamePad.getAxis(3) >= 0.2 ||
-            GameInstance.sticks.getNormal(0).y < -0.6;
+        return keyboard.isKeyDown(Controls.aimUp.keyboard);
     }
 
     HasAimedDown(): boolean {
-        return keyboard.isKeyDown(Controls.aimDown.keyboard) ||
-            this.gamePad.getAxis(2) <= -0.2 ||
-            this.gamePad.getAxis(3) <= -0.2 ||
-            GameInstance.sticks.getNormal(0).y > 0.6;
+        return keyboard.isKeyDown(Controls.aimDown.keyboard);
     }
 
     HasFired(): boolean {
-        return keyboard.isKeyDown(Controls.fire.keyboard, true) ||
-            this.gamePad.isButtonPressed(7);
+        return keyboard.isKeyDown(Controls.fire.keyboard, true);
     }
 
 

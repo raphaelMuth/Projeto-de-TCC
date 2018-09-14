@@ -15,9 +15,7 @@ module AssetManager
     // will make sure its is loaded before the game starts.
     // you can then acess the image by AssetManager.getImage("placeHolderImage")
     // no need for the full url or the extenision
-    var imagesToBeLoaded = [
-        Settings.REMOTE_ASSERT_SERVER + "data/images/menu/stick.png"
-    ];
+    var imagesToBeLoaded = [];
 
     var audioToBeLoaded = [
 
