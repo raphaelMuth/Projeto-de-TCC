@@ -21,14 +21,7 @@ class CountDownTimer
     constructor()
     {
 
-        //Choice a type of timer based on where we are playing online or not
-        if (GameInstance.gameType == Game.types.ONLINE_GAME)
-        {
-            //this.timer = new NetworkTimer(Settings.PLAYER_TURN_TIME);
-        } else
-        {
-            this.timer = new Timer(Settings.PLAYER_TURN_TIME);
-        }
+        this.timer = new Timer(Settings.PLAYER_TURN_TIME);
 
 
         this.previousSecound = this.timer.timePeriod;

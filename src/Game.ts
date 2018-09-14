@@ -26,23 +26,15 @@
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
 ///<reference path="Tutorial.ts"/>
-///<reference path="networking/Events.ts"/>
 
 class Game
 {
-    static types = {
-        ONLINE_GAME: 0,
-        LOCAL_GAME: 1
-    };
-
     actionCanvas;
     actionCanvasContext;
 
     terrain: Terrain;
     players: Player[];
-
-    gameType: number;
-
+    
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
     gameTimer: CountDownTimer;
@@ -75,7 +67,6 @@ class Game
     constructor()
     {
         Graphics.init();
-        this.gameType = Game.types.LOCAL_GAME;
 
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
@@ -161,7 +152,7 @@ class Game
         this.camera.setX(this.terrain.getWidth() / 2);
         this.camera.setY(this.terrain.getHeight() / 2);
         
-        this.createPlayers(playerIds);
+        this.createPlayers();
         
         this.state.init(this.players);
 
@@ -184,13 +175,6 @@ class Game
         this.healthMenu.show();
         this.gameTimer.show();
         this.weaponMenu.show();
-        
-        // Need to fire the menu call back to remove it and start the game
-
-        if (this.gameType == Game.types.ONLINE_GAME)
-        {
-            StartMenu.callback();
-        }
         
         //Diable certain keys
         this.setKeyDisableListeners(keyboard.keyCodes.Backspace);
@@ -235,7 +219,7 @@ class Game
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
-            if (this.tutorial == null && GameInstance.gameType == Game.types.LOCAL_GAME)
+            if (this.tutorial == null)
             {
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
             } else if (this.tutorial == null)
@@ -262,19 +246,16 @@ class Game
                 if (this.winner)
                 {
                     this.gameTimer.timer.pause();
-                    this.winner.getTeam().celebrate();
-                    
+                    var team = this.winner.getTeam();
+                    team.celebrate();
+                    Notify.display("Congratualions", team.name + " you are the winner", 9000);
                 }
             }
 
             // When ready to go to the next player and while no winner
             if (this.state.readyForNextTurn() && this.winner == null)
             {
-                //If this player is the host they will decide when to move to next player
-                if (GameInstance.gameType == Game.types.LOCAL_GAME)
-                {
-                    this.nextTurn();
-                }
+                this.nextTurn();
             }
 
             if (this.tutorial != null)
@@ -289,9 +270,8 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
-
-            if (GameInstance.gameType == Game.types.LOCAL_GAME)
-                GameInstance.sticks.update();
+            
+            GameInstance.sticks.update();
             
         }
     }
@@ -342,18 +322,13 @@ class Game
 
 
         this.actionCanvasContext.restore();
-
-        if (GameInstance.gameType == Game.types.LOCAL_GAME)
-            GameInstance.sticks.draw(this.actionCanvasContext);
+        
+        GameInstance.sticks.draw(this.actionCanvasContext);
     }
 
-    createPlayers(playerIds) {
-        if (this.gameType == Game.types.LOCAL_GAME) 
-            for (var i = 0; i < 2; i++) 
-                this.players.push(new Player());
-         else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null) 
-            for (var i = 0; i < playerIds.length; i++) 
-                this.players.push(new Player(playerIds[i]));
+    createPlayers() {
+        for (var i = 0; i < 2; i++) 
+            this.players.push(new Player());
     }
 }
 

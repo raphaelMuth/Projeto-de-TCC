@@ -30,17 +30,11 @@ class WeaponsMenu
         this.htmlElement = $("#" + this.cssId);
 
 
-         $('#'+this.toggleButtonCssId).click(() =>
-         {
-             if (GameInstance.gameType == Game.types.LOCAL_GAME)
-            {
-                this.toggle();
-            }
-         });
+         $('#'+this.toggleButtonCssId).click(() => this.toggle() );
         
         $(window).keypress((event) =>
         {
-            if (GameInstance.gameType == Game.types.LOCAL_GAME && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
@@ -48,7 +42,7 @@ class WeaponsMenu
 
         $('body').mousedown((event) =>
         {
-            if (GameInstance.gameType == Game.types.LOCAL_GAME && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }

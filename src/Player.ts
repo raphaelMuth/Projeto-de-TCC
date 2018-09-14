@@ -81,10 +81,8 @@ class Player
 
         this.gamePad.connect();
         this.gamePad.update();
-
-        var onlineSpefic = GameInstance.gameType == Game.types.LOCAL_GAME;
-
-        if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        
+        if (GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
             if (this.HasJumped())
             {

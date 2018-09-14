@@ -410,20 +410,17 @@ class Worm extends Sprite
         }
     }
 
-    hit(damage, worm = null, overrideClientOnlyUse = false)
+    hit(damage, worm = null)
     {
         //For Networked games.
 
         {
             if (this.isDead == false)
             {
-
-                if (overrideClientOnlyUse || GameInstance.gameType == Game.types.LOCAL_GAME)
-                {
-                    console.log("CLIENT HIT");
-                    this.damageTake += damage;
-                    AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
-                }
+                console.log("CLIENT HIT");
+                this.damageTake += damage;
+                AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
+                
 
                 //If worm using Jetpack, deactive it if they get hurt.
                 if (this.getWeapon().IsAJetPack())
@@ -448,14 +445,10 @@ class Worm extends Sprite
     // over their head and panning the camera toward him.
     activeWorm()
     {
+        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+        this.arrow = new BounceArrow(pos);
+        GameInstance.miscellaneousEffects.add(this.arrow);
         
-        //This makes no sence, but it works.
-        if (GameInstance.gameType == Game.types.LOCAL_GAME) 
-        {
-            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-            this.arrow = new BounceArrow(pos);
-            GameInstance.miscellaneousEffects.add(this.arrow);
-        }
     }
 
     //Is this the current worm of the current player
@@ -519,7 +512,7 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
-            if (this.isDead == false && GameInstance.gameType == Game.types.LOCAL_GAME)
+            if (this.isDead == false)
             {
                 this.target.draw(ctx);
             }

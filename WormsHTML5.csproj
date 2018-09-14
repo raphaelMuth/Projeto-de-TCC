@@ -218,9 +218,6 @@
     <Content Include="src\Tutorial.js">
       <DependentUpon>Tutorial.ts</DependentUpon>
     </Content>
-    <Content Include="src\Tutorial.min.js">
-      <DependentUpon>Tutorial.ts</DependentUpon>
-    </Content>
     <Content Include="src\weapons\ForceIndicator.js">
       <DependentUpon>ForceIndicator.ts</DependentUpon>
     </Content>
@@ -310,26 +307,6 @@
     <Content Include="src\environment\Maps.min.js">
       <DependentUpon>Maps.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\networking\Events.ts" />
-    <Content Include="src\networking\Events.js">
-      <DependentUpon>Events.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Events.min.js">
-      <DependentUpon>Events.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\InstructionChain.ts" />
-    <Content Include="src\networking\InstructionChain.js">
-      <DependentUpon>InstructionChain.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\InstructionChain.min.js">
-      <DependentUpon>InstructionChain.ts</DependentUpon>
-    </Content>
-    <Content Include="src\StateAnimationManger.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
-    </Content>
-    <Content Include="src\StateAnimationManger.min.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
-    </Content>
     <Content Include="src\gui\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
@@ -339,14 +316,8 @@
     <Content Include="src\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
-    <Content Include="src\Player.min.js">
-      <DependentUpon>Player.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\Settings.ts" />
     <Content Include="src\Settings.js">
-      <DependentUpon>Settings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Settings.min.js">
       <DependentUpon>Settings.ts</DependentUpon>
     </Content>
     <Content Include="src\system\AssetManager.js">
@@ -364,9 +335,6 @@
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\system\Graphics.ts" />
-    <Content Include="src\Game.min.js">
-      <DependentUpon>Game.ts</DependentUpon>
-    </Content>
     <Content Include="src\system\AssetManager.min.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
@@ -415,9 +383,6 @@
       <DependentUpon>main.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\system\Physics.ts" />
-    <Content Include="src\main.min.js">
-      <DependentUpon>main.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\system\NameGenerator.ts" />
     <Content Include="src\system\NameGen.js">
       <DependentUpon>NameGenerator.ts</DependentUpon>
@@ -447,13 +412,7 @@
     <Content Include="src\Target.js">
       <DependentUpon>Target.ts</DependentUpon>
     </Content>
-    <Content Include="src\Target.min.js">
-      <DependentUpon>Target.ts</DependentUpon>
-    </Content>
     <Content Include="src\Team.js">
-      <DependentUpon>Team.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Team.min.js">
       <DependentUpon>Team.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
@@ -542,14 +501,8 @@
     <Content Include="src\WormAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
-    <Content Include="src\WormAnimationManger.min.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\WormManager.ts" />
     <Content Include="src\WormManager.js">
-      <DependentUpon>WormManager.ts</DependentUpon>
-    </Content>
-    <Content Include="src\WormManager.min.js">
       <DependentUpon>WormManager.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
@@ -586,9 +539,6 @@
       <DependentUpon>WeaponManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.js">
-      <DependentUpon>Worm.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Worm.min.js">
       <DependentUpon>Worm.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.ts" />

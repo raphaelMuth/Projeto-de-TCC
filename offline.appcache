@@ -156,7 +156,6 @@ http://www.ciaranmccann.me/wormsjs/external/Stats.js
 http://www.ciaranmccann.me/wormsjs/src/audio/SoundBufferLoader.js
 http://www.ciaranmccann.me/wormsjs/src/audio/Sound.js
 http://www.ciaranmccann.me/wormsjs/src/Worms.min.js
-http://worms.ciaranmccann.me:8080/socket.io/socket.io.js
 
 NETWORK:
 *

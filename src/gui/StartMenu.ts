@@ -58,7 +58,6 @@ class StartMenu
                     clearInterval(loading);
                     this.settingsMenu = new SettingsMenu();
                     $('#startLocal').removeAttr("disabled");
-                    $('#startOnline').removeAttr("disabled");
                   
 
                     // IE tell the user to get a better browser, but still allow them to play
@@ -104,12 +103,7 @@ class StartMenu
 
 
             });
-
-            $('#startOnline').click(() =>
-            {
-
-
-            });
+            
 
             $('#startTutorial').click(() =>
             {
