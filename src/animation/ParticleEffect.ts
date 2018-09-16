@@ -1,11 +1,3 @@
-/**
- * ParticleSystem.js
- * Manages all the different sprites that make up the explosion effect
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
 ///<reference path="Sprite.ts"/>
 ///<reference path="SpriteDefinitions.ts"/>
 ///<reference path="Particle.ts"/>

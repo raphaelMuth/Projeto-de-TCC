@@ -1,16 +1,11 @@
 /**
- * Player
  * The player class contains a team objects, which is the team of worms. 
  * It also defines the controls for the worms movements.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="Team.ts"/>
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/Timer.ts"/>
-///<reference path="system/GamePad.ts"/>
 ///<reference path="system/Controls.ts"/>
 
 class Player
@@ -18,7 +13,7 @@ class Player
     private team: Team;
     id: string;
     timer: Timer;
-    gamePad: GamePad;
+    //gamePad: GamePad;
 
     constructor(playerId = Utilies.pickUnqine([1, 2, 3, 4], "playerids"))
     {
@@ -29,19 +24,9 @@ class Player
         $(window).keyup((e) => this.FireOnKeyUp(e) );
 
         this.timer = new Timer(10);
-        this.gamePad = new GamePad();
+        //this.gamePad = new GamePad();
     }
-
-    // methods
-    getPlayerNetData()
-    {
-        return this.team.getTeamNetData();
-    }
-
-    setPlayerNetData(data)
-    {
-        this.team.setTeamNetData(data);
-    }
+        
 
     getTeam()
     {
@@ -79,64 +64,48 @@ class Player
     {
         this.timer.update();
 
-        this.gamePad.connect();
-        this.gamePad.update();
-
-        var onlineSpefic = Client.isClientsTurn();
-
-        if (onlineSpefic && GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
+        //this.gamePad.connect();
+        //this.gamePad.update();
+        
+        if (GameInstance.state.getCurrentPlayer() == this && GameInstance.state.hasNextTurnBeenTiggered() == false)
         {
             if (this.HasJumped())
             {
                 this.team.getCurrentWorm().jump();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("jump"));
             }
 
             if (this.HasBackfliped())
             {
                 this.team.getCurrentWorm().backFlip();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("backFlip"));
             }
 
             if (this.HasWalkedLeft())
             {
                 this.team.getCurrentWorm().walkLeft();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkLeft"));
             }
 
             if (this.HasWalkedRight())
             {
                 this.team.getCurrentWorm().walkRight();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("walkRight"));
             }
 
             if (this.HasAimedUp())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(-0.8);
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [-0.8]));
             }
 
             if (this.HasAimedDown())
             {
                 var currentWrom = this.team.getCurrentWorm();
                 currentWrom.target.aim(0.8);           
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("target.aim", [0.8]));
             }
 
             // While holding the
             if (this.HasFired())
             {
                 this.weaponFireOrCharge();
-                Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.weaponFireOrCharge"));
             }
-            else if (this.HasFiredTouchingScreen())
-            {
-                this.team.getCurrentWorm().fire();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
-                GameInstance.weaponMenu.refresh();
-            }
-
             // end of player controls
         }
         
@@ -212,7 +181,6 @@ class Player
             // If the weapon in use is a force charge sytle weapon we will fire otherwise do nothing
             if (this.CanFireChargable()) {
                 this.team.getCurrentWorm().fire();
-                Client.sendImmediately(Events.client.CURRENT_WORM_ACTION, new InstructionChain("fire"));
                 GameInstance.weaponMenu.refresh();
             }
         }
@@ -242,85 +210,38 @@ class Player
     }
 
     HasJumped(): boolean {
-        return keyboard.isKeyDown(Controls.jump.keyboard, true) ||
-            this.gamePad.isButtonPressed(0) ||
-            TouchUI.isJumpDown(true);
+        return keyboard.isKeyDown(Controls.jump.keyboard, true);
     }
 
     HasBackfliped(): boolean {
-        return keyboard.isKeyDown(Controls.backFlip.keyboard, true) ||
-            this.gamePad.isButtonPressed(0);
+        return keyboard.isKeyDown(Controls.backFlip.keyboard, true);
     }
 
     HasWalkedRight(): boolean {
-        return keyboard.isKeyDown(Controls.walkRight.keyboard) ||
-            this.gamePad.isButtonPressed(15) ||
-            this.gamePad.getAxis(0) > 0.5 ||
-            GameInstance.sticks.getNormal(0).x > 0.5;
+        return keyboard.isKeyDown(Controls.walkRight.keyboard);
     }
 
     HasWalkedLeft(): boolean {
-        return keyboard.isKeyDown(Controls.walkLeft.keyboard) ||
-            this.gamePad.isButtonPressed(14) ||
-            this.gamePad.getAxis(0) > 0.5 ||
-            GameInstance.sticks.getNormal(0).x < -0.5;
+        return keyboard.isKeyDown(Controls.walkLeft.keyboard);
     }
 
     HasAimedUp(): boolean {
-        return keyboard.isKeyDown(Controls.aimUp.keyboard) ||
-            this.gamePad.getAxis(2) >= 0.2 ||
-            this.gamePad.getAxis(3) >= 0.2 ||
-            GameInstance.sticks.getNormal(0).y < -0.6;
+        return keyboard.isKeyDown(Controls.aimUp.keyboard);
     }
 
     HasAimedDown(): boolean {
-        return keyboard.isKeyDown(Controls.aimDown.keyboard) ||
-            this.gamePad.getAxis(2) <= -0.2 ||
-            this.gamePad.getAxis(3) <= -0.2 ||
-            GameInstance.sticks.getNormal(0).y > 0.6;
+        return keyboard.isKeyDown(Controls.aimDown.keyboard);
     }
 
     HasFired(): boolean {
-        return keyboard.isKeyDown(Controls.fire.keyboard, true) ||
-            this.gamePad.isButtonPressed(7) ||
-            TouchUI.isFireButtonDown();
+        return keyboard.isKeyDown(Controls.fire.keyboard, true);
     }
 
-    HasFiredTouchingScreen(): boolean{
-
-        if (!TouchUI.isTouchDevice()) {
-            return false;
-        }
-
-        var wormWeapon = this.team.getCurrentWorm().getWeapon();
-
-        return !TouchUI.isFireButtonDown() &&
-            wormWeapon.getForceIndicator().isRequired() &&
-            wormWeapon.getForceIndicator().getForce() > 5 &&
-            wormWeapon.getIsActive() == false
-    }
 
     CanFireChargable() {
         var wormWeapon = this.team.getCurrentWorm().getWeapon();
         return wormWeapon.getForceIndicator().isRequired() &&
             wormWeapon.getForceIndicator().getForce() > 1 &&
             wormWeapon.getIsActive() == false;
-    }
-}
-
-
-class PlayerDataPacket
-{
-    teamDataPacket: TeamDataPacket;
-    position;
-
-    constructor(player: Player)
-    {
-        this.teamDataPacket = new TeamDataPacket(player.getTeam());
-    }
-
-    override(player: Player)
-    {
-        this.teamDataPacket.override(player.getTeam());
     }
 }

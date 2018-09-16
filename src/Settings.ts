@@ -1,10 +1,3 @@
-/**
- *  Global settings for the whole game
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
 ///<reference path="system/Utilies.ts" />
 
 module Settings
@@ -15,37 +8,17 @@ module Settings
     export var TURN_TIME_WARING = 5; // after 10 secounds warn player they are running out of time
    
     //General game settings
-    export var SOUND = true;
-
-    //Server details
-    export var NODE_SERVER_IP = 'worms.ciaranmccann.me';
-    export var LEADERBOARD_API_URL = 'http://worms.ciaranmccann.me';
-    export var NODE_SERVER_PORT = '8080';
-
+    export var SOUND = false;
+    
     // development vars
     export var DEVELOPMENT_MODE = false; 
     export var LOG = true;
-
-    //When I want to build the manifest file using 
-    // http://westciv.com/tools/manifestR/
-    export var BUILD_MANIFEST_FILE = false;
-
-    export var REMOTE_ASSERT_SERVER = "../"; //"../college/fyp/"
-    //remover essa api key
-    export var API_KEY = "";
+    
+    export var REMOTE_ASSERT_SERVER = "../";
 
     export var PHYSICS_DEBUG_MODE = false;
     export var RUN_UNIT_TEST_ONLY = !true;
-
-    export var NETWORKED_GAME_QUALITY_LEVELS = {
-        HIGH: 0,
-        MEDIUM: 1,
-        LOW: 2
-    }
-
-    export var NETWORKED_GAME_QUALITY = NETWORKED_GAME_QUALITY_LEVELS.HIGH;
-
-
+    
     //Pasers commandline type arguments from the page url like this ?argName=value
     export const getSettingsFromUrl = () =>
     {
@@ -65,7 +38,7 @@ module Settings
         if (argv[commands[2]] == "true")
         {
            var testWindow = window.open('test.html', '|UnitTests', 'height=1000,width=700,top:100%');
-           testWindow.location.reload(); // This is so if the window was left open it refreshs
+           testWindow.location.reload();
             
         }
 

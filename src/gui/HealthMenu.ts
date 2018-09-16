@@ -1,10 +1,4 @@
-/**
- * HealthMenu.js
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
+
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
 ///<reference path="../Settings.ts"/>

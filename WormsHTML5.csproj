@@ -181,7 +181,6 @@
     <TypeScriptCompile Include="src\animation\BounceArrow.ts" />
     <Content Include="external\test\qunit.js" />
     <Content Include="favicon.ico" />
-    <Content Include="LICENSE.txt" />
     <Content Include="src\animation\BounceArrow.js">
       <DependentUpon>BounceArrow.ts</DependentUpon>
     </Content>
@@ -208,13 +207,6 @@
     <Content Include="src\animation\PhysicsSprite.min.js">
       <DependentUpon>PhysicsSprite.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\gui\LeaderBoardView.ts" />
-    <Content Include="src\gui\LeaderBoardView.js">
-      <DependentUpon>LeaderBoardView.ts</DependentUpon>
-    </Content>
-    <Content Include="src\gui\LeaderBoardView.min.js">
-      <DependentUpon>LeaderBoardView.ts</DependentUpon>
-    </Content>
     <Content Include="src\gui\SettingsMenu.js">
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
@@ -222,37 +214,7 @@
       <DependentUpon>SettingsMenu.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Tutorial.ts" />
-    <TypeScriptCompile Include="src\networking\LeaderBoard\GooglePlus.ts" />
-    <TypeScriptCompile Include="src\networking\LeaderBoard\Api.ts" />
-    <Content Include="src\networking\LeaderBoard\Api.js">
-      <DependentUpon>Api.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\LeaderBoard\LeaderBoardApi.ts" />
-    <Content Include="src\networking\LeaderBoard\Api.min.js">
-      <DependentUpon>Api.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\GooglePlus.js">
-      <DependentUpon>GooglePlus.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\GooglePlus.min.js">
-      <DependentUpon>GooglePlus.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.js">
-      <DependentUpon>LeaderBoardApi.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.min.js">
-      <DependentUpon>LeaderBoardApi.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\Leaderboards.js">
-      <DependentUpon>GooglePlus.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\LeaderBoard\Leaderboards.min.js">
-      <DependentUpon>GooglePlus.ts</DependentUpon>
-    </Content>
     <Content Include="src\Tutorial.js">
-      <DependentUpon>Tutorial.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Tutorial.min.js">
       <DependentUpon>Tutorial.ts</DependentUpon>
     </Content>
     <Content Include="src\weapons\ForceIndicator.js">
@@ -338,105 +300,11 @@
       <DependentUpon>HealthMenu.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\environment\Maps.ts" />
-    <TypeScriptCompile Include="src\gui\LobbyMenu.ts" />
-    <Content Include="src\gui\LobbyMenu.js">
-      <DependentUpon>LobbyMenu.ts</DependentUpon>
-    </Content>
-    <Content Include="src\gui\LobbyMenu.min.js">
-      <DependentUpon>LobbyMenu.ts</DependentUpon>
-    </Content>
     <Content Include="src\environment\Maps.js">
       <DependentUpon>Maps.ts</DependentUpon>
     </Content>
     <Content Include="src\environment\Maps.min.js">
       <DependentUpon>Maps.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\Server.ts" />
-    <TypeScriptCompile Include="src\networking\Client.ts" />
-    <Content Include="src\networking\Client.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Client.min.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ClientGame.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ClientGame.min.js">
-      <DependentUpon>Client.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\GameLobby.ts" />
-    <TypeScriptCompile Include="src\networking\Events.ts" />
-    <Content Include="src\networking\Events.js">
-      <DependentUpon>Events.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Events.min.js">
-      <DependentUpon>Events.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\GameLobby.js">
-      <DependentUpon>GameLobby.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\GameLobby.min.js">
-      <DependentUpon>GameLobby.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\Lobby.ts" />
-    <TypeScriptCompile Include="src\networking\InstructionChain.ts" />
-    <Content Include="src\networking\InstructionChain.js">
-      <DependentUpon>InstructionChain.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\InstructionChain.min.js">
-      <DependentUpon>InstructionChain.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Lobby.js">
-      <DependentUpon>Lobby.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Lobby.min.js">
-      <DependentUpon>Lobby.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\NetworkTimer.ts" />
-    <Content Include="src\networking\NetworkTimer.js">
-      <DependentUpon>NetworkTimer.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\NetworkTimer.min.js">
-      <DependentUpon>NetworkTimer.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Server.js">
-      <DependentUpon>Server.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Server.min.js">
-      <DependentUpon>Server.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\networking\ServerUtilies.ts" />
-    <TypeScriptCompile Include="src\networking\ServerSettings.ts" />
-    <Content Include="src\networking\ServerSettings.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerSettings.min.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerUtilies.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\ServerUtilies.min.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Settings.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Settings.min.js">
-      <DependentUpon>ServerSettings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Utilies.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\networking\Utilies.min.js">
-      <DependentUpon>ServerUtilies.ts</DependentUpon>
-    </Content>
-    <Content Include="src\StateAnimationManger.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
-    </Content>
-    <Content Include="src\StateAnimationManger.min.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
     <Content Include="src\gui\CountDownTimer.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
@@ -447,14 +315,8 @@
     <Content Include="src\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
-    <Content Include="src\Player.min.js">
-      <DependentUpon>Player.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\Settings.ts" />
     <Content Include="src\Settings.js">
-      <DependentUpon>Settings.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Settings.min.js">
       <DependentUpon>Settings.ts</DependentUpon>
     </Content>
     <Content Include="src\system\AssetManager.js">
@@ -472,9 +334,6 @@
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\system\Graphics.ts" />
-    <Content Include="src\Game.min.js">
-      <DependentUpon>Game.ts</DependentUpon>
-    </Content>
     <Content Include="src\system\AssetManager.min.js">
       <DependentUpon>AssetManager.ts</DependentUpon>
     </Content>
@@ -491,13 +350,6 @@
     </Content>
     <Content Include="src\system\Controls.min.js">
       <DependentUpon>Controls.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="src\system\GamePad.ts" />
-    <Content Include="src\system\GamePad.js">
-      <DependentUpon>GamePad.ts</DependentUpon>
-    </Content>
-    <Content Include="src\system\GamePad.min.js">
-      <DependentUpon>GamePad.ts</DependentUpon>
     </Content>
     <Content Include="src\system\Graphics.js">
       <DependentUpon>Graphics.ts</DependentUpon>
@@ -523,9 +375,6 @@
       <DependentUpon>main.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\system\Physics.ts" />
-    <Content Include="src\main.min.js">
-      <DependentUpon>main.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\system\NameGenerator.ts" />
     <Content Include="src\system\NameGen.js">
       <DependentUpon>NameGenerator.ts</DependentUpon>
@@ -555,13 +404,7 @@
     <Content Include="src\Target.js">
       <DependentUpon>Target.ts</DependentUpon>
     </Content>
-    <Content Include="src\Target.min.js">
-      <DependentUpon>Target.ts</DependentUpon>
-    </Content>
     <Content Include="src\Team.js">
-      <DependentUpon>Team.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Team.min.js">
       <DependentUpon>Team.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\weapons\ThrowableWeapon.ts" />
@@ -650,14 +493,8 @@
     <Content Include="src\WormAnimationManger.js">
       <DependentUpon>WormAnimationManger.ts</DependentUpon>
     </Content>
-    <Content Include="src\WormAnimationManger.min.js">
-      <DependentUpon>WormAnimationManger.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="src\WormManager.ts" />
     <Content Include="src\WormManager.js">
-      <DependentUpon>WormManager.ts</DependentUpon>
-    </Content>
-    <Content Include="src\WormManager.min.js">
       <DependentUpon>WormManager.ts</DependentUpon>
     </Content>
     <Content Include="test.html" />
@@ -694,9 +531,6 @@
       <DependentUpon>WeaponManager.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.js">
-      <DependentUpon>Worm.ts</DependentUpon>
-    </Content>
-    <Content Include="src\Worm.min.js">
       <DependentUpon>Worm.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.ts" />
@@ -765,18 +599,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="src\networking\GameServer.conf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="offline.appcache" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="src\networking\LeaderBoard\LeaderBoardApi.conf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="src\networking\LeaderBoard\package.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />

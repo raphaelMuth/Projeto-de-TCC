@@ -1,12 +1,8 @@
 /**
- * WeaponsMenu.js
  * This is the menu which slides out from the right side
  * Its shows the player all the infomation from their teams weapon manager.
  * It displays all the weapons + ammo and allows the user to select a weapon.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
@@ -30,17 +26,11 @@ class WeaponsMenu
         this.htmlElement = $("#" + this.cssId);
 
 
-         $('#'+this.toggleButtonCssId).click(() =>
-         {
-             if (Client.isClientsTurn())
-            {
-                this.toggle();
-            }
-         });
+         $('#'+this.toggleButtonCssId).click(() => this.toggle() );
         
         $(window).keypress((event) =>
         {
-            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
@@ -48,7 +38,7 @@ class WeaponsMenu
 
         $('body').mousedown((event) =>
         {
-            if (Client.isClientsTurn() && Controls.checkControls(Controls.toggleWeaponMenu, event.which))
+            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
             {
                 this.toggle();
             }
@@ -68,7 +58,6 @@ class WeaponsMenu
         if (weaponMgmt.checkWeaponHasAmmo(weaponId))
         {
             weaponMgmt.setCurrentWeapon(weaponId);
-            Client.sendImmediately(Events.client.ACTION, new InstructionChain("state.getCurrentPlayer.getTeam.getWeaponManager.setCurrentWeapon", [weaponId]));
         }
     }
 

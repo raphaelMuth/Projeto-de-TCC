@@ -1,11 +1,3 @@
-/**
- * Particle.js
- * Flames and shit... 
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
 ///<reference path="Sprite.ts"/>
 ///<reference path="PhysicsSprite.ts"/>
 ///<reference path="SpriteDefinitions.ts"/>

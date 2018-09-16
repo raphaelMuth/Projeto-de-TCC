@@ -1,11 +1,7 @@
 /**
- * Target.js
  *
  * The target or cross hairs the player rotates to aim
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/Utilies.ts"/>

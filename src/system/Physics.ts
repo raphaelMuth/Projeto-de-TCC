@@ -1,11 +1,7 @@
 /**
- * Physics
  * This namespace holes the box2d physics world and scale. It provides helper convert methods
  * to increase codebase readablity. It also mangaes the global box2d contactlistner.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 
 ///<reference path="../Game.ts"/>
@@ -275,114 +271,6 @@ module Physics
         pos.y -= radius;
 
         return Physics.vectorMetersToPixels(pos);
-
-    }
-}
-
-
-class BodyDataPacket
-{
-
-    pX;
-    pY;
-
-    constructor(body)
-    {
-        if (typeof body == "string")
-        {
-            this.fromJSON(body);
-        } else
-        {
-            this.pX = body.GetPosition().x;
-            this.pY = body.GetPosition().y;
-        }
-    }
-
-    override(body)
-    {
-        
-        if (body)
-        {
-            body.SetPosition(new b2Vec2(this.pX, this.pY));
-        }
-    }
-
-    toJSON()
-    {
-        if (Settings.NETWORKED_GAME_QUALITY_LEVELS.HIGH == Settings.NETWORKED_GAME_QUALITY)
-        {
-              return (Math.floor(this.pX * 10000) / 10000) + "," + (Math.floor(this.pY * 10000) / 10000);
-
-        } else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.MEDIUM == Settings.NETWORKED_GAME_QUALITY)
-        {
-            return (Math.floor(this.pX * 1000) / 1000) + "," + (Math.floor(this.pY * 1000) / 1000);
-        }
-        else if (Settings.NETWORKED_GAME_QUALITY_LEVELS.LOW == Settings.NETWORKED_GAME_QUALITY)
-        {
-            return (Math.floor(this.pX * 100) / 100) + "," + (Math.floor(this.pY * 100) / 100);
-        }
-
-    }
-
-    fromJSON(data: string)
-    {
-        var v = data.split(",");
-        this.pX = parseFloat(v[0]);
-        this.pY = parseFloat(v[1]);
-    }
-}
-
-
-class PhysiscsDataPacket
-{
-    bodyDataPackets: BodyDataPacket[];
-
-
-    constructor(bodies)
-    {
-        this.bodyDataPackets = [];
-
-        if (typeof bodies == "string")
-        {
-            this.fromJSON(bodies);
-        } else
-        {
-            for (var b in bodies)
-            {
-                this.bodyDataPackets.push(new BodyDataPacket(bodies[b]));
-            }
-        }
-    }
-
-    override(bodies)
-    {
-        for (var b in this.bodyDataPackets)
-        {
-            this.bodyDataPackets[b].override(bodies[b]);
-        }
-    }
-
-    toJSON()
-    {
-        var data = "";
-        for (var b in this.bodyDataPackets)
-        {
-            data += this.bodyDataPackets[b].toJSON() + ":"
-        }
-
-        return data;
-    }
-
-    fromJSON(data: string)
-    {
-        var vectors = data.split(":");
-        for (var i in vectors)
-        {
-            if (vectors[i] != "")
-            {
-                this.bodyDataPackets.push(new BodyDataPacket(vectors[i]));
-            }
-        }
 
     }
 }

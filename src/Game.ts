@@ -1,10 +1,6 @@
 /**
- * Game.js
  * This is the main game object which controls gameloop and basically everything in the game
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Camera.ts"/>
 ///<reference path="system/Graphics.ts"/>
@@ -25,25 +21,16 @@
 ///<reference path="environment/Maps.ts"/>
 ///<reference path="GameStateManager.ts"/>
 ///<reference path="WormManager.ts"/>
-///<reference path="networking/Client.ts"/>
-///<reference path="networking/Lobby.ts"/>
 ///<reference path="Tutorial.ts"/>
 
 class Game
 {
-    static types = {
-        ONLINE_GAME: 0,
-        LOCAL_GAME: 1
-    };
-
     actionCanvas;
     actionCanvasContext;
 
     terrain: Terrain;
     players: Player[];
-
-    gameType: number;
-
+    
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
     gameTimer: CountDownTimer;
@@ -58,9 +45,7 @@ class Game
 
     //Manages things like the clouds
     enviormentEffects: EffectsManager;
-
-    lobby: Lobby;
-
+    
     winner: Player;
 
     static map: GameMap = new GameMap(Maps.castle);
@@ -71,21 +56,15 @@ class Game
     spawns;
 
     tutorial: Tutorial;
-
-    sticks;
-
-
+    
     constructor()
     {
         Graphics.init();
-        this.gameType = Game.types.LOCAL_GAME;
 
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-
-        this.sticks = new TwinStickControls(this.actionCanvas);
-
+        
         this.setupCanvas();
 
         this.addCanvasListeners();
@@ -100,8 +79,6 @@ class Game
         // Development stuff
         this.spawns = [];
         this.defineSpawnsForDevMode();
-
-        this.lobby = new Lobby();
     }
 
     defineSpawnsForDevMode() {
@@ -132,18 +109,7 @@ class Game
 
         document.addEventListener("webkitfullscreenchange", () => this.setupCanvas(), false);
     }
-
-    getGameNetData()
-    {
-        return new GameDataPacket(this);
-    }
-
-    setGameNetData(data)
-    {
-        var gameDataPacket: GameDataPacket = Utilies.copy(new GameDataPacket(this), data);
-        gameDataPacket.override(this);
-    }
-
+    
     setupCanvas()
     {
         //Set canvas font stuff
@@ -156,28 +122,7 @@ class Game
 
     goFullScreen()
     {
-
-        //var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !== null) ||    // alternative standard method  
-        //        (document.mozFullScreen || document.webkitIsFullScreen);
-
-        //var docElm = document.documentElement;
-        //if (!isInFullScreen)
-        //{
-
-        //    if (docElm.requestFullscreen)
-        //    {
-        //        docElm.requestFullscreen();
-        //    }
-        //    else if (docElm.mozRequestFullScreen)
-        //    {
-        //        docElm.mozRequestFullScreen();
-
-        //    }
-        //    else if (docElm.webkitRequestFullScreen)
-        //    {
-        //        docElm.webkitRequestFullScreen();
-        //    }
-        //}
+        
     }
 
     start(playerIds = null)
@@ -187,7 +132,7 @@ class Game
         this.camera.setX(this.terrain.getWidth() / 2);
         this.camera.setY(this.terrain.getHeight() / 2);
         
-        this.createPlayers(playerIds);
+        this.createPlayers();
         
         this.state.init(this.players);
 
@@ -211,19 +156,9 @@ class Game
         this.gameTimer.show();
         this.weaponMenu.show();
         
-        // Need to fire the menu call back to remove it and start the game
-
-        if (this.gameType == Game.types.ONLINE_GAME)
-        {
-            StartMenu.callback();
-        }
-        
         //Diable certain keys
         this.setKeyDisableListeners(keyboard.keyCodes.Backspace);
         
-        //Only inited if its a touch device
-        TouchUI.init();
-
         setTimeout(() =>
         {
             this.state.physicsWorldSettled = true;
@@ -249,7 +184,6 @@ class Game
     }
 
     // This method allows for quick use of the instruction chain
-    // mechanisim over the network to call nextPlayer.
     nextTurn()
     {
         var id = this.state.nextPlayer();
@@ -261,12 +195,10 @@ class Game
         }
         else
         {
-            Logger.log(" Player was " + this.lobby.client_GameLobby.currentPlayerId + " player is now " + id);
-            this.lobby.client_GameLobby.currentPlayerId = id;
             this.gameTimer.timer.reset();
             AssetManager.getSound("yessir").play();
 
-            if (this.tutorial == null && Client.isClientsTurn())
+            if (this.tutorial == null)
             {
                 Notify.display("Time's a ticking", "Its your go " + this.state.getCurrentPlayer().getTeam().name, 9000);
             } else if (this.tutorial == null)
@@ -293,32 +225,16 @@ class Game
                 if (this.winner)
                 {
                     this.gameTimer.timer.pause();
-                    this.winner.getTeam().celebrate();
-
-                    //TODO fix this up, do server side, just putting in for demo 2moro.
-                    if (this.winner.id == Client.id && access_token && GameInstance.gameType != Game.types.LOCAL_GAME)
-                    {
-                        Notify.display("Congratulations you won!", "", -1,Notify.levels.sucess,true);
-                        $.ajax({
-                            url: "http://96.126.111.211/updateUser/" + access_token,
-                            dataType: 'jsonp'
-                        });
-                    } else
-                    {
-                        Notify.display("Unlucky you lost, better luck next time", "", -1, Notify.levels.error,true);
-                    }
+                    var team = this.winner.getTeam();
+                    team.celebrate();
+                    Notify.display("Congratualions", team.name + " you are the winner", 9000);
                 }
             }
 
             // When ready to go to the next player and while no winner
             if (this.state.readyForNextTurn() && this.winner == null)
             {
-                //If this player is the host they will decide when to move to next player
-                if (Client.isClientsTurn())
-                {
-                    Client.sendImmediately(Events.client.ACTION, new InstructionChain("nextTurn"));
-                    this.nextTurn();
-                }
+                this.nextTurn();
             }
 
             if (this.tutorial != null)
@@ -333,9 +249,7 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
-
-            if (Client.isClientsTurn())
-                GameInstance.sticks.update();
+            
             
         }
     }
@@ -350,11 +264,6 @@ class Game
                    , 10       //position iterations
             );
 
-            //While there is physics objects to sync do so
-            if (this.gameType == Game.types.ONLINE_GAME && this.lobby.client_GameLobby.currentPlayerId == Client.id)
-            {
-                Client.sendRateLimited(Events.client.UPDATE, new PhysiscsDataPacket(Physics.fastAcessList).toJSON());
-            }
         }
         //Physics.world.ClearForces();
     }
@@ -391,39 +300,11 @@ class Game
 
 
         this.actionCanvasContext.restore();
-
-        if (Client.isClientsTurn())
-            GameInstance.sticks.draw(this.actionCanvasContext);
+        
     }
 
-    createPlayers(playerIds) {
-        if (this.gameType == Game.types.LOCAL_GAME) 
-            for (var i = 0; i < 2; i++) 
-                this.players.push(new Player());
-         else if (this.gameType == Game.types.ONLINE_GAME && playerIds != null) 
-            for (var i = 0; i < playerIds.length; i++) 
-                this.players.push(new Player(playerIds[i]));
-    }
-}
-
-
-class GameDataPacket
-{
-    players: PlayerDataPacket[];
-
-    constructor(game: Game, physics = Physics)
-    {
-        this.players = [];
-        game.players.forEach(player =>
-            this.players.push(new PlayerDataPacket(player)))
-    }
-
-    override(game: Game, physics = Physics)
-    {
-        for (var p in this.players)
-        {
-            this.players[p].override(game.players[p]);
-        }
-
+    createPlayers() {
+        for (var i = 0; i < 2; i++) 
+            this.players.push(new Player());
     }
 }

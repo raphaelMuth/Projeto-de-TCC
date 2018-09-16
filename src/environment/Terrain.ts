@@ -4,9 +4,6 @@
  * as well as the box2d physic model. Using the map image data the terrain class
  * constructs box2d objects which make up the terrain. It also handles deformations
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../system/Physics.ts"/>
 ///<reference path="../system/Utilies.ts" />

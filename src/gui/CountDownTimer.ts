@@ -1,16 +1,11 @@
 /**
- * CountDownTimer.js
  * This is encpluates the count down timer position in the bottom left hand couter
  * It also handles the switching of players when their time runs out. 
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Main.ts"/>
 ///<reference path="../Game.ts"/>
 ///<reference path="../system/Timer.ts" />
-///<reference path="../networking/NetworkTimer.ts" />
 ///<reference path="../Settings.ts" />
 
 class CountDownTimer
@@ -22,14 +17,7 @@ class CountDownTimer
     constructor()
     {
 
-        //Choice a type of timer based on where we are playing online or not
-        if (GameInstance.gameType == Game.types.ONLINE_GAME)
-        {
-            this.timer = new NetworkTimer(Settings.PLAYER_TURN_TIME);
-        } else
-        {
-            this.timer = new Timer(Settings.PLAYER_TURN_TIME);
-        }
+        this.timer = new Timer(Settings.PLAYER_TURN_TIME);
 
 
         this.previousSecound = this.timer.timePeriod;

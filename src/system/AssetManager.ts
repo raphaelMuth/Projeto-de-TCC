@@ -1,12 +1,8 @@
 /**
- * AssetManager.js
  * This manages the loading of image and sound assets. 
  * The loaded images and sounds are then acessable from any where by the following. 
  * AssetManager.images["myImageName"] no need for the full url or the extenision
  * 
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../audio/Sound.ts"/>
 declare var BufferLoader;
@@ -19,9 +15,7 @@ module AssetManager
     // will make sure its is loaded before the game starts.
     // you can then acess the image by AssetManager.getImage("placeHolderImage")
     // no need for the full url or the extenision
-    var imagesToBeLoaded = [
-        Settings.REMOTE_ASSERT_SERVER + "data/images/menu/stick.png"
-    ];
+    var imagesToBeLoaded = [];
 
     var audioToBeLoaded = [
 
@@ -120,12 +114,7 @@ module AssetManager
             if (images[name] == null)
             {
                 images[name] = new Image();
-
-                if (Settings.BUILD_MANIFEST_FILE)
-                {
-                    $('body').append(images[name]);
-                }
-
+                
                 images[name].onload = () =>
                 {
                     // Logger.log(" Image " + this.src + " loaded sucessfully ");
@@ -217,11 +206,6 @@ module AssetManager
         //First lets try load our audio using the web audio API
         try
         {
-            if (Settings.BUILD_MANIFEST_FILE)
-            {
-                throw "LOL"
-            }
-
             Sound.context = new webkitAudioContext();
             var bufferLoader = new BufferLoader(Sound.context, sources, (bufferList) =>
             {

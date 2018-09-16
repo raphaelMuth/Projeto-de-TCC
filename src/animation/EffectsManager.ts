@@ -1,12 +1,3 @@
-/**
- * ParticleEffectManager.js
- * This simply manages an arrray of particle effects, updates and draws them 
- * once the effect it complete it will be removed from the collection
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
 ///<reference path="Sprite.ts"/>
 ///<reference path="SpriteDefinitions.ts"/>
 ///<reference path="Particle.ts"/>

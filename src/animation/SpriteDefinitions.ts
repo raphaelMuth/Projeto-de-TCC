@@ -1,5 +1,4 @@
 /**
- * SpriteDefinitions.js
  *
  * They outline sprites and how many fames they have, what speed the move at etc. 
  * This class also removed the need to deal with nasty strings inside the main codebase
@@ -7,9 +6,6 @@
  * SpriteDefinitions can be ascced and set from any where like the following
  * mySpriteObj.setSpriteDef(Sprites.worms.walking);
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 
 interface SpriteDefinition

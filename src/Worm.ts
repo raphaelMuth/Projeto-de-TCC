@@ -1,12 +1,8 @@
 /**
- * Worm.js inherts Sprite.js
  *
  * This contains all the logic for each indvdiual worm entity. 
  * Its physics objects, sprite drawing, movements etc
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
@@ -111,18 +107,6 @@ class Worm extends Sprite
 
         this.fallHeight = this.body.GetPosition().y;
         Physics.addToFastAcessList(this.body);
-    }
-
-    getWormNetData()
-    {
-        return { "x": this.body.GetPosition().x, "y": this.body.GetPosition().y, "arrow": this.arrow };
-    }
-
-    setWormNetData(packetStream)
-    {
-        Logger.log(" old pos " + this.body.m_xf.position.x + " new pos " + packetStream.x);
-
-        this.body.SetPosition(new b2Vec2(packetStream.x, packetStream.y));
     }
 
     // Pre-renders the boxes above their heads with name and health
@@ -410,21 +394,15 @@ class Worm extends Sprite
         }
     }
 
-    hit(damage, worm = null, overrideClientOnlyUse = false)
+    hit(damage, worm = null)
     {
-        //For Networked games.
-
         {
             if (this.isDead == false)
             {
-
-                if (overrideClientOnlyUse || Client.isClientsTurn())
-                {
-                    console.log("CLIENT HIT");
-                    this.damageTake += damage;
-                    GameInstance.wormManager.syncHit(this.name, damage)
-                    AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
-                }
+                console.log("CLIENT HIT");
+                this.damageTake += damage;
+                AssetManager.getSound("ow" + Utilies.random(1, 2)).play(0.8);
+                
 
                 //If worm using Jetpack, deactive it if they get hurt.
                 if (this.getWeapon().IsAJetPack())
@@ -449,14 +427,10 @@ class Worm extends Sprite
     // over their head and panning the camera toward him.
     activeWorm()
     {
+        var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
+        this.arrow = new BounceArrow(pos);
+        GameInstance.miscellaneousEffects.add(this.arrow);
         
-        //This makes no sence, but it works.
-        //if (GameInstance.gameType == Game.types.LOCAL_GAME || !Client.isClientsTurn()) 
-        {
-            var pos = Physics.vectorMetersToPixels(this.body.GetPosition());
-            this.arrow = new BounceArrow(pos);
-            GameInstance.miscellaneousEffects.add(this.arrow);
-        }
     }
 
     //Is this the current worm of the current player
@@ -520,7 +494,7 @@ class Worm extends Sprite
 
         if (Sprites.worms.weWon != this.spriteDef && this.isActiveWorm())
         {
-            if (this.isDead == false && Client.isClientsTurn())
+            if (this.isDead == false)
             {
                 this.target.draw(ctx);
             }
@@ -566,23 +540,4 @@ class Worm extends Sprite
         }
     }
 
-}
-
-class WormDataPacket
-{
-    name;
-    position;
-
-    constructor(worm: Worm)
-    {
-        this.name = worm.name;
-        this.position = worm.body.GetPosition();
-    }
-
-    override(worm: Worm)
-    {
-        worm.name = this.name;
-        worm.body.SetPosition(new b2Vec2(this.position.x, this.position.y));
-        worm.preRendering(); // Regenerate their names
-    }
 }

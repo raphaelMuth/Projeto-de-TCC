@@ -1,10 +1,4 @@
-/**
- * WormManager.js
- *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
- */
+
 ///<reference path="system/Camera.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="system/AssetManager.ts"/>
@@ -125,28 +119,6 @@ class WormManager
 
         return true;
     }
-
-    syncHit(wormName,damage)
-    {
-        if (Client.isClientsTurn())
-        {
-            var parameters = [wormName, damage];
-            Client.sendImmediately(Events.client.ACTION, new InstructionChain("wormManager.syncHit", parameters));
-
-        } else
-        {
-            var damage = wormName[1];
-            var wormName = wormName[0];
-
-           var worm : Worm =  GameInstance.wormManager.findWormWithName(wormName);
-
-           if (worm)
-           {
-               worm.damageTake += damage;
-               worm.hit(0, null);
-           }
-               
-        }
-    }
+    
 
 }

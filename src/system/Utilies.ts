@@ -1,5 +1,4 @@
 /**
- * Utitles 
  * This namespace contains helper functions that I use a lot around the code base
  * or encapluate snippets of code I use a lot in the codebase though by naming it 
  * asa function gives the code more readablity.
@@ -11,9 +10,6 @@
  * Keeps track of which keys are pressed and allows for polling in gameloop
  * which is faster then event based input.
  *
- *  License: Apache 2.0
- *  author:  Ciarán McCann
- *  url: http://www.ciaranmccann.me/
  */
 ///<reference path="../Settings.ts" />
 ///<reference path="Physics.ts" />
@@ -335,83 +331,6 @@ module Logger
         if (Settings.DEVELOPMENT_MODE || Settings.LOG)
             console.error(message);
     }
-}
-
-module TouchUI
-{
-    var isFireHeld = false;
-    var isJumpPressed = false;
-
-    export const isTouchDevice = () => {
-      return 'ontouchstart' in window || navigator.msMaxTouchPoints;
-
-    };
-
-
-    export const init = () => 
-    {      
-        if (TouchUI.isTouchDevice())
-        {
-            var fireButtonCssId = "touchFireButton";
-            var jumpButtonCssId = "touchJump";
-            //Using this to also insert the touch contorls for tablets
-            $('body').append("<div class=touchButton id=" + fireButtonCssId + ">Fire</div>");
-            $('body').append("<div class=touchButton id=" + jumpButtonCssId + ">Jump</div>");
-
-            $("#" + fireButtonCssId).bind('touchstart', (e) =>
-            {
-                e.preventDefault();
-                isFireHeld = true;
-                Logger.log("touchstarted");
-            });
-
-
-            $("#" + fireButtonCssId).bind("touchend", (e) =>
-            {
-                isFireHeld = false;
-                Logger.log("touchend");
-            });
-
-            $("#" + jumpButtonCssId).bind('touchstart', (e) =>
-            {
-                e.preventDefault();
-                isJumpPressed = true;
-            });
-
-
-            $("#" + jumpButtonCssId).bind("touchend", (e) =>
-            {
-                isJumpPressed = false;
-            });
-        }
-    }
-
-
-    export const isFireButtonDown = (reset = false) =>
-    {
-        if (isFireHeld && reset)
-        {
-            isFireHeld = false;
-            return true;
-        }
-
-        return  isFireHeld;
-    }
-
-    export const isJumpDown = (reset = false) =>
-    {
-         if (isJumpPressed && reset)
-        {
-            isJumpPressed = false;
-            return true;
-        }
-
-        return  isJumpPressed;
-    }
-
-
-
-
 }
 
 module keyboard
