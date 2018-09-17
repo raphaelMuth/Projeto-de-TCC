@@ -44,6 +44,9 @@ class StartMenu
             this.setLoadingInterval();
             $('#startLocal').click(() => this.startLocalGame(callback));
             $('#startTutorial').click(() => this.startTutorialGame(callback));
+
+            $('#firstScreen').click(() => console.log("firstScreen tested"));
+            $('#nextFase').click(() => console.log("nextFase tested"));
         } else
         {
             this.setLoadingIntervalForDevelopmentMode(callback);

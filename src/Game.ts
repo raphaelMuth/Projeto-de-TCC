@@ -120,10 +120,6 @@ class Game
         this.actionCanvasContext.fillStyle = "#384084"; // Water
     };
 
-    goFullScreen()
-    {
-        
-    }
 
     start(playerIds = null)
     {
