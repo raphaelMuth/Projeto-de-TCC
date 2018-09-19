@@ -11,18 +11,14 @@ class SettingsMenu
 {
     view;
     levelName;
-
-    CSS_ID = {
-        MAP_LIST_DIV: "#maps"
-    }
-
+    
     constructor()
     {
         //default selected map
         this.levelName = Maps.priates.name;
 
         this.view = '<div id="mapSelector"><h1 style="text-align: center">Select a Map</h1><p> <div class="row-fluid" style="text-align: center"><ul class="thumbnails"></p>';                 
-
+        
         for (var map in Maps)
         {
            this.view += this.addMapItem(Maps[map],map);
@@ -40,11 +36,12 @@ class SettingsMenu
         return item;
     }
 
-    bind(callback)
+    instantiateSelectedMap(callback)
     {
         var __this = this;
         $('a.thumbnail').click( function()
         {
+            AssetManager.getSound("CursorSelect").play();
             var levelId = $(this).attr('id');
             $('a.thumbnail').css({ "background": "white" });
             $(this).css({ "background": "yellow" });

@@ -193,6 +193,7 @@
     <Content Include="src\animation\EffectsManager.min.js">
       <DependentUpon>EffectsManager.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="src\system\Constants.ts" />
     <TypeScriptCompile Include="src\weapons\ForceIndicator.ts" />
     <Content Include="src\animation\HealthReduction.min.js">
       <DependentUpon>HealthReduction.ts</DependentUpon>

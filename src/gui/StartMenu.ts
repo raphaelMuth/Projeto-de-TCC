@@ -5,6 +5,7 @@
  */
 ///<reference path="../Settings.ts" />
 ///<reference path="../system/Controls.ts"/>
+///<reference path="../system/Constants.ts"/>
 ///<reference path="SettingsMenu.ts"/>
 declare var $;
 
@@ -27,30 +28,10 @@ class StartMenu
              ' - Aim up and down. </p><br>' +
             ' <kbd>' + String.fromCharCode(Controls.toggleWeaponMenu.keyboard) + '</kbd> or right mouse - Weapon Menu. </p><br>' +
             ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
-            '<a class="btn btn-primary btn-large" id="startLocal" style="text-align:center">Lets play!</a></div>';
+            '<a class="btn btn-primary btn-large" id="letsPlay" style="text-align:center">Lets play!</a></div>';
     }
-
-    hide()
-    {
-        $('#startMenu').remove();
-    }
-
-    //onGameReady2(): Promise<void> {
-    //    return new Promise((resolve, reject) => {
-    //        resolve();
-
-    //    })
-    //}
-
-    onGameReady(callback)
-    {
-        StartMenu.callback = callback;
-        if (!Settings.DEVELOPMENT_MODE)
-            this.setLoadingInterval();
-         else
-            this.setLoadingIntervalForDevelopmentMode();
-    }
-
+    
+    // mode intervals
     setLoadingIntervalForDevelopmentMode() {
         var loading = setInterval(() => {
             if (AssetManager.isReady()) {
@@ -66,62 +47,98 @@ class StartMenu
             if (AssetManager.isReady()) {
                 clearInterval(loading);
 
-                this.setButtonsEvents();
                 this.settingsMenu = new SettingsMenu();
+                this.setStartMenuButtons();
+                this.setModalButtons();
+                this.enableStartMenuButtons();
 
-                $('#startLocal').removeAttr("disabled");
-                $('#startTutorial').removeAttr("disabled");
-                
-                if ($.browser.msie)  this.informInternetExplorerProblems();
+                if ($.browser.msie) this.informInternetExplorerProblems();
                 else this.informAssetsLoaded();
-                
 
-            } else this.informAssetsAreBeingLoaded(); 
+
+            } else this.informAssetsAreBeingLoaded();
 
         }, 500);
     }
 
-    startTutorialGame() {
-        if (AssetManager.isReady() && StartMenu.callback) {
-
-            $('#startTutorial').off('click');
-            AssetManager.getSound("CursorSelect").play();
-
-            //Initalizse the tutorial object so its used in the game
-            GameInstance.tutorial = new Tutorial();
-
-            this.changeToControlsMenu();
-        }
+    // game initialization
+    onGameReady(callback)
+    {
+        StartMenu.callback = callback;
+        if (!Settings.DEVELOPMENT_MODE)
+            this.setLoadingInterval();
+         else
+            this.setLoadingIntervalForDevelopmentMode();
     }
     
-    startLocalGame() {
-        if (AssetManager.isReady() && StartMenu.callback) {
+    playAndStart(tutorial: Tutorial = null) {
+        AssetManager.getSound("CursorSelect").play();
+        this.startGame(tutorial);
+    }
 
-            $('#startLocal').unbind();
-            AssetManager.getSound("CursorSelect").play();
+    startGame(tutorial: Tutorial = null) {
 
+        if (tutorial) {
+            GameInstance.tutorial = tutorial;
+            this.changeToControlsMenu();
+        } else {
             this.setMapMenu();
         }
     }
 
-    changeToControlsMenu()
-    {
-        $('.slide').fadeOut('normal', () => {
+    // screen flows
+    setMapMenu() {
+        this.refreshSlideDiv(this.settingsMenu.getView())
+        this.settingsMenu.instantiateSelectedMap(() => this.changeToControlsMenu() );
+    }
 
-            this.cleanAndFadeSlideDiv();
-
-            $('#startLocal').click(() =>
-            {
-                $('#startLocal').unbind();
-                $('#startMenu').fadeOut('normal');
-
-                AssetManager.getSound("CursorSelect").play();
-                AssetManager.getSound("StartRound").play(1, 0.5);
-                StartMenu.callback();
-            })
+    changeToControlsMenu() {
+        $(Constants.CSS_CLASS_SLIDE).fadeOut('normal', () => {
+            this.refreshSlideDiv(this.controlsView);
+            this.setLetsPlayButton();
         });
     }
     
+    refreshSlideDiv(append) {
+        $(Constants.CSS_CLASS_SLIDE).empty();
+        $(Constants.CSS_CLASS_SLIDE).append(append);
+        $(Constants.CSS_CLASS_SLIDE).fadeIn('slow');
+    }
+    
+    removeStartMenu() {
+        $(Constants.CSS_ID_START_MENU).fadeOut('normal', () => $(Constants.CSS_ID_START_MENU).remove());
+    }
+
+    // buttons
+    setLetsPlayButton() {
+        $(Constants.CSS_ID_LETS_PLAY).click(() => {
+            AssetManager.getSound("CursorSelect").play();
+            AssetManager.getSound("StartRound").play(1, 0.5);
+            StartMenu.callback();
+        })
+    }
+
+    enableStartMenuButtons() {
+        $(Constants.CSS_ID_START_LOCAL).removeAttr("disabled");
+        $(Constants.CSS_ID_START_TUTORIAL).removeAttr("disabled");
+    }
+
+    setStartMenuButtons() {
+        $(Constants.CSS_ID_START_LOCAL).click(() => this.playAndStart());
+        $(Constants.CSS_ID_START_TUTORIAL).click(() => this.playAndStart(new Tutorial()));
+    }
+
+    setModalButtons() {
+        $(Constants.CSS_ID_FIRST_SCREEN).click(() => { });
+        $(Constants.CSS_ID_NEXT_PHASE).click(() => { });
+    }
+
+    unsetModalButtons() {
+        $(Constants.CSS_ID_FIRST_SCREEN).unbind();
+        $(Constants.CSS_ID_NEXT_PHASE).unbind();
+    }
+    
+    // #notify
     informAssetsAreBeingLoaded() {
         $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
             '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
@@ -136,29 +153,14 @@ class StartMenu
             '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
             '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
     }
-    
-    setMapMenu() {
-        $('.slide').empty();
-        $('.slide').append(this.settingsMenu.getView());
-        
-        this.settingsMenu.bind(() => {
-            AssetManager.getSound("CursorSelect").play();
-            this.changeToControlsMenu();
-        });
-    }
-
-    cleanAndFadeSlideDiv() {
-        $('.slide').empty();
-        $('.slide').append(this.controlsView);
-        $('.slide').fadeIn('slow');
-    }
-
-    setButtonsEvents() {
-
-        $('#startLocal').click(() => this.startLocalGame());
-        $('#startTutorial').click(() => this.startTutorialGame());
-
-        $('#firstScreen').click(() => { });
-        $('#nextFase').click(() => { });
-    }
 }
+
+/* TODO
+ * 1 - Fazer a index ser desenhada em runtime inclui modal e tela inicial,
+ * 2 - Fazer toda a tela ser removida (canvas e modal)
+ * 3 - Assegurar que os dados do ultimo jogo foram limpados
+ * 4 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que finalizar o tutorial (no tutorial nao tera proxima fase),
+ * 5 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que ganhar um jogo (tera o botão proxima fase),
+ * 6 - Ao clicar no botão proxima fase (next phase) iniciar um novo jogo local onde os dados serão zerados como no item 3 porem nao ira para a tela inicial (primeiro passo)
+ * ??? pensar sobre ia, pensar sobre rede neural, pensar sobre player modelling, 
+ */
