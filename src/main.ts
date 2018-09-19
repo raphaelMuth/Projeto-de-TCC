@@ -2,7 +2,7 @@
 ///<reference path="Game.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />
-///<reference path="gui/DrawScreens.ts" />
+///<reference path="gui/DrawStartMenu.ts" />
 var GameInstance: Game;
 $(document).ready( () => {
 

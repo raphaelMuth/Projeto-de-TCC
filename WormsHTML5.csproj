@@ -23,7 +23,7 @@
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\gui\DrawScreens.ts" />
+    <TypeScriptCompile Include="src\gui\DrawStartMenu.ts" />
     <TypeScriptCompile Include="src\Game.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include=".gitignore" />

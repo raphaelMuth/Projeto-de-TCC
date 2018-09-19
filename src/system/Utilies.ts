@@ -45,19 +45,19 @@ module Notify
         if (!locked)
         {
             locked = doNotOverWrite;
-            $("#notifaction").removeClass(levels.warn);
-            $("#notifaction").removeClass(levels.error);
-            $("#notifaction").removeClass(levels.sucess);
-            $("#notifaction").addClass(cssStyle);
+            $(Constants.CSS_ID_NOTIFICATION).removeClass(levels.warn);
+            $(Constants.CSS_ID_NOTIFICATION).removeClass(levels.error);
+            $(Constants.CSS_ID_NOTIFICATION).removeClass(levels.sucess);
+            $(Constants.CSS_ID_NOTIFICATION).addClass(cssStyle);
 
-            $("#notifaction strong").empty();
-            $("#notifaction strong").html(header);
+            $(Constants.CSS_ID_NOTIFICATION + " strong").empty();
+            $(Constants.CSS_ID_NOTIFICATION + " strong").html(header);
 
-            $("#notifaction p").empty();
-            $("#notifaction p").html(message);
+            $(Constants.CSS_ID_NOTIFICATION + "p").empty();
+            $(Constants.CSS_ID_NOTIFICATION + "p").html(message);
 
-            $("#notifaction").animate({
-                top:  (parseInt($("#notifaction").css("height"))) +"px"
+            $(Constants.CSS_ID_NOTIFICATION).animate({
+                top: (parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) +"px"
             }, 400, () =>
             {
                 if (autoHideTime > 0)
@@ -72,18 +72,16 @@ module Notify
 
     }
 
-    export const hide = (callback) =>
+    export const hide = (callback = null) =>
     {
         if (!locked)
         {
-            $("#notifaction").animate({
-                top: (-parseInt($("#notifaction").css("height"))) - 100 + "px"
+            $(Constants.CSS_ID_NOTIFICATION).animate({
+                top: (-parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) - 100 + "px"
             }, 400, () => {
                 locked = false;
-                if (callback != null)
-                {
-                    callback();
-                }
+                if (callback != null) 
+                    callback(); 
             });
         }
     }

@@ -7,6 +7,7 @@
 ///<reference path="../system/Controls.ts"/>
 ///<reference path="../system/Constants.ts"/>
 ///<reference path="SettingsMenu.ts"/>
+///<reference path="DrawStartMenu.ts" />
 declare var $;
 
 class StartMenu
@@ -117,7 +118,13 @@ class StartMenu
     }
 
     setModalButtons() {
-        $(Constants.CSS_ID_FIRST_SCREEN).click(() => { });
+        $(Constants.CSS_ID_FIRST_SCREEN).click(() => {
+            Notify.hide();
+            $(Constants.CSS_ID_NOTIFICATION + " strong").empty();
+            $(Constants.CSS_ID_NOTIFICATION + " p").empty();
+        });
+
+
         $(Constants.CSS_ID_NEXT_PHASE).click(() => { });
     }
 
@@ -128,8 +135,8 @@ class StartMenu
 }
 
 /* TODO
- * 1 - Fazer a index ser desenhada em runtime inclui modal e tela inicial,
- * 2 - Fazer toda a tela ser removida (canvas e modal)
+ * 1 - Fazer a index ser desenhada em runtime inclui modal e tela inicial, #####OK
+ * 2 - Fazer toda a tela ser removida (canvas e modal), #####incompleto
  * 3 - Assegurar que os dados do ultimo jogo foram limpados
  * 4 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que finalizar o tutorial (no tutorial nao tera proxima fase),
  * 5 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que ganhar um jogo (tera o botão proxima fase),
