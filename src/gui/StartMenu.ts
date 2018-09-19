@@ -52,11 +52,9 @@ class StartMenu
                 this.setModalButtons();
                 this.enableStartMenuButtons();
 
-                if ($.browser.msie) this.informInternetExplorerProblems();
-                else this.informAssetsLoaded();
-
-
-            } else this.informAssetsAreBeingLoaded();
+                if ($.browser.msie) DrawStartMenu.informInternetExplorerProblems();
+                else DrawStartMenu.informAssetsLoaded();
+            } else DrawStartMenu.informAssetsAreBeingLoaded();
 
         }, 500);
     }
@@ -88,27 +86,17 @@ class StartMenu
 
     // screen flows
     setMapMenu() {
-        this.refreshSlideDiv(this.settingsMenu.getView())
+        DrawStartMenu.refreshSlideDiv(this.settingsMenu.getView())
         this.settingsMenu.instantiateSelectedMap(() => this.changeToControlsMenu() );
     }
 
     changeToControlsMenu() {
         $(Constants.CSS_CLASS_SLIDE).fadeOut('normal', () => {
-            this.refreshSlideDiv(this.controlsView);
+            DrawStartMenu.refreshSlideDiv(this.controlsView);
             this.setLetsPlayButton();
         });
     }
     
-    refreshSlideDiv(append) {
-        $(Constants.CSS_CLASS_SLIDE).empty();
-        $(Constants.CSS_CLASS_SLIDE).append(append);
-        $(Constants.CSS_CLASS_SLIDE).fadeIn('slow');
-    }
-    
-    removeStartMenu() {
-        $(Constants.CSS_ID_START_MENU).fadeOut('normal', () => $(Constants.CSS_ID_START_MENU).remove());
-    }
-
     // buttons
     setLetsPlayButton() {
         $(Constants.CSS_ID_LETS_PLAY).click(() => {
@@ -136,22 +124,6 @@ class StartMenu
     unsetModalButtons() {
         $(Constants.CSS_ID_FIRST_SCREEN).unbind();
         $(Constants.CSS_ID_NEXT_PHASE).unbind();
-    }
-    
-    // #notify
-    informAssetsAreBeingLoaded() {
-        $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
-            '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
-    }
-
-    informAssetsLoaded() {
-        $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong> ');
-    }
-
-    informInternetExplorerProblems() {
-        $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
-            '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
-            '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
     }
 }
 

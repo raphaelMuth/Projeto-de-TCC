@@ -2,6 +2,7 @@
 ///<reference path="Game.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />
+///<reference path="gui/DrawScreens.ts" />
 var GameInstance: Game;
 $(document).ready( () => {
 
@@ -9,6 +10,8 @@ $(document).ready( () => {
 
     if (!Settings.RUN_UNIT_TEST_ONLY)
     {
+        DrawStartMenu.initMainScreen();
+
         var startMenu = new StartMenu();
 
         GameInstance = new Game();
@@ -16,7 +19,7 @@ $(document).ready( () => {
         
         startMenu.onGameReady(() =>
         {
-            startMenu.removeStartMenu();
+            DrawStartMenu.removeStartMenu();
             if (GameInstance.state.isStarted == false)
             {
                 GameInstance.start();
