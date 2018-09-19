@@ -4,6 +4,18 @@ class DrawStartMenu {
 
     constructor() { };
 
+    static controlsView = `<div style="text-align:center">
+                        <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>
+                        <p><kbd> Space </kbd> 
+                        <kbd> ${String.fromCharCode(Controls.walkLeft.keyboard)} </kbd>  
+                        <kbd> ${String.fromCharCode(Controls.walkRight.keyboard)} </kbd> 
+                         - Jump, Left, Right. <br> <br>
+                         <kbd> ${String.fromCharCode(Controls.aimUp.keyboard)}</kbd>
+                         <kbd> ${String.fromCharCode(Controls.aimDown.keyboard)}</kbd>
+                         - Aim up and down. </p><br>
+                         <kbd> ${String.fromCharCode(Controls.toggleWeaponMenu.keyboard)} </kbd> or right mouse - Weapon Menu. </p><br>
+                         <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>
+                        <a class="btn btn-primary btn-large" id="letsPlay" style="text-align:center">Lets play!</a></div>`;
 
     //main screen
     static initMainScreen() {

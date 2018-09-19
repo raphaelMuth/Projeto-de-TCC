@@ -224,6 +224,7 @@ class Game
                     var team = this.winner.getTeam();
                     team.celebrate();
                     Notify.display("Congratualions", team.name + " you are the winner", 9000);
+                    //Settings.PauseGame();
                 }
             }
 

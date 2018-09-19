@@ -53,8 +53,8 @@ module Notify
             $(Constants.CSS_ID_NOTIFICATION + " strong").empty();
             $(Constants.CSS_ID_NOTIFICATION + " strong").html(header);
 
-            $(Constants.CSS_ID_NOTIFICATION + "p").empty();
-            $(Constants.CSS_ID_NOTIFICATION + "p").html(message);
+            $(Constants.CSS_ID_NOTIFICATION + " p").empty();
+            $(Constants.CSS_ID_NOTIFICATION + " p").html(message);
 
             $(Constants.CSS_ID_NOTIFICATION).animate({
                 top: (parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) +"px"
@@ -72,13 +72,17 @@ module Notify
 
     }
 
+    export const cleanHide = (callback = null) => {
+        Notify.hide();
+        $(Constants.CSS_ID_NOTIFICATION + " strong").empty();
+        $(Constants.CSS_ID_NOTIFICATION + " p").empty();
+    }
+
     export const hide = (callback = null) =>
     {
         if (!locked)
         {
-            $(Constants.CSS_ID_NOTIFICATION).animate({
-                top: (-parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) - 100 + "px"
-            }, 400, () => {
+            $(Constants.CSS_ID_NOTIFICATION).animate({ top: (-parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) - 100 + "px" }, 400, () => {
                 locked = false;
                 if (callback != null) 
                     callback(); 

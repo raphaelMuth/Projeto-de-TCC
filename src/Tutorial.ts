@@ -25,6 +25,7 @@ class Tutorial
         {
             this.isFinished = true;
             GameInstance.miscellaneousEffects.stopAll();
+            Settings.PauseGame();
         }
     }
 

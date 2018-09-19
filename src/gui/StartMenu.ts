@@ -12,24 +12,11 @@ declare var $;
 
 class StartMenu
 {
-    controlsView;
     settingsMenu: SettingsMenu;
     static callback;
 
     constructor()
     {
-        this.controlsView = '<div style="text-align:center">' +
-            ' <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>' +
-            '<p><kbd> Space' +
-            '</kbd>  <kbd> ' + String.fromCharCode(Controls.walkLeft.keyboard) +
-            '</kbd> <kbd> ' + String.fromCharCode(Controls.walkRight.keyboard) +
-            '</kbd> - Jump, Left, Right. <br> <br>' +
-             ' <kbd>' + String.fromCharCode(Controls.aimUp.keyboard) + '</kbd> ' +
-             ' <kbd>' + String.fromCharCode(Controls.aimDown.keyboard) + '</kbd> ' +
-             ' - Aim up and down. </p><br>' +
-            ' <kbd>' + String.fromCharCode(Controls.toggleWeaponMenu.keyboard) + '</kbd> or right mouse - Weapon Menu. </p><br>' +
-            ' <kbd>Enter</kbd> - Fire weapon. </p><p></p><br>' +
-            '<a class="btn btn-primary btn-large" id="letsPlay" style="text-align:center">Lets play!</a></div>';
     }
     
     // mode intervals
@@ -93,7 +80,7 @@ class StartMenu
 
     changeToControlsMenu() {
         $(Constants.CSS_CLASS_SLIDE).fadeOut('normal', () => {
-            DrawStartMenu.refreshSlideDiv(this.controlsView);
+            DrawStartMenu.refreshSlideDiv(DrawStartMenu.controlsView);
             this.setLetsPlayButton();
         });
     }
@@ -118,14 +105,12 @@ class StartMenu
     }
 
     setModalButtons() {
-        $(Constants.CSS_ID_FIRST_SCREEN).click(() => {
-            Notify.hide();
-            $(Constants.CSS_ID_NOTIFICATION + " strong").empty();
-            $(Constants.CSS_ID_NOTIFICATION + " p").empty();
-        });
-
-
+        $(Constants.CSS_ID_FIRST_SCREEN).click(() => this.resetScreen());
         $(Constants.CSS_ID_NEXT_PHASE).click(() => { });
+    }
+
+    resetScreen() {
+        Notify.cleanHide();
     }
 
     unsetModalButtons() {
@@ -137,6 +122,7 @@ class StartMenu
 /* TODO
  * 1 - Fazer a index ser desenhada em runtime inclui modal e tela inicial, #####OK
  * 2 - Fazer toda a tela ser removida (canvas e modal), #####incompleto
+ * 2.5 - Pausar o jogo
  * 3 - Assegurar que os dados do ultimo jogo foram limpados
  * 4 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que finalizar o tutorial (no tutorial nao tera proxima fase),
  * 5 - Passar metodo (restart game) para botao tela inicial da modal que ira aparecer no momento que ganhar um jogo (tera o botão proxima fase),

@@ -9,6 +9,6 @@
     export const CSS_ID_NEXT_PHASE = "#nextPhase";
     export const CSS_ID_LETS_PLAY = "#letsPlay";
     export const CSS_ID_NOTICE = "#notice";
-    export const CSS_ID_NOTIFICATION = "#notification";
+    export const CSS_ID_NOTIFICATION = "#notifaction";
     export const CSS_CLASS_SLIDE = ".slide";
 }

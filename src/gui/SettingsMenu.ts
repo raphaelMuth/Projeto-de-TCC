@@ -9,8 +9,8 @@
 
 class SettingsMenu
 {
-    view;
-    levelName;
+    private view;
+    private levelName;
     
     constructor()
     {
