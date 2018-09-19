@@ -10,14 +10,12 @@ declare var $;
 
 class StartMenu
 {
-
     controlsView;
     settingsMenu: SettingsMenu;
     static callback;
 
     constructor()
     {
-        //<img style="width:80%" src="data/images/menu/xbox360controls.png"><h2>Or</h2>
         this.controlsView = '<div style="text-align:center">' +
             ' <p>Just incase you have never played the original worms armageddon, its a turn base deathmatch game. Where you control a team of worms. Use whatever weapons you have to destroy the enemy. <p><br>' +
             '<p><kbd> Space' +
@@ -36,60 +34,55 @@ class StartMenu
     {
         $('#startMenu').remove();
     }
-    
+
+    //onGameReady2(): Promise<void> {
+    //    return new Promise((resolve, reject) => {
+    //        resolve();
+
+    //    })
+    //}
+
     onGameReady(callback)
     {
         StartMenu.callback = callback;
         if (!Settings.DEVELOPMENT_MODE)
-        {
             this.setLoadingInterval();
-            $('#startLocal').click(() => this.startLocalGame(callback));
-            $('#startTutorial').click(() => this.startTutorialGame(callback));
-
-            $('#firstScreen').click(() => { });
-            $('#nextFase').click(() => { });
-        } else
-        {
-            this.setLoadingIntervalForDevelopmentMode(callback);
-        }
+         else
+            this.setLoadingIntervalForDevelopmentMode();
     }
 
-    setLoadingIntervalForDevelopmentMode(callback: any) {
+    setLoadingIntervalForDevelopmentMode() {
         var loading = setInterval(() => {
-            if (AssetManager.getPerAssetsLoaded() == 100) {
+            if (AssetManager.isReady()) {
                 clearInterval(loading);
-                callback();
+                StartMenu.callback();
             }
         }, 2)
     }
 
     setLoadingInterval() {
         var loading = setInterval(() => {
-
             $('#notice').empty();
-            if (AssetManager.getPerAssetsLoaded() >= 100) {
+            if (AssetManager.isReady()) {
                 clearInterval(loading);
-                this.settingsMenu = new SettingsMenu();
-                $('#startLocal').removeAttr("disabled");
 
+                this.setButtonsEvents();
+                this.settingsMenu = new SettingsMenu();
+
+                $('#startLocal').removeAttr("disabled");
                 $('#startTutorial').removeAttr("disabled");
                 
-                if ($.browser.msie) {
-                    this.informInternetExplorerProblems();
-                }
-                else {
-                    this.informAssetsLoaded();
-                }
+                if ($.browser.msie)  this.informInternetExplorerProblems();
+                else this.informAssetsLoaded();
+                
 
-            } else {
-                this.informAssetsAreBeingLoaded();
-            }
+            } else this.informAssetsAreBeingLoaded(); 
 
         }, 500);
     }
 
-    startTutorialGame(callback: any) {
-        if (AssetManager.isReady()) {
+    startTutorialGame() {
+        if (AssetManager.isReady() && StartMenu.callback) {
 
             $('#startTutorial').off('click');
             AssetManager.getSound("CursorSelect").play();
@@ -97,21 +90,21 @@ class StartMenu
             //Initalizse the tutorial object so its used in the game
             GameInstance.tutorial = new Tutorial();
 
-            this.changeToControlsMenu(callback);
+            this.changeToControlsMenu();
         }
     }
     
-    startLocalGame(callback: any) {
-        if (AssetManager.isReady()) {
+    startLocalGame() {
+        if (AssetManager.isReady() && StartMenu.callback) {
 
             $('#startLocal').unbind();
             AssetManager.getSound("CursorSelect").play();
 
-            this.setMapMenu(callback);
+            this.setMapMenu();
         }
     }
 
-    changeToControlsMenu(callback)
+    changeToControlsMenu()
     {
         $('.slide').fadeOut('normal', () => {
 
@@ -124,40 +117,48 @@ class StartMenu
 
                 AssetManager.getSound("CursorSelect").play();
                 AssetManager.getSound("StartRound").play(1, 0.5);
-                callback();
+                StartMenu.callback();
             })
         });
     }
-
-
-    informAssetsAreBeingLoaded(): any {
+    
+    informAssetsAreBeingLoaded() {
         $('#notice').append('<div class="alert alert-info" style="text-align:center"> <strong> Stand back! I\'m loading game assets! </strong>' +
             '<div class="progress progress-striped active"><div class="bar" style="width: ' + AssetManager.getPerAssetsLoaded() + '%;"></div></div></div> ');
     }
 
-    informAssetsLoaded(): any {
+    informAssetsLoaded() {
         $('#notice').append('<div class="alert alert-success" style="text-align:center"> <strong> Games loaded and your ready to play!! </strong> ');
     }
 
-    informInternetExplorerProblems(): any {
+    informInternetExplorerProblems() {
         $('#notice').append('<div class="alert alert-error" style="text-align:center">' +
             '<strong>Bad news :( </strong> Your using Internet explorer, the game preformance will be hurt. For best preformance use ' +
             '<a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a href="http://www.mozilla.org/en-US/firefox/new/">FireFox</a>. </div> ');
     }
     
-    setMapMenu(callback: any): any {
+    setMapMenu() {
         $('.slide').empty();
         $('.slide').append(this.settingsMenu.getView());
         
         this.settingsMenu.bind(() => {
             AssetManager.getSound("CursorSelect").play();
-            this.changeToControlsMenu(callback);
+            this.changeToControlsMenu();
         });
     }
 
-    cleanAndFadeSlideDiv(): any {
+    cleanAndFadeSlideDiv() {
         $('.slide').empty();
         $('.slide').append(this.controlsView);
         $('.slide').fadeIn('slow');
+    }
+
+    setButtonsEvents() {
+
+        $('#startLocal').click(() => this.startLocalGame());
+        $('#startTutorial').click(() => this.startTutorialGame());
+
+        $('#firstScreen').click(() => { });
+        $('#nextFase').click(() => { });
     }
 }

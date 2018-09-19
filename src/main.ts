@@ -13,7 +13,10 @@ $(document).ready( () => {
 
         GameInstance = new Game();
         AssetManager.loadAssets();
-        
+
+        //startMenu.onGameReady2()
+        //    .then(() => Logger.debug("testeeeeeeee"));
+
         startMenu.onGameReady(() =>
         {
             startMenu.hide();

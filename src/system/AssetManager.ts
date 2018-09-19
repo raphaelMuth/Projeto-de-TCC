@@ -76,8 +76,11 @@ module AssetManager
 
     export const getPerAssetsLoaded = () =>
     {
-        //Logger.debug(" ImagesToLoad {0} AudioToLoad {1} and totalsofar {2}".format(imagesToBeLoaded.length, audioToBeLoaded.length, numAssetsLoaded));
         return ((numAssetsLoaded) / (imagesToBeLoaded.length + audioToBeLoaded.length)) * 100;
+    }
+
+    export const allAssetsLoades = (): boolean => {
+        return getPerAssetsLoaded() >= 100;
     }
 
     export const getImage = (s) =>
