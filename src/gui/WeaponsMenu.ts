@@ -12,39 +12,15 @@ class WeaponsMenu
 {
     htmlElement;
     isVisable;
-    cssId;
-    toggleButtonCssId;
 
     constructor()
     {
-        this.cssId = "weaponsMenu";
-        this.toggleButtonCssId = "weaponsMenuBtn";
+        this.DrawWeaponMenu();
+        this.htmlElement = $(Constants.CSS_ID_WEAPONS_MENU);
+        this.SetWeaponMenuEvents();
 
-        $('body').append("<div id=" + this.cssId + "><div id=" + this.toggleButtonCssId + ">Weapons Menu</div><div id=content></div></div>");
-
-
-        this.htmlElement = $("#" + this.cssId);
-
-
-         $('#'+this.toggleButtonCssId).click(() => this.toggle() );
-        
-        $(window).keypress((event) =>
-        {
-            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
-            {
-                this.toggle();
-            }
-        });
-
-        $('body').mousedown((event) =>
-        {
-            if (Controls.checkControls(Controls.toggleWeaponMenu, event.which))
-            {
-                this.toggle();
-            }
-        });
-
-        $('body').on('contextmenu', "#" + this.cssId, (e) => { return false; });
+        // nao sei onde isso e usado
+        $('body').on('contextmenu', Constants.CSS_ID_WEAPONS_MENU, (e) => { return false; });
 
         this.isVisable = false;
     }
@@ -100,37 +76,16 @@ class WeaponsMenu
     //Fills the menu up with the various weapon items
     populateMenu(listOfWeapons: BaseWeapon[])
     {
-        var html = "<ul class = \"thumbnails\" >"
-
-        for (var weapon in listOfWeapons)
-        {
-            var currentWeapon: BaseWeapon = listOfWeapons[weapon];
-            var cssClassType = "ammo";
-
-            if (currentWeapon.ammo <= 0)
-            {
-                cssClassType = "noAmmo";
-                weapon = "-1";
-            }
-
-            html += "<li class=span1 id=" + weapon + ">";
-            html += "<a  class=\"thumbnail " + cssClassType + "\" id=" + weapon + " value=" + currentWeapon.name + "  title= " + currentWeapon.name +"><span class=ammoCount> " + currentWeapon.ammo + "</span><img title= " + currentWeapon.name +" src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
-            html += "</li>";
-        }
-        html += "</ul>";
-
-        //Should of just used a CSS class and then an ID selector, oh well fuck it, it works!
-        $($(this.htmlElement).children().get(1)).empty();
-        $($(this.htmlElement).children().get(1)).append(html);
-
-        
-        $("#" + this.cssId + " li").click( (event) =>
-        {
+        this.DrawWeaponsList(listOfWeapons);
+        this.SetWeaponSelectionEvent();
+    }
+    
+    SetWeaponSelectionEvent() {
+        $(Constants.CSS_ID_WEAPONS_MENU + " li").click((event) => {
 
             var weaponId = parseInt($(event.currentTarget).attr('id'));
 
-            if (weaponId == -1)
-            {
+            if (weaponId == -1) {
                 AssetManager.getSound("cantclickhere").play();
                 return;
             }
@@ -139,8 +94,50 @@ class WeaponsMenu
             this.selectWeapon(weaponId);
             this.toggle();
         });
-
+    }
+    
+    removeWeaponMenu() {
+        $(Constants.CSS_ID_WEAPONS_MENU).remove();
     }
 
+    DrawWeaponsList(listOfWeapons: BaseWeapon[]) {
+        var html = "<ul class = \"thumbnails\" >"
+
+        for (var weapon in listOfWeapons) {
+            var currentWeapon: BaseWeapon = listOfWeapons[weapon];
+            var cssClassType = "ammo";
+
+            if (currentWeapon.ammo <= 0) {
+                cssClassType = "noAmmo";
+                weapon = "-1";
+            }
+
+            html += "<li class=span1 id=" + weapon + ">";
+            html += "<a  class=\"thumbnail " + cssClassType + "\" id=" + weapon + " value=" + currentWeapon.name + "  title= " + currentWeapon.name + "><span class=ammoCount> " + currentWeapon.ammo + "</span><img title= " + currentWeapon.name + " src=" + currentWeapon.iconImage.src + " alt=" + currentWeapon.name + "></a>";
+            html += "</li>";
+        }
+        html += "</ul>";
+
+        //Should of just used a CSS class and then an ID selector, oh well fuck it, it works!
+        $($(this.htmlElement).children().get(1)).empty();
+        $($(this.htmlElement).children().get(1)).append(html);
+    }
+
+    DrawWeaponMenu() {
+        const html = "<div id='weaponsMenu'><div id='weaponsMenuBtn'>Weapons Menu</div><div id=content></div></div>";
+        $('body').append(html);
+    }
+
+    SetWeaponMenuEvents() {
+        $(Constants.CSS_ID_WEAPONS_MENU_BTN).click(() => this.toggle());
+        $(window).keypress((event) => this.setToogleEvent(event));
+        $('body').mousedown((event) => this.setToogleEvent(event));
+    }
+
+    setToogleEvent(event) {
+        if (Controls.checkControls(Controls.toggleWeaponMenu, event.which)) {
+            this.toggle();
+        }
+    }
 
 }

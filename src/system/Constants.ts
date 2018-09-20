@@ -10,5 +10,9 @@
     export const CSS_ID_LETS_PLAY = "#letsPlay";
     export const CSS_ID_NOTICE = "#notice";
     export const CSS_ID_NOTIFICATION = "#notifaction";
+    export const CSS_ID_WEAPONS_MENU = "#weaponsMenu";
+    export const CSS_ID_WEAPONS_MENU_BTN = "#weaponsMenuBtn";
+
     export const CSS_CLASS_SLIDE = ".slide";
+    export const CSS_CLASS_HEALTH_MENU = ".healthMenu";
 }

@@ -25,8 +25,8 @@
 
 class Game
 {
-    actionCanvas;
-    actionCanvasContext;
+    actionCanvas: HTMLCanvasElement;
+    actionCanvasContext : CanvasRenderingContext2D;
 
     terrain: Terrain;
     players: Player[];
@@ -64,7 +64,9 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-        
+        (window as any).actionCanvas = this.actionCanvas;
+        (window as any).actionCanvasContext = this.actionCanvasContext;
+                
         this.setupCanvas();
 
         this.addCanvasListeners();
@@ -265,11 +267,14 @@ class Game
         //Physics.world.ClearForces();
     }
 
+    clearCanvas() {
+        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
+        this.actionCanvasContext.save();
+    }
+
     draw()
     {
-        this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
-
-        this.actionCanvasContext.save();
+        this.clearCanvas();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
         this.enviormentEffects.draw(this.actionCanvasContext);
         this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height, this.terrain.getWidth());

@@ -16,10 +16,11 @@ module Settings
     
     export var PAUSED = false;
     export const PauseGame = (value = true) => {
-        if (value)
-            setTimeout(() => Settings.PAUSED = value, 1000);
-        else
-            Settings.PAUSED = value;
+        Settings.PAUSED = value;
+        //if (value)
+        //    setTimeout(() => Settings.PAUSED = value, 1000);
+        //else
+        //    Settings.PAUSED = value;
     };
     
     export var REMOTE_ASSERT_SERVER = "../";

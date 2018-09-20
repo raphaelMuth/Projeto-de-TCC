@@ -16,11 +16,12 @@ class CountDownTimer
 
     constructor()
     {
-
         this.timer = new Timer(Settings.PLAYER_TURN_TIME);
-
-
         this.previousSecound = this.timer.timePeriod;
+        this.hide();
+    }
+
+    hide() {
         $('#turnTimeCounter').hide();
     }
 

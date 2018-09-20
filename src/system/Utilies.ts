@@ -40,6 +40,10 @@ module Notify
         error: "alert-error"
     };
 
+    export const getNotificationHeight = () => {
+        return parseInt( $(Constants.CSS_ID_NOTIFICATION).css("height") );
+    }
+
     export const display = (header: string, message: string, autoHideTime = 2800, cssStyle = Notify.levels.sucess,doNotOverWrite = false) =>
     {
         if (!locked)
@@ -56,15 +60,14 @@ module Notify
             $(Constants.CSS_ID_NOTIFICATION + " p").empty();
             $(Constants.CSS_ID_NOTIFICATION + " p").html(message);
 
-            $(Constants.CSS_ID_NOTIFICATION).animate({
-                top: (parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) +"px"
-            }, 400, () =>
-            {
-                if (autoHideTime > 0)
+            $(Constants.CSS_ID_NOTIFICATION)
+                .animate({ top: getNotificationHeight() + "px" }, 400, () =>
                 {
-                    setTimeout(hide, autoHideTime);
-                }
-            });
+                    if (autoHideTime > 0)
+                    {
+                        setTimeout(hide, autoHideTime);
+                    }
+                });
 
 
         }
@@ -82,7 +85,8 @@ module Notify
     {
         if (!locked)
         {
-            $(Constants.CSS_ID_NOTIFICATION).animate({ top: (-parseInt($(Constants.CSS_ID_NOTIFICATION).css("height"))) - 100 + "px" }, 400, () => {
+            $(Constants.CSS_ID_NOTIFICATION)
+                .animate({ top: (-getNotificationHeight()) - 100 + "px" }, 400, () => {
                 locked = false;
                 if (callback != null) 
                     callback(); 
@@ -101,30 +105,16 @@ module Utilies
     // WARNING: This creates a deep copy, so reference are not preserved
     export const copy = (newObject, oldObject) =>
     {
-
         for (var member in oldObject)
         {
-            // if the member is itself an object, then we most also call copy on that
             if (typeof (oldObject[member]) == "object")
             {   
-                //FIXME : Should be usig this try catch, fix it later
-                try
-                {
-                    newObject[member] = copy(newObject[member], oldObject[member])
-                } catch (e)
-                {
-
-                }
+                try { newObject[member] = copy(newObject[member], oldObject[member]) }
+                catch (e) { }
             } else
             {
-                // if its a primative member just assign it
-                try
-                {
-                    newObject[member] = oldObject[member];
-                } catch (e)
-                {
-
-                }
+                try { newObject[member] = oldObject[member]; }
+                catch (e) { }
             }
         }
 

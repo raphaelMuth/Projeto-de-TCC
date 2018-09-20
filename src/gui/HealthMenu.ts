@@ -15,25 +15,29 @@ class HealthMenu
         {
             var team : Team = players[p].getTeam();
 
-            html +=  "<li><span> " + team.name + " </span><img src="+ 
-                    Settings.REMOTE_ASSERT_SERVER  +"data/images/Ireland.png> " +
-                    "<span id='" +team.teamId+ "' class=health style=width:" + team.getPercentageHealth() + 
-                    "%;background:" + team.color + "  ></span></li>";
-
+            html += ` <li><span> ${team.name} </span>
+                    <img src= ${Settings.REMOTE_ASSERT_SERVER}/data/images/Ireland.png>
+                    <span id='${team.teamId}' class=health style='width: ${team.getPercentageHealth()}%; background:${team.color}' ></span>
+                    </li> `;
         }
-        $('.healthMenu').html(html);
+        $(Constants.CSS_CLASS_HEALTH_MENU + ' ul').html(html);
         this.hide();
 
     }
 
     show()
     {
-        $('.healthMenu').show();
+        $(Constants.CSS_CLASS_HEALTH_MENU).show();
     }
 
     hide()
     {
-        $('.healthMenu').hide();
+        $(Constants.CSS_CLASS_HEALTH_MENU).hide();
+    }
+    
+    cleanAndHide() {
+        $(Constants.CSS_CLASS_HEALTH_MENU).empty();
+        this.hide()
     }
 
     update(teamRef : Team)

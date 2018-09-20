@@ -106,7 +106,7 @@ module Graphics
         return ctx;
     }
 
-    export const createCanvas = (name: string) =>
+    export const createCanvas = (name: string) : HTMLCanvasElement =>
     {
 
         var canvas = <HTMLCanvasElement>document.createElement('canvas');
