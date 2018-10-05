@@ -9,6 +9,7 @@
 ///<reference path="environment/Terrain.ts"/>
 ///<reference path="Worm.ts"/>
 ///<reference path="system/Utilies.ts"/>
+///<reference path="system/AIUtilities.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
 ///<reference path="Player.ts" />
 ///<reference path="system/Timer.ts" />
@@ -48,7 +49,7 @@ class Game
     
     winner: Player;
 
-    static map: GameMap = new GameMap(Maps.castle);
+    static map: GameMap = new GameMap(Maps.recta);
 
     camera: Camera;
 
@@ -79,6 +80,8 @@ class Game
         // Development stuff
         this.spawns = [];
         this.defineSpawnsForDevMode();
+
+        (window as any).AIUtilities = AIUtilities;
     }
 
     defineSpawnsForDevMode() {
@@ -99,6 +102,17 @@ class Game
     }
 
     addCanvasListeners() {
+
+        if (Settings.LOG == true) {
+            this.actionCanvas.addEventListener('click', event => {
+                let bound = this.actionCanvas.getBoundingClientRect();
+
+                let x = event.clientX - bound.left - this.actionCanvas.clientLeft;
+                let y = event.clientY - bound.top - this.actionCanvas.clientTop;
+                console.log(bound, x, y)
+            });
+        }
+
         //If the window gets resize, resize the canvas
         $(window).resize(() => this.setupCanvas());
 
@@ -162,7 +176,7 @@ class Game
         setTimeout(() =>
         {
             this.state.physicsWorldSettled = true;
-
+           
         }, 1200);
 
         this.nextTurn();
@@ -187,7 +201,6 @@ class Game
     nextTurn()
     {
         var id = this.state.nextPlayer();
-
         // If the id is -1 then the next player is dead
         if (id == null)
         {

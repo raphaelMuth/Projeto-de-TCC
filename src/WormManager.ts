@@ -20,8 +20,6 @@ class WormManager
         // Get a reference to all the worms from each team
         // for fast acessing, when asking quetions of all them.
         this.getReferencesOfAllWorms(players);
-        
-        Logger.log( this.allWorms);
     }
 
     getReferencesOfAllWorms(players: Player[]) {

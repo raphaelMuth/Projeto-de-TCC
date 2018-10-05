@@ -53,7 +53,7 @@ class Sound
 
         } else
         {
-            Logger.debug("Sounds are currently disabled");
+            //Logger.debug("Sounds are currently disabled");
         }
     }
 
@@ -122,7 +122,7 @@ class SoundFallback extends Sound
 
         } else
         {
-            Logger.debug("Sounds are currently disabled");
+            //Logger.debug("Sounds are currently disabled");
         }
     }
 

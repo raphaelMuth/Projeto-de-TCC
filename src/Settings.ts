@@ -11,12 +11,12 @@ module Settings
     export var SOUND = false;
     
     // development vars
-    export var DEVELOPMENT_MODE = false; 
+    export var DEVELOPMENT_MODE = true; 
     export var LOG = true;
     
     export var REMOTE_ASSERT_SERVER = "../";
 
-    export var PHYSICS_DEBUG_MODE = false;
+    export var PHYSICS_DEBUG_MODE = true;
     export var RUN_UNIT_TEST_ONLY = !true;
     
     //Pasers commandline type arguments from the page url like this ?argName=value

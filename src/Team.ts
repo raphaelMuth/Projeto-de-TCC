@@ -45,8 +45,9 @@ class Team
         for (var i = 0; i < this.initalNumberOfWorms; i++)
         {
             var tmp = Game.map.getNextSpawnPoint();
-            this.worms[i] = (new Worm(this, tmp.x, tmp.y));
-
+            var worm = new Worm(this, tmp.x, tmp.y);
+            this.worms[i] = worm;
+            
         }
     }
     

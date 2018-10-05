@@ -79,7 +79,7 @@ class Worm extends Sprite
         bodyDef.type = b2Body.b2_dynamicBody;
         bodyDef.position.x = x;
         bodyDef.position.y = y;
-
+        
         this.fixture = Physics.world.CreateBody(bodyDef).CreateFixture(fixDef);
         this.body = this.fixture.GetBody();
         this.body.SetFixedRotation(true);

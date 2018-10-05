@@ -24,6 +24,7 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Game.ts" />
+    <TypeScriptCompile Include="src\system\AIUtilities.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include=".gitignore" />
     <Content Include="css\bootstrap.min.css" />
@@ -53,11 +54,13 @@
     <Content Include="data\images\hgrenade.png" />
     <Content Include="data\images\Ireland.png" />
     <Content Include="data\images\levels\castles.png" />
+    <Content Include="data\images\levels\flat.png" />
     <Content Include="data\images\levels\level2.png" />
     <Content Include="data\images\levels\level20.png" />
     <Content Include="data\images\levels\level3.png" />
     <Content Include="data\images\levels\level5.png" />
     <Content Include="data\images\levels\smallcastles.png" />
+    <Content Include="data\images\levels\smallflat.png" />
     <Content Include="data\images\levels\smalllevel2.png" />
     <Content Include="data\images\levels\smalllevel20.png" />
     <Content Include="data\images\levels\smalllevel3.png" />

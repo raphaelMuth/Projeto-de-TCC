@@ -130,7 +130,7 @@ module AssetManager
                 };
             } else
             {
-                Logger.error("Image " + sources[src] + " has the same name as" + images[name].src);
+                Logger.error("Image " + sources[src] + " has the same name as " + images[name].src);
             }
 
             images[name].src = sources[src];
@@ -166,7 +166,7 @@ module AssetManager
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].terrainImage + ".png");
             imagesToBeLoaded.push(Settings.REMOTE_ASSERT_SERVER + "data/images/levels/" + Maps[map].smallImage + ".png");
         }
-
+        
 
     }
 
