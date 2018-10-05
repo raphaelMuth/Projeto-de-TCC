@@ -22,7 +22,7 @@ class AIUtilities {
 
         return namedPositions;
     }
-
+ 
     static getOtherPlayers(playerId: string): Player[] {
 
         return GameInstance
