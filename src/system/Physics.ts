@@ -63,7 +63,6 @@ module Physics
 
     export const init = (ctx) =>
     {
-
         Physics.worldScale = 30;
 
         // Creating our physics world.
@@ -71,7 +70,7 @@ module Physics
             new b2Vec2(0, 10),//gravity
             true //allow sleep
         );
-
+        
         //Setting up debug drawing of the physics world
         debugDraw = new b2DebugDraw();
         debugDraw.SetSprite(ctx);

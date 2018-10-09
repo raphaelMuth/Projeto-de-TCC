@@ -1,0 +1,13 @@
+{
+  "name": "teste",
+  "description": "teste",
+  "version": "",
+  "scripts": {
+    "start": "http-serve -o"
+  },
+  "dependencies": {
+    "http-serve": "^1.0.1",
+    "ngraph.graph": "0.0.14",
+    "ngraph.path": "^1.0.2"
+  }
+}

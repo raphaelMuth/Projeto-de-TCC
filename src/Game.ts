@@ -26,8 +26,8 @@
 
 class Game
 {
-    actionCanvas;
-    actionCanvasContext;
+    actionCanvas: HTMLCanvasElement;
+    actionCanvasContext: CanvasRenderingContext2D;
 
     terrain: Terrain;
     players: Player[];
@@ -65,7 +65,10 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-        
+
+        console.log("setando actionCanvasContext na window");
+        (window as any).actionCanvasContext = this.actionCanvasContext;
+
         this.setupCanvas();
 
         this.addCanvasListeners();
@@ -109,7 +112,11 @@ class Game
 
                 let x = event.clientX - bound.left - this.actionCanvas.clientLeft;
                 let y = event.clientY - bound.top - this.actionCanvas.clientTop;
-                console.log(bound, x, y)
+
+                console.log(bound.left, "bound.left", bound.top, "bound.top")
+                console.log(this.actionCanvas.clientLeft, "this.actionCanvas.clientLeft", this.actionCanvas.clientTop, "this.actionCanvas.clientTop")
+                console.log(event.clientX, "event.clientX", event.clientY, "event.clientY")
+                console.log(x, "x", y, "y")
             });
         }
 

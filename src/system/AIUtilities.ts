@@ -64,6 +64,23 @@ class AIUtilities {
     static getMaxY(positions: NamedPosition[]): NamedPosition {
         return positions.reduce((max, p) => p.y > max.y ? p : max, positions[0]);
     }
+
+    static getNearestEnemyFromNodes(playerId: string) {
+
+        var otherPlayers = AIUtilities.getOtherPlayers(playerId);
+
+        var enemyWorms = AIUtilities.getPlayersWorms(otherPlayers);
+
+        let graph = new ngraph.graph();
+
+        enemyWorms.forEach(worm => {
+            var pos = worm.body.GetPosition();
+            graph.addNode(worm.name, pos);
+        });
+
+        console.log(graph)
+
+    }
 }
 
 

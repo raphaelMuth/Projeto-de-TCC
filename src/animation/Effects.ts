@@ -9,16 +9,16 @@
 module Effects
 {
 
-    export const explosion = (epicenter,
+    export const explosion = 
+       (epicenter,
         explosionRadius,
         effectedRadius,
         explosiveForce, 
         maxDamage, 
         entityThatCausedExplosion = null,
         soundEffectToPlay = AssetManager.getSound("explosion" + Utilies.random(1, 3)),
-        particleEffectType = ParticleEffect,
-       ) =>
-    {
+        particleEffectType = ParticleEffect) =>
+       {
         var posX = Physics.metersToPixels(Math.floor(epicenter.x));
         var posY = Physics.metersToPixels(Math.floor(epicenter.y));
 

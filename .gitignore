@@ -10,6 +10,7 @@
 
 
 #Directories
+/node_modules/*
 obj
 .vs
 bin

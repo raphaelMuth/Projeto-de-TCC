@@ -2,8 +2,18 @@
 ///<reference path="Game.ts"/>
 ///<reference path="system/Graphics.ts"/>
 ///<reference path="gui/StartMenu.ts" />
+
 var GameInstance: Game;
-$(document).ready( () => {
+var ngraph: any;
+var CreateGraph: any;
+var GraphPath: any;
+
+
+$(document).ready(() => {
+
+    console.log(ngraph);
+    console.log(ngraph.graph());
+
 
     Settings.getSettingsFromUrl();
 
