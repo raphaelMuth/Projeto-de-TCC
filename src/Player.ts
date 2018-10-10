@@ -237,11 +237,14 @@ class Player
         return keyboard.isKeyDown(Controls.fire.keyboard, true);
     }
 
-
     CanFireChargable() {
         var wormWeapon = this.team.getCurrentWorm().getWeapon();
         return wormWeapon.getForceIndicator().isRequired() &&
             wormWeapon.getForceIndicator().getForce() > 1 &&
             wormWeapon.getIsActive() == false;
+    }
+
+    getCurrentWorm() {
+        return this.team.getCurrentWorm();
     }
 }

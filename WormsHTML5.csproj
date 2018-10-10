@@ -24,6 +24,8 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\Game.ts" />
+    <TypeScriptCompile Include="src\Helpers\AssociatedDistance.ts" />
+    <TypeScriptCompile Include="src\Helpers\WormActions.ts" />
     <TypeScriptCompile Include="src\system\AIUtilities.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include=".gitignore" />
@@ -586,6 +588,7 @@
     <Content Include="src\Worm.ts" />
     <Content Include="css\custom.css" />
     <Content Include="index.htm" />
+    <TypeScriptCompile Include="src\Helpers\WormHelper.ts" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="src\main.ts" />
@@ -668,6 +671,8 @@
     <Content Include="docs\theme\partials\props.handlebars" />
     <Content Include="docs\theme\partials\sidebar.handlebars" />
     <Content Include="docs\theme\theme.json" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

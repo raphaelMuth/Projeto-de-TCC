@@ -74,8 +74,7 @@ class WormManager
 
         return wormWithHighestVelocity ;
     }
-
-
+    
     areAllWeaponsDeactived()
     {
         return this
@@ -118,5 +117,4 @@ class WormManager
         return true;
     }
     
-
 }

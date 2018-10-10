@@ -272,4 +272,8 @@ module Physics
         return Physics.vectorMetersToPixels(pos);
 
     }
+
+    export const euclideanDistance = (p: any, q: any) => {
+        return Math.sqrt(Math.pow(q.x - p.x, 2) - Math.pow(q.y - p.y, 2) )
+    }
 }

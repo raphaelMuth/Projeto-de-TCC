@@ -22,6 +22,9 @@ class Worm extends Sprite
 {
 
     static DENSITY = 10.0;
+    static JUMP_FORCE = 1.5;
+    static BACKFLIP_FORCE = 2.3;
+
     static DIRECTION = {
         left: -1,
         right: 1
@@ -286,6 +289,10 @@ class Worm extends Sprite
         }
     }
 
+    flip() {
+        this.direction *= -1;
+    }
+
     walkLeft()
     {
         if (WormAnimationManger.playerAttentionSemaphore == 0)
@@ -346,7 +353,7 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction, -2);
-                forces.Multiply(1.5 * Worm.DENSITY);
+                forces.Multiply(Worm.JUMP_FORCE * Worm.DENSITY);
 
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
@@ -381,7 +388,7 @@ class Worm extends Sprite
 
                 var currentPos = this.body.GetPosition();
                 var forces = new b2Vec2(this.direction * -1, -2);
-                forces.Multiply(2.3 * Worm.DENSITY);
+                forces.Multiply(Worm.BACKFLIP_FORCE * Worm.DENSITY);
 
                 this.body.ApplyImpulse(forces, this.body.GetPosition());
             }

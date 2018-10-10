@@ -1,28 +1,15 @@
 ﻿
 ///<reference path="../Game.ts"/>
 ///<reference path="../Main.ts"/>
+///<reference path="Physics.ts"/>
+///<reference path="../Helpers/AssociatedDistance.ts"/>
 
 class AIUtilities {
 
     constructor() {
 
     }
-
-    static getAllEnemiesPositions(playerId: string): NamedPosition[] {
-
-        var otherPlayers = AIUtilities.getOtherPlayers(playerId)
-        
-        var enemyWorms = AIUtilities.getPlayersWorms(otherPlayers)
-        
-        var namedPositions = enemyWorms.map(x =>
-        {
-            var pos = x.body.GetPosition();
-            return new NamedPosition(pos.x, pos.y, x.name);
-        });
-
-        return namedPositions;
-    }
- 
+     
     static getOtherPlayers(playerId: string): Player[] {
 
         return GameInstance
@@ -39,60 +26,20 @@ class AIUtilities {
     
     }
 
-    static getNearestEnemy(currentPlayerId: string, x: boolean): NamedPosition {
-        var posititons = AIUtilities.getAllEnemiesPositions(currentPlayerId);
+    static getNearestEnemy(player: Player): Worm {
 
-        if (x) {
-            return AIUtilities.getMinX(posititons);
-        } else {
-            return AIUtilities.getMinY(posititons);
-        }
+        var otherPlayers = AIUtilities.getOtherPlayers(player.id);
+        
+        var distances = this.getDistances(player.getCurrentWorm(), AIUtilities.getPlayersWorms(otherPlayers));
+
+        var min = Math.min(...distances.map(x => x.rawDist));
+
+        return distances.filter(c => c.rawDist == min)[0].to;
     }
 
-    static getMinX(positions: NamedPosition[]): NamedPosition {
-        return positions.reduce((min, p) => p.x < min.x ? p : min, positions[0]);
+    static getDistances(worm: Worm, enemies: Worm[]): AssociatedDistance[] {
+        return enemies.map(enemy => new AssociatedDistance(worm, enemy));
     }
 
-    static getMaxX(positions: NamedPosition[]): NamedPosition {
-        return positions.reduce((max, p) => p.x > max.x ? p : max, positions[0]);
-    }
-
-    static getMinY(positions: NamedPosition[]): NamedPosition {
-        return positions.reduce((min, p) => p.y < min.y ? p : min, positions[0]);
-    }
-
-    static getMaxY(positions: NamedPosition[]): NamedPosition {
-        return positions.reduce((max, p) => p.y > max.y ? p : max, positions[0]);
-    }
-
-    static getNearestEnemyFromNodes(playerId: string) {
-
-        var otherPlayers = AIUtilities.getOtherPlayers(playerId);
-
-        var enemyWorms = AIUtilities.getPlayersWorms(otherPlayers);
-
-        let graph = new ngraph.graph();
-
-        enemyWorms.forEach(worm => {
-            var pos = worm.body.GetPosition();
-            graph.addNode(worm.name, pos);
-        });
-
-        console.log(graph)
-
-    }
-}
-
-
-class NamedPosition {
-    x: number;
-    y: number;
-    name: string;
-
-    constructor(x: number, y: number, name: string) {
-        this.x = x;
-        this.y = y;
-        this.name = name;
-    }
 }
 
