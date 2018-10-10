@@ -84,8 +84,7 @@ class Game
         // Development stuff
         this.spawns = [];
         this.defineSpawnsForDevMode();
-
-        (window as any).AIUtilities = AIUtilities;
+        
     }
 
     defineSpawnsForDevMode() {

@@ -4,13 +4,9 @@
 ///<reference path="Physics.ts"/>
 ///<reference path="../Helpers/AssociatedDistance.ts"/>
 
-class AIUtilities {
-
-    constructor() {
-
-    }
+module AIUtilities {
      
-    static getOtherPlayers(playerId: string): Player[] {
+    export const getOtherPlayers = (playerId: string): Player[] => {
 
         return GameInstance
             .players
@@ -18,7 +14,7 @@ class AIUtilities {
 
     }
 
-    static getPlayersWorms(players: Player[]) : Worm[]{
+    export const getPlayersWorms = (players: Player[]) : Worm[] => {
         
         var temp = players.map(x => x.getTeam().worms);
 
@@ -26,18 +22,18 @@ class AIUtilities {
     
     }
 
-    static getNearestEnemy(player: Player): Worm {
+    export const getNearestEnemy = (player: Player): Worm => {
 
         var otherPlayers = AIUtilities.getOtherPlayers(player.id);
         
-        var distances = this.getDistances(player.getCurrentWorm(), AIUtilities.getPlayersWorms(otherPlayers));
+        var distances = AIUtilities.getDistances(player.getCurrentWorm(), AIUtilities.getPlayersWorms(otherPlayers));
 
         var min = Math.min(...distances.map(x => x.rawDist));
 
         return distances.filter(c => c.rawDist == min)[0].to;
     }
 
-    static getDistances(worm: Worm, enemies: Worm[]): AssociatedDistance[] {
+    export const getDistances = (worm: Worm, enemies: Worm[]): AssociatedDistance[] => {
         return enemies.map(enemy => new AssociatedDistance(worm, enemy));
     }
 

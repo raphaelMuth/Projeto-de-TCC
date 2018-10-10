@@ -44,4 +44,16 @@ module WormActions{
         
 
     }
+
+    export const DoJump = (worm: Worm, target: { x: number, y: number }) => {
+        var pos = worm.body.GetPosition();
+
+        if (hasToFlip(pos.x, target.x, worm.direction * -1))
+            worm.flip();
+
+        worm.jump();
+
+
+    }
+
 }
