@@ -139,7 +139,7 @@ class ProjectileWeapon extends BaseWeapon
     {
         //FIXME: Hack some how activate gets called on the opisite team if they used a bazzoka before hand.
         // doesnt happen for any other weapon, very strange. This is a temp fix. Investage later
-        if (GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm() == worm && this.ammo > 0 && this.getIsActive() == false)
+        if (GameInstance.state.getCurrentPlayer().getTeam().getCurrentWorm() == worm && !this.OutOfAmmo() && this.getIsActive() == false)
         {
             this.isLive = true;
             super.activate(worm);

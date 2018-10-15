@@ -26,6 +26,8 @@
     <TypeScriptCompile Include="src\Game.ts" />
     <TypeScriptCompile Include="src\Helpers\AssociatedDistance.ts" />
     <TypeScriptCompile Include="src\Helpers\WormActions.ts" />
+    <TypeScriptCompile Include="src\players\AIPlayer.ts" />
+    <TypeScriptCompile Include="src\players\APlayer.ts" />
     <TypeScriptCompile Include="src\system\AIUtilities.ts" />
     <TypeScriptCompile Include="src\system\AssetManager.ts" />
     <Content Include=".gitignore" />
@@ -301,7 +303,7 @@
     <Content Include="src\animation\Sprite.min.js">
       <DependentUpon>Sprite.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="src\Player.ts" />
+    <TypeScriptCompile Include="src\players\Player.ts" />
     <TypeScriptCompile Include="src\gui\CountDownTimer.ts" />
     <TypeScriptCompile Include="src\animation\SpriteDefinitions.ts" />
     <Content Include="src\animation\SpriteDefinitions.js">
@@ -364,7 +366,7 @@
     <Content Include="src\gui\CountDownTimer.min.js">
       <DependentUpon>CountDownTimer.ts</DependentUpon>
     </Content>
-    <Content Include="src\Player.js">
+    <Content Include="src\players\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="src\Settings.ts" />
@@ -594,7 +596,7 @@
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="src\Player.js.map">
+    <Content Include="src\players\Player.js.map">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
     <Content Include="src\Worm.js.map">

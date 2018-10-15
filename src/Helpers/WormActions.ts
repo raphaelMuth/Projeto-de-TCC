@@ -52,8 +52,9 @@ module WormActions{
             worm.flip();
 
         worm.jump();
-
-
+        
     }
+
+
 
 }

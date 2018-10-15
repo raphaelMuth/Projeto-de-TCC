@@ -181,7 +181,7 @@ class ThrowableWeapon extends BaseWeapon
 
     activate(worm: Worm)
     {
-        if (this.ammo > 0 && this.getIsActive() == false)
+        if (!this.OutOfAmmo() && this.getIsActive() == false)
         {
             this.detonationTimer.reset();
             this.playWormVoice();

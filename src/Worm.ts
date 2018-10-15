@@ -30,6 +30,11 @@ class Worm extends Sprite
         right: 1
     }
 
+    static AIM_VALUE = {
+        up: -0.8,
+        down: 0.8
+    }
+
     body;
     fixture;
     direction;
@@ -175,7 +180,6 @@ class Worm extends Sprite
         return this.team.getWeaponManager().getCurrentWeapon();
     }
 
-
     // What happens when a worm collies with another object
     beginContact(contact)
     {
@@ -289,8 +293,14 @@ class Worm extends Sprite
         }
     }
 
-    flip() {
-        this.direction *= -1;
+    flip(direction = null) {
+        if (!direction) {
+            this.direction *= -1;
+            this.target.changeDirection(this.direction);
+        } else {
+            this.direction = direction;
+            this.target.changeDirection(this.direction);
+        }
     }
 
     walkLeft()
@@ -299,8 +309,7 @@ class Worm extends Sprite
         {
             var currentPos = this.body.GetPosition();
 
-            this.direction = Worm.DIRECTION.left;
-            this.target.changeDirection(Worm.DIRECTION.left);
+            this.flip(Worm.DIRECTION.left);
 
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
@@ -323,8 +332,9 @@ class Worm extends Sprite
         if (WormAnimationManger.playerAttentionSemaphore == 0)
         {
             var currentPos = this.body.GetPosition();
-            this.direction = Worm.DIRECTION.right;
-            this.target.changeDirection(Worm.DIRECTION.right);
+
+            this.flip(Worm.DIRECTION.right);
+
             this.stateAnimationMgmt.setState(WormAnimationManger.WORM_STATE.walking);
 
             super.update();
@@ -341,7 +351,13 @@ class Worm extends Sprite
 
     }
 
+    aimUp() {
+        this.target.aim(Worm.AIM_VALUE.up);
+    }
 
+    aimDown() {
+        this.target.aim(Worm.AIM_VALUE.down);
+    }
 
     jump()
     {
@@ -366,7 +382,6 @@ class Worm extends Sprite
             }
         }
     }
-
 
     backFlip()
     {

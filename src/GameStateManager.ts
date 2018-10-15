@@ -7,12 +7,13 @@
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
+///<reference path="players/AIPlayer.ts" />
 
 class GameStateManager
 {
     private nextTurnTrigger: boolean;
     private currentPlayerIndex: number;
-    private players: Player[];
+    private players: APlayer[];
     isStarted: boolean;
     physicsWorldSettled: boolean;
 
@@ -78,7 +79,7 @@ class GameStateManager
     }
 
 
-    getCurrentPlayer()
+    getCurrentPlayer(): APlayer
     {
         return this.players[this.currentPlayerIndex];
     }
@@ -99,12 +100,16 @@ class GameStateManager
         if (team.getPercentageHealth() <= 0)
             return null;
 
-        this.getCurrentPlayer().getTeam().nextWorm();
+        var currentPlayer = this.getCurrentPlayer();
+        currentPlayer.getTeam().nextWorm();
+
+        this.ManageAIDataOnTurnShuffle()
+
         GameInstance.camera.cancelPan();
         GameInstance.camera.panToPosition(Physics.vectorMetersToPixels(team.getCurrentWorm().body.GetPosition()));
 
         //gives back the server id tag
-        return this.getCurrentPlayer().id;
+        return currentPlayer.id;
     } 
 
     checkForWinner()
@@ -121,5 +126,24 @@ class GameStateManager
         
 
         return null;
+    }
+
+
+    private ManageAIDataOnTurnShuffle() {
+        var currentPlayer = this.getCurrentPlayer();
+
+        if (currentPlayer.IAmAMachine)
+            (currentPlayer as AIPlayer).InitAIRound();
+        else
+            this.FinishAllAIRounds();
+        
+    }
+
+    FinishAllAIRounds() {
+        this.players.forEach(x => {
+            if (x.IAmAMachine) {
+                (x as AIPlayer).FinishAIRound();
+            }
+        });
     }
 }

@@ -13,7 +13,7 @@ class WormManager
 {
     allWorms: Worm[];
 
-    constructor (players : Player[])
+    constructor (players : APlayer[])
     {
         this.allWorms = [];
 
@@ -22,7 +22,7 @@ class WormManager
         this.getReferencesOfAllWorms(players);
     }
 
-    getReferencesOfAllWorms(players: Player[]) {
+    getReferencesOfAllWorms(players: APlayer[]) {
         players
             .forEach(player => {
                 player

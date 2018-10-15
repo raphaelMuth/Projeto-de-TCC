@@ -39,7 +39,7 @@ class Team
         this.weaponManager = new WeaponManager();
 
         this.currentWorm = 0;
-        this.initalNumberOfWorms = 4;
+        this.initalNumberOfWorms = 1;
 
         this.worms = new Array(this.initalNumberOfWorms);
         for (var i = 0; i < this.initalNumberOfWorms; i++)

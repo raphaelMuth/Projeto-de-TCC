@@ -38,7 +38,7 @@ class Drill extends BaseWeapon
 
     activate(worm: Worm)
     {
-        if (this.ammo > 0)
+        if (!this.OutOfAmmo())
         {
             super.activate(worm);
             this.useDurationTimer.reset();

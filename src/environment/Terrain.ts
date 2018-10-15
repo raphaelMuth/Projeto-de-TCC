@@ -168,6 +168,7 @@ class Terrain
     {
 
         var lenghtCache = this.deformTerrainBatchList.length;
+
         var angle = Math.PI * 2;
 
         this.bufferCanvasContext.beginPath();

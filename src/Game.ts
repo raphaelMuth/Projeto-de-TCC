@@ -12,7 +12,8 @@
 ///<reference path="system/Utilies.ts"/>
 ///<reference path="system/AIUtilities.ts"/>
 ///<reference path="gui/WeaponsMenu.ts" />
-///<reference path="Player.ts" />
+///<reference path="players/Player.ts" />
+///<reference path="players/AIPlayer.ts" />
 ///<reference path="system/Timer.ts" />
 ///<reference path="Settings.ts" />
 ///<reference path="gui/CountDownTimer.ts" />
@@ -31,7 +32,7 @@ class Game
     actionCanvasContext: CanvasRenderingContext2D;
 
     terrain: Terrain;
-    players: Player[];
+    players: APlayer[];
     
     weaponMenu: WeaponsMenu;
     healthMenu: HealthMenu;
@@ -66,8 +67,7 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-
-        console.log("setando actionCanvasContext na window");
+        
         (window as any).actionCanvasContext = this.actionCanvasContext;
 
         this.setupCanvas();
@@ -324,6 +324,8 @@ class Game
     }
 
     createPlayers() {
+        //this.players.push(new Player());
+        //this.players.push(new AIPlayer());
         for (var i = 0; i < 2; i++) 
             this.players.push(new Player());
     }

@@ -107,7 +107,7 @@ class WeaponsMenu
             var currentWeapon: BaseWeapon = listOfWeapons[weapon];
             var cssClassType = "ammo";
 
-            if (currentWeapon.ammo <= 0)
+            if (currentWeapon.OutOfAmmo())
             {
                 cssClassType = "noAmmo";
                 weapon = "-1";

@@ -58,50 +58,56 @@ class BaseWeapon
     }
 
     update() { }
+
     draw(ctx) { }
 
-     IsANinjaRope() {
+    IsANinjaRope() {
         return this instanceof NinjaRope;
     }
 
-     IsADrill() {
+    IsADrill() {
         return this instanceof Drill;
     }
 
-     IsADynamite() {
+    IsADynamite() {
         return this instanceof Dynamite;
     }
 
-     IsAHandGrenade() {
+    IsAHandGrenade() {
         return this instanceof HandGrenade;
     }
 
-     IsAHolyGrenade() {
-        return this instanceof HolyGrenade;
+    IsAHolyGrenade() {
+    return this instanceof HolyGrenade;
     }
 
-     IsAJetPack() {
-        return this instanceof JetPack;
+    IsAJetPack() {
+    return this instanceof JetPack;
     }
 
-     IsAMinigun() {
-        return this instanceof Minigun;
+    IsAMinigun() {
+    return this instanceof Minigun;
     }
 
-     IsAProjectileWeapon() {
-        return this instanceof ProjectileWeapon;
+    IsAProjectileWeapon() {
+    return this instanceof ProjectileWeapon;
     }
 
-     IsARayWeapon() {
-        return this instanceof RayWeapon;
+    IsARayWeapon() {
+    return this instanceof RayWeapon;
     }
 
-     IsAShotgun() {
-        return this instanceof Shotgun;
+    IsAShotgun() {
+    return this instanceof Shotgun;
     }
 
-     IsAThrowableWeapon() {
-        return this instanceof ThrowableWeapon;
+    IsAThrowableWeapon() {
+    return this instanceof ThrowableWeapon;
     }
+
+    OutOfAmmo(): boolean {
+        return this.ammo <= 0;
+    }
+
 }
 

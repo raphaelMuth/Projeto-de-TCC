@@ -52,7 +52,7 @@ class NinjaRope extends BaseWeapon
     {
         this.worm = worm;
 
-        if (this.ammo > 0 && !this.getIsActive())
+        if (!this.OutOfAmmo() && !this.getIsActive())
         {
             
             AssetManager.getSound("NinjaRopeFire").play();
