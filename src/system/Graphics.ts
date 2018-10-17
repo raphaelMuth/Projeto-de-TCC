@@ -67,6 +67,8 @@ module Graphics
 
             // Align top-left
             stats.domElement.style.position = 'absolute';
+            ////////////////////////////// TODO REMOVER A LINHA ABAIXO PRA MOSTRAR FPS
+            stats.domElement.style.display = 'none';
             stats.domElement.style.left = '0px';
             stats.domElement.style.top = '0px';
 

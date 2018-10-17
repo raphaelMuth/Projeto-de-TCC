@@ -16,7 +16,13 @@ class Camera
     panPosition;
     panSpeed;
     toPanOrNotToPan;
-
+    /**
+    * Construtor da camera
+    * @param levelWidth comprimento total do mundo em pixels
+    * @param levelHeight altura total do mundo em pixels
+    * @param vpWidth comprimento total da parte visivel mundo em pixels
+    * @param vpHeight altura total da parte visivel mundo em pixels
+    */
     constructor (levelWidth, levelHeight, vpWidth, vpHeight)
     {
         this.levelWidth = levelWidth;
@@ -32,7 +38,9 @@ class Camera
         this.toPanOrNotToPan = false;
 
     }
-
+    /**
+    * movimento camera incrementenado a position de acordo com o que esta na panposition
+    */
     update()
     {
         //Logger.log("before Update this.panX = " + this.panX + "  this.x = " + this.x);
@@ -70,7 +78,10 @@ class Camera
         this.toPanOrNotToPan = false;
     }
 
- 
+    /**
+    * Seta a panposition com o local no mundo especificado em pixels
+    * @param vector com a posicao em pixels do local onde se quer movimentar a camera
+    */
     panToPosition(vector)
     {
             // Center on said position

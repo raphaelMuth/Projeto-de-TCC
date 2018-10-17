@@ -67,8 +67,6 @@ class Game
         //Create action canvas
         this.actionCanvas = Graphics.createCanvas("action");
         this.actionCanvasContext = this.actionCanvas.getContext("2d");
-        
-        (window as any).actionCanvasContext = this.actionCanvasContext;
 
         this.setupCanvas();
 
@@ -110,13 +108,16 @@ class Game
             this.actionCanvas.addEventListener('click', event => {
                 let bound = this.actionCanvas.getBoundingClientRect();
 
+                console.log(this.camera.position, "camera.position");
+                console.log(this.camera.panPosition, "camera.panPosition");
+                console.log(event.clientX, "event.clientX");
+                console.log(event.clientY, "event.clientY");
+
                 let x = event.clientX - bound.left - this.actionCanvas.clientLeft;
                 let y = event.clientY - bound.top - this.actionCanvas.clientTop;
 
-                console.log(bound.left, "bound.left", bound.top, "bound.top")
-                console.log(this.actionCanvas.clientLeft, "this.actionCanvas.clientLeft", this.actionCanvas.clientTop, "this.actionCanvas.clientTop")
-                console.log(event.clientX, "event.clientX", event.clientY, "event.clientY")
-                console.log(x, "x", y, "y")
+                console.log(x, "x");
+                console.log(y, "x");
             });
         }
 
