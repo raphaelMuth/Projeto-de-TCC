@@ -84,19 +84,27 @@ class Camera
     */
     panToPosition(vector)
     {
-            // Center on said position
-            vector.x -= this.vpWidth / 2;
-            vector.y -= this.vpHeight / 2;
+        // Center on said position
+        var halfViewSpaceWidth = this.vpWidth / 2;
+        var halfViewSpaceHeight = this.vpHeight / 2;
+        vector.x -= halfViewSpaceWidth;
+        vector.y -= halfViewSpaceHeight;
 
-            var currentPos = this.position.Copy();
-            currentPos.Subtract(vector);
-            var diff = currentPos.Length() / 25;
-            this.panSpeed = diff;
 
-            this.panPosition.x = vector.x;
-            this.toPanOrNotToPan = true;
+        console.log(halfViewSpaceWidth, halfViewSpaceHeight, "<= Subtract half values(w,h), vector positions after Subtract =>", vector.x, vector.y);
 
-            this.panPosition.y = vector.y;
+        var currentPos = this.position.Copy();
+        currentPos.Subtract(vector);
+
+        console.log(this.position.x, this.position.y, "<= position before Subtract, position after Subtract =>", currentPos.x, currentPos.y);
+
+        var diff = currentPos.Length() / 25;
+        this.panSpeed = diff;
+
+        this.panPosition.x = vector.x;
+        this.toPanOrNotToPan = true;
+
+        this.panPosition.y = vector.y;
         
     }
 
