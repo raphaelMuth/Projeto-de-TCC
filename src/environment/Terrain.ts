@@ -286,6 +286,20 @@ class Terrain
         
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
+    //function consolar() {
+//    var terrainBody = GameInstance.terrain.world.m_island.m_bodies.filter(x => x != null).filter(x => x.GetUserData() instanceof Terrain)[0];
+//    console.log({ lower: Physics.vectorMetersToPixels(terrainBody.GetFixtureList().GetAABB().lowerBound), upper: Physics.vectorMetersToPixels(terrainBody.GetFixtureList().GetAABB().upperBound) }, "terrainBody");
+//    var wormBody = GameInstance.terrain.world.m_island.m_bodies.filter(x => x != null).filter(x => x.GetUserData() instanceof Worm)[0];
+//    console.log({ lower: Physics.vectorMetersToPixels(wormBody.GetFixtureList().GetAABB().lowerBound), upper: Physics.vectorMetersToPixels(wormBody.GetFixtureList().GetAABB().upperBound) }, wormBody.GetUserData().name);
+//    Physics.world.QueryAABB((fixture) => {
 
+//        if (fixture.GetBody().GetType() == b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Terrain) {
+//            console.log({ lower: Physics.vectorMetersToPixels(fixture.GetAABB().lowerBound), upper: Physics.vectorMetersToPixels(fixture.GetAABB().upperBound) }, "fixture");
+//        }
+
+//        return true;
+//    }, terrainBody.GetFixtureList().GetAABB());
+
+//}
 
 }
