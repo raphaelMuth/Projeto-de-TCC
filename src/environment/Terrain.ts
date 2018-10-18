@@ -44,7 +44,7 @@ class Terrain
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
 
-        this.TERRAIN_RECT_HEIGHT = 40;
+        this.TERRAIN_RECT_HEIGHT = 5;
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
@@ -102,6 +102,23 @@ class Terrain
 
         // Used to create a single rect out of a series of consecnative solid 
         var makeBlock = () => {
+            //console.log("in xpos and ypos", Physics.pixelToMeters(xPos + Physics.vectorPixelToMeters(this.Offset).x), Physics.pixelToMeters(yPos + Physics.vectorPixelToMeters(this.Offset).y));
+            //for (var w = 0; w < rectWidth; w += rectheight) {
+            //    var halfWidth = Physics.pixelToMeters(rectheight) / 2;
+            //    var halfHeight = Physics.pixelToMeters(rectheight) / 2;
+                
+            //    fixDef.shape.SetAsBox(halfWidth, halfHeight);
+
+            //    bodyDef.position.x = Physics.pixelToMeters((xPos / 4) - w);
+            //    bodyDef.position.y = Physics.pixelToMeters((yPos - rectheight));
+
+            //    var offset = Physics.vectorPixelToMeters(this.Offset);
+            //    bodyDef.position.x += offset.x;
+            //    bodyDef.position.y += offset.y;
+            //    console.log("x => y", bodyDef.position.x, "=>", bodyDef.position.y);
+            //    var b = world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
+            //    b.SetUserData(this);
+            //}
 
             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
             bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
