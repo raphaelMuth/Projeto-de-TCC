@@ -43,7 +43,7 @@ class Terrain
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
 
-        this.TERRAIN_RECT_HEIGHT = 5;
+        this.TERRAIN_RECT_HEIGHT = 10;
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
@@ -214,6 +214,8 @@ class Terrain
                 Physics.pixelToMeters( y + normalizedRadis)
             );
 
+            //essa parte pega uma area especifica e remove todos os body dela
+            // parte especifica essa criada pela aabb setado pela explosao
             Physics.world.QueryAABB( (fixture) =>
             {
                 if (fixture.GetBody().GetType() == b2Body.b2_staticBody && fixture.GetBody().GetUserData() instanceof Terrain)
@@ -224,6 +226,7 @@ class Terrain
                 return true;
             }, aabb);
 
+            //essa parte redesenha os caras que foram destruidos agora a pouco
             this.createTerrainPhysics(0, //x
                 Physics.metersToPixels(aabb.lowerBound.y) - this.Offset.y,  //y
                 this.bufferCanvas.width, //w

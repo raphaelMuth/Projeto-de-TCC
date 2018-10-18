@@ -78,6 +78,7 @@ module Physics
         debugDraw.SetFillAlpha(0.3);
         debugDraw.SetLineThickness(1.0);
         debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+        //debugDraw.SetFlags(b2DebugDraw.e_aabbBit);
         world.SetDebugDraw(debugDraw);
 
 
@@ -273,7 +274,60 @@ module Physics
 
     }
 
-    export const euclideanDistance = (p: any, q: any) => {
+    export const euclideanDistance = (p: any, q: any)=> {
         return Math.sqrt(Math.pow(q.x - p.x, 2) - Math.pow(q.y - p.y, 2) )
+    }
+
+    export const getTerrainAndBodyFixtures = (): any[]  => {
+        var arrFiltered = []
+        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() instanceof Terrain) {
+
+                var tt = [];
+                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
+                    tt.push(f);
+                }
+                arrFiltered.push({ body: b, userData: b.GetUserData(), fixtures: tt })
+            }
+        }
+        return arrFiltered;
+    }
+
+    export const getBodiesPositionsInPixels = (bodyArr: any[]) => {
+        return bodyArr
+            .map(b => Physics.vectorMetersToPixels(b.GetPosition()))
+            .sort((a, b) => {
+            return a.x - b.x || a.y - b.y
+            });
+    }
+
+    export const getTerrainShapes = () => {
+        return (Physics.getTerrainAndBodyFixtures().map(x => x.fixtures.map(x => x.GetShape())) as any).flatMap(x => x);
+    }
+
+    export const getJustTerrainShapes = (): any[] => {
+        var arrFiltered = []
+        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() instanceof Terrain) {
+                
+                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
+                    arrFiltered.push(f.GetShape());
+                }
+            }
+        }
+        return arrFiltered;
+    }
+
+    export const getJustTerrainFixtures = (): any[] => {
+        var arrFiltered = []
+        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() instanceof Terrain) {
+
+                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
+                    arrFiltered.push(f);
+                }
+            }
+        }
+        return arrFiltered;
     }
 }
