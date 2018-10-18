@@ -13,6 +13,7 @@
 class Terrain
 {
 
+    lastExplosionAABB: any;
     drawingCanvas: HTMLCanvasElement;
     drawingCanvasContext: CanvasRenderingContext2D;
     bufferCanvas: HTMLCanvasElement;
@@ -43,7 +44,7 @@ class Terrain
         this.drawingCanvas = canvas;
         this.drawingCanvasContext = this.drawingCanvas.getContext("2d");
 
-        this.TERRAIN_RECT_HEIGHT = 10;
+        this.TERRAIN_RECT_HEIGHT = 40;
 
         //Used for increased preformance. Its more effectent to draw one canvas onto another
         //instead of a large pixel buffer array 
@@ -213,7 +214,7 @@ class Terrain
                 Physics.pixelToMeters(this.bufferCanvas.width),
                 Physics.pixelToMeters( y + normalizedRadis)
             );
-
+            this.lastExplosionAABB = aabb
             //essa parte pega uma area especifica e remove todos os body dela
             // parte especifica essa criada pela aabb setado pela explosao
             Physics.world.QueryAABB( (fixture) =>
@@ -304,5 +305,15 @@ class Terrain
 //    }, terrainBody.GetFixtureList().GetAABB());
 
 //}
+
+    areaquery() {
+        if (this.lastExplosionAABB != null) {
+            Physics.world.QueryAABB((fixture) => {
+                //if (fixture.GetBody().GetUserData() instanceof Terrain)
+                //    console.log(fixture.GetBody())
+                return true;
+            }, this.lastExplosionAABB);
+        }
+    }
 
 }

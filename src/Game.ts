@@ -270,8 +270,7 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
-            
-            
+
         }
     }
 

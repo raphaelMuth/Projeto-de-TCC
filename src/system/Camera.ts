@@ -91,12 +91,12 @@ class Camera
         vector.y -= halfViewSpaceHeight;
 
 
-        console.log(halfViewSpaceWidth, halfViewSpaceHeight, "<= Subtract half values(w,h), vector positions after Subtract =>", vector.x, vector.y);
+        //console.log(halfViewSpaceWidth, halfViewSpaceHeight, "<= Subtract half values(w,h), vector positions after Subtract =>", vector.x, vector.y);
 
         var currentPos = this.position.Copy();
         currentPos.Subtract(vector);
 
-        console.log(this.position.x, this.position.y, "<= position before Subtract, position after Subtract =>", currentPos.x, currentPos.y);
+        //console.log(this.position.x, this.position.y, "<= position before Subtract, position after Subtract =>", currentPos.x, currentPos.y);
 
         var diff = currentPos.Length() / 25;
         this.panSpeed = diff;

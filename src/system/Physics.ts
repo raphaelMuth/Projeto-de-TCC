@@ -77,7 +77,7 @@ module Physics
         debugDraw.SetDrawScale(Physics.worldScale);
         debugDraw.SetFillAlpha(0.3);
         debugDraw.SetLineThickness(1.0);
-        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+        debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit | b2DebugDraw.e_aabbBit);
         //debugDraw.SetFlags(b2DebugDraw.e_aabbBit);
         world.SetDebugDraw(debugDraw);
 
@@ -318,6 +318,16 @@ module Physics
         return arrFiltered;
     }
 
+    export const getJustTerrainBodies = (): any[] => {
+        var arrFiltered = []
+        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
+            if (b.GetUserData() instanceof Terrain) {
+                arrFiltered.push(b);
+            }
+        }
+        return arrFiltered;
+    }
+
     export const getJustTerrainFixtures = (): any[] => {
         var arrFiltered = []
         for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
@@ -330,4 +340,42 @@ module Physics
         }
         return arrFiltered;
     }
+
+    export const getVerticesPositionsInMeters = () => {
+        var bodies = Physics.getJustTerrainBodies();
+        var arr = [];
+        bodies.forEach(body => {
+            var obj = {
+                body: body,
+                bodyCenterInMeters: body.GetPosition(),
+                bodyCenterInPixels: Physics.vectorMetersToPixels(body.GetPosition()),
+                verticesPositionsInMeters: [],
+                verticesPositionsInPixels: []
+            };
+            
+            var vertices = body.GetFixtureList().GetShape().GetVertices();
+            vertices.forEach(ver => {
+                var vertexPos = obj.bodyCenterInMeters.Copy();
+                vertexPos.Add(ver);
+                obj.verticesPositionsInMeters.push(vertexPos);
+                obj.verticesPositionsInPixels.push(Physics.vectorMetersToPixels(vertexPos));
+            });
+
+            arr.push(obj);
+            
+        })
+
+        return arr;
+    }
+    export const groupVerticesPositionInYAxis = () => {
+        var list = Physics
+            .getVerticesPositionsInMeters();
+
+        return Physics.groupBy(list, x => x.bodyCenterInMeters.y);
+    }
+
+    export const groupBy = (xs, f) => {
+        return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
+    }
+    
 }
