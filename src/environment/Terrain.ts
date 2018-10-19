@@ -9,10 +9,12 @@
 ///<reference path="../system/Utilies.ts" />
 ///<reference path="TerrainBoundary.ts"/>
 ///<reference path="Waves.ts"/>
+///<reference path="../Helpers/Grid.ts"/>
 
 class Terrain
 {
 
+    grid: Grid;
     lastExplosionAABB: any;
     drawingCanvas: HTMLCanvasElement;
     drawingCanvasContext: CanvasRenderingContext2D;
@@ -64,6 +66,8 @@ class Terrain
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
         this.wave = new Waves();
+        this.grid = new Grid(this.getWidth(), this.getHeight());
+        //this.grid = new Grid(this.bufferCanvas.width, this.bufferCanvas.height);
     }
 
     getWidth()
@@ -303,7 +307,7 @@ class Terrain
             h
             
             );
-
+        this.drawBoard(ctx);
         
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
@@ -322,15 +326,27 @@ class Terrain
 //    }, terrainBody.GetFixtureList().GetAABB());
 
 //}
+    
+    drawBoard(ctx: CanvasRenderingContext2D) {
+        //grid width and height
+        var bw = this.getWidth();
+        var bh = this.getHeight();
+        //padding around grid
+        var p = 10;
 
-    areaquery() {
-        if (this.lastExplosionAABB != null) {
-            Physics.world.QueryAABB((fixture) => {
-                //if (fixture.GetBody().GetUserData() instanceof Terrain)
-                //    console.log(fixture.GetBody())
-                return true;
-            }, this.lastExplosionAABB);
+        for (var x = 0; x <= bw; x += 40) {
+            ctx.moveTo(0.5 + x + p, p);
+            ctx.lineTo(0.5 + x + p, bh + p);
         }
+
+
+        for (var x = 0; x <= bh; x += 40) {
+            ctx.moveTo(p, 0.5 + x + p);
+            ctx.lineTo(bw + p, 0.5 + x + p);
+        }
+
+        ctx.strokeStyle = "red";
+        ctx.stroke();
     }
 
 }

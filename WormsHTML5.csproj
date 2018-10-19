@@ -25,6 +25,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="src\Game.ts" />
     <TypeScriptCompile Include="src\Helpers\AssociatedDistance.ts" />
+    <TypeScriptCompile Include="src\Helpers\Grid.ts" />
     <TypeScriptCompile Include="src\Helpers\WormActions.ts" />
     <TypeScriptCompile Include="src\players\AIPlayer.ts" />
     <TypeScriptCompile Include="src\players\APlayer.ts" />
