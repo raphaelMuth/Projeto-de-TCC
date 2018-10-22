@@ -13,8 +13,6 @@
 
 class Terrain
 {
-
-    grid: Grid;
     lastExplosionAABB: any;
     drawingCanvas: HTMLCanvasElement;
     drawingCanvasContext: CanvasRenderingContext2D;
@@ -24,6 +22,8 @@ class Terrain
     scale;
     terrainData;
     Offset;
+
+    terrainImage: any;
 
     wave: Waves;
 
@@ -36,7 +36,7 @@ class Terrain
 
     constructor (canvas, terrainImage, world, scale)
     {
-
+        this.terrainImage = terrainImage;
         //this.skyOffset = 350;
         this.world = world;
         this.scale = scale;
@@ -52,7 +52,9 @@ class Terrain
         //instead of a large pixel buffer array 
         this.bufferCanvas = <HTMLCanvasElement>document.createElement('canvas');
         this.bufferCanvas.width = this.Offset.x+(terrainImage.width*1.5);
-        this.bufferCanvas.height =  this.Offset.y+(terrainImage.height*1.5);
+        this.bufferCanvas.height = this.Offset.y + (terrainImage.height * 1.5);
+        console.log(terrainImage.width, terrainImage.height, "terrain images sizes")
+        console.log(this.bufferCanvas.width, this.bufferCanvas.height, "bufferCanvas sizes")
         this.boundary = new TerrainBoundary(this.bufferCanvas.width+this.Offset.x, this.bufferCanvas.height+100);
 
         this.bufferCanvasContext = this.bufferCanvas.getContext('2d');
@@ -65,9 +67,7 @@ class Terrain
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
-        this.wave = new Waves();
-        this.grid = new Grid(this.getWidth(), this.getHeight());
-        //this.grid = new Grid(this.bufferCanvas.width, this.bufferCanvas.height);
+        //this.wave = new Waves();
     }
 
     getWidth()
@@ -125,8 +125,8 @@ class Terrain
             //}
 
             fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
-            bodyDef.position.x = ((xPos / 4) - (rectWidth / 2)) / worldScale;
-            bodyDef.position.y = ((yPos - rectheight) / worldScale);
+            bodyDef.position.x = Physics.pixelToMeters((xPos / 4) - (rectWidth / 2));
+            bodyDef.position.y = Physics.pixelToMeters(yPos - rectheight);
 
             var offset = Physics.vectorPixelToMeters(this.Offset);
             bodyDef.position.x += offset.x;
@@ -268,7 +268,7 @@ class Terrain
             this.deformRegionBatch();
         }
 
-        this.wave.update();
+        //this.wave.update();
     }
 
     draw(ctx)
@@ -306,9 +306,8 @@ class Terrain
             w,
             h
             
-            );
-        this.drawBoard(ctx);
-        
+        );
+                
         // this.drawingCanvasContext.drawImage(this.bufferCanvas, 2, -6)
     };
     //function consolar() {
@@ -326,27 +325,6 @@ class Terrain
 //    }, terrainBody.GetFixtureList().GetAABB());
 
 //}
-    
-    drawBoard(ctx: CanvasRenderingContext2D) {
-        //grid width and height
-        var bw = this.getWidth();
-        var bh = this.getHeight();
-        //padding around grid
-        var p = 10;
-
-        for (var x = 0; x <= bw; x += 40) {
-            ctx.moveTo(0.5 + x + p, p);
-            ctx.lineTo(0.5 + x + p, bh + p);
-        }
-
-
-        for (var x = 0; x <= bh; x += 40) {
-            ctx.moveTo(p, 0.5 + x + p);
-            ctx.lineTo(bw + p, 0.5 + x + p);
-        }
-
-        ctx.strokeStyle = "red";
-        ctx.stroke();
-    }
+   
 
 }

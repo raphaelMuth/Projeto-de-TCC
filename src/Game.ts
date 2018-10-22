@@ -28,6 +28,13 @@
 
 class Game
 {
+    grid: Grid;
+    worldBorderHeight = 2290;
+    worldBorderWidth = 7475;
+    worldBorderInitX = 11;
+    worldBorderInitY = 3;
+    clickedPos = { x: 0, y: 0 };
+
     actionCanvas: HTMLCanvasElement;
     actionCanvasContext: CanvasRenderingContext2D;
 
@@ -82,6 +89,7 @@ class Game
         // Development stuff
         this.spawns = [];
         this.defineSpawnsForDevMode();
+
         
     }
 
@@ -104,22 +112,44 @@ class Game
 
     addCanvasListeners() {
 
-        if (Settings.LOG == true) {
-            this.actionCanvas.addEventListener('click', event => {
-                let bound = this.actionCanvas.getBoundingClientRect();
+        this.actionCanvas.addEventListener('click', (evt) => {
+            var x = this.camera.getX() + evt.clientX;
+            var y = this.camera.getY() + evt.clientY;
+            this.clickedPos.x = x;
+            this.clickedPos.y = y;
 
-                console.log(this.camera.position, "camera.position");
-                console.log(this.camera.panPosition, "camera.panPosition");
-                console.log(event.clientX, "event.clientX");
-                console.log(event.clientY, "event.clientY");
+            this.grid.mouseClicked = { x: this.clickedPos.x, y: this.clickedPos.y };
+            console.log("clickedPos pixels x:", this.clickedPos.x, "y:", this.clickedPos.y, "; meters x:", Physics.pixelToMeters(this.clickedPos.x), "y:", Physics.pixelToMeters(this.clickedPos.y));
+        }, false);
 
-                let x = event.clientX - bound.left - this.actionCanvas.clientLeft;
-                let y = event.clientY - bound.top - this.actionCanvas.clientTop;
+        //this.actionCanvas.addEventListener('mousemove', (evt) => {
+        //    this.camera.levelHeight;
+        //    var rect = this.actionCanvas.getBoundingClientRect();
+        //    var mousePos =  {
+        //        x: evt.clientX - rect.left,
+        //        y: evt.clientY - rect.top
+        //    };
+            
+        //    var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        //    console.log(message)
+        //}, false);
 
-                console.log(x, "x");
-                console.log(y, "x");
-            });
-        }
+
+        //if (Settings.LOG == true) {
+        //    this.actionCanvas.addEventListener('click', event => {
+
+        //        console.log(event, "event");
+        //        let bound = this.actionCanvas.getBoundingClientRect();
+        //        var worm = Physics.vectorMetersToPixels(Physics.fastAcessList[0].GetPosition());
+        //        console.log(event.clientX, "event.clientX", event.clientY, "event.clientY");
+        //        console.log("this.terrain.Offset.x", this.terrain.Offset.x, "this.terrain.Offset.y", this.terrain.Offset.y);
+        //        console.log("this.camera.position.x", this.camera.position.x, "this.camera.position.y", this.camera.position.y);
+        //        console.log("worm.x", worm.x, "worm.y", worm.y);
+
+        //        console.log("offseted y", this.terrain.Offset.x + event.clientX, "offseted y", this.terrain.Offset.y + event.clientY )
+                
+        //    });
+        //}
 
         //If the window gets resize, resize the canvas
         $(window).resize(() => this.setupCanvas());
@@ -188,6 +218,7 @@ class Game
         }, 1200);
 
         this.nextTurn();
+        this.grid = new Grid((this.terrain.terrainImage.width * 1.5), (this.terrain.terrainImage.height * 1.5 ), this.terrain.Offset.x, this.terrain.Offset.y);
 
     }
 
@@ -287,7 +318,7 @@ class Game
         }
         //Physics.world.ClearForces();
     }
-
+    
     draw()
     {
         this.actionCanvasContext.clearRect(0, 0, this.actionCanvas.width, this.actionCanvas.height);
@@ -295,7 +326,14 @@ class Game
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
         this.enviormentEffects.draw(this.actionCanvasContext);
-        this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height, this.terrain.getWidth());
+
+        this.drawLines(this.actionCanvasContext);
+        //this.drawCamera(this.actionCanvasContext);
+        //this.drawBorder(this.actionCanvasContext);
+        this.grid.draw(this.actionCanvasContext);
+        this.drawOffset(this.actionCanvasContext);
+
+        //this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height, this.terrain.getWidth());
         this.actionCanvasContext.restore();
 
         this.terrain.draw(this.actionCanvasContext);
@@ -303,7 +341,7 @@ class Game
         this.actionCanvasContext.save();
         this.actionCanvasContext.translate(-this.camera.getX(), -this.camera.getY());
 
-        this.terrain.wave.draw(this.actionCanvasContext, this.camera.getX(), this.terrain.bufferCanvas.height, this.terrain.getWidth());
+        //this.terrain.wave.draw(this.actionCanvasContext, this.camera.getX(), this.terrain.bufferCanvas.height, this.terrain.getWidth());
 
         if (Settings.PHYSICS_DEBUG_MODE)
         {
@@ -329,4 +367,37 @@ class Game
         for (var i = 0; i < 2; i++) 
             this.players.push(new Player());
     }
+
+
+    drawLines(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath();
+
+        ctx.moveTo(0, this.clickedPos.y);
+        ctx.lineTo(this.clickedPos.x, this.clickedPos.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(this.clickedPos.x, 0);
+        ctx.lineTo(this.clickedPos.x, this.clickedPos.y);
+        ctx.stroke();
+
+    }
+
+    drawBorder(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = "yellow";
+        ctx.rect(this.worldBorderInitX, this.worldBorderInitY, this.worldBorderWidth, this.worldBorderHeight);
+        ctx.stroke();
+    }
+
+    drawCamera(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = "white";
+        ctx.rect(this.camera.getX(), this.camera.getY(), 10, 10);
+        ctx.stroke();
+    }
+
+    drawOffset(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = "yellow";
+        ctx.strokeRect(this.terrain.Offset.x, this.terrain.Offset.y, (this.worldBorderWidth - this.terrain.Offset.x), (this.worldBorderHeight - this.terrain.Offset.y));
+    }
+    
 }
