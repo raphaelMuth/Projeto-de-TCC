@@ -28,6 +28,7 @@ class Terrain
     wave: Waves;
 
     boundary: TerrainBoundary;
+    bodyList: any[];
 
     //Used to batch the deforms to one draw and one box2d regen
     deformTerrainBatchList = []; 
@@ -64,6 +65,7 @@ class Terrain
 
         this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y, this.terrainData.data, world, scale)
+        this.updateBodyList();
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
@@ -266,9 +268,21 @@ class Terrain
         if (this.deformTerrainBatchList.length > 0)
         {
             this.deformRegionBatch();
+            this.updateBodyList();
         }
 
         //this.wave.update();
+    }
+
+    updateBodyList(): any {
+        this.bodyList = null;
+        this.bodyList = Physics.getJustTerrainBodies();
+        this.bodyList
+            .sort((a, b) => {
+                var posA = a.GetPosition();
+                var posB = b.GetPosition();
+                return posA.x - posB.x || posA.y - posB.y
+            });
     }
 
     draw(ctx)

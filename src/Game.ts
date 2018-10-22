@@ -110,15 +110,18 @@ class Game
         }
     }
 
+    setClickedPos(x: number, y: number) {
+        this.clickedPos.x = x;
+        this.clickedPos.y = y;
+        this.grid.mouseClicked = { x: this.clickedPos.x, y: this.clickedPos.y };
+    }
+
     addCanvasListeners() {
 
         this.actionCanvas.addEventListener('click', (evt) => {
             var x = this.camera.getX() + evt.clientX;
             var y = this.camera.getY() + evt.clientY;
-            this.clickedPos.x = x;
-            this.clickedPos.y = y;
-
-            this.grid.mouseClicked = { x: this.clickedPos.x, y: this.clickedPos.y };
+            this.setClickedPos(x, y);
             console.log("clickedPos pixels x:", this.clickedPos.x, "y:", this.clickedPos.y, "; meters x:", Physics.pixelToMeters(this.clickedPos.x), "y:", Physics.pixelToMeters(this.clickedPos.y));
         }, false);
 
@@ -301,7 +304,6 @@ class Game
             this.miscellaneousEffects.update();
             this.enviormentEffects.update();
             this.gameTimer.update();
-
         }
     }
 
@@ -331,7 +333,7 @@ class Game
         //this.drawCamera(this.actionCanvasContext);
         //this.drawBorder(this.actionCanvasContext);
         this.grid.draw(this.actionCanvasContext);
-        this.drawOffset(this.actionCanvasContext);
+        //this.drawOffset(this.actionCanvasContext);
 
         //this.terrain.wave.drawBackgroundWaves(this.actionCanvasContext, 0, this.terrain.bufferCanvas.height, this.terrain.getWidth());
         this.actionCanvasContext.restore();

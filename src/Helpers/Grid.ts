@@ -1,6 +1,9 @@
 ﻿///<reference path="../system/Physics.ts"/>
 class Grid {
     tiles: Tile[] = [];
+    xOrderedTiles: Tile[][] = [];
+    tileBodyAssociation: {tile: Tile, body: any}[] = [];
+
     gridSizeExcess = 200;
     mouseClicked: { x: number, y: number };
     //constructor(worldWidth: number, worldHeight: number) {
@@ -18,17 +21,55 @@ class Grid {
         initialX -= this.gridSizeExcess;
         initialY -= this.gridSizeExcess;
         console.log(initialX, initialY, "initials");
-        for (var h = (Tile.size / 2); h < worldHeight; h += Tile.size) {
-            for (var w = (Tile.size / 2); w < worldWidth; w += Tile.size) {
+        for (var w = (Tile.size / 2); w < worldWidth; w += Tile.size) {
+            var round = [];
+            for (var h = (Tile.size / 2); h < worldHeight; h += Tile.size) {
                 var center = new Coordinate(initialX + w, initialY + h);
-                this.tiles.push(new Tile(center));
+                var tile = new Tile(center);
+                this.tiles.push(tile);
+                round.push(tile);
             }
+            this.xOrderedTiles.push(round);
         }
     }
 
     draw(ctx: CanvasRenderingContext2D) {
         for (var i = 0; i < this.tiles.length; i++)
             this.tiles[i].draw(ctx, this.mouseClicked);
+    }
+
+    associateTileToBody(bodiesList: any[]) {
+        var calculatedSizes = [];
+        for (var bodyIndex = 0; bodyIndex < GameInstance.terrain.bodyList.length; bodyIndex++) {
+            var body = GameInstance.terrain.bodyList[bodyIndex];
+
+            var upperLeft = body.GetPosition().Copy();
+            var upperRight = body.GetPosition().Copy();
+            var lowerLeft = body.GetPosition().Copy();
+            var lowerRight = body.GetPosition().Copy();
+
+            var shape = body.GetFixtureList().GetShape();
+            upperLeft.Add(shape.GetVertices()[0]);
+            upperRight.Add(shape.GetVertices()[1]);
+            lowerLeft.Add(shape.GetVertices()[2]);
+            lowerRight.Add(shape.GetVertices()[3]);
+            calculatedSizes.push({
+                upperLeft: Physics.vectorMetersToPixels(upperLeft),
+                upperRight: Physics.vectorMetersToPixels(upperRight),
+                lowerLeft: Physics.vectorMetersToPixels(lowerLeft),
+                lowerRight: Physics.vectorMetersToPixels(lowerRight), body: body
+            });
+        }
+
+        for (var xIndex = 0; xIndex < this.xOrderedTiles.length; xIndex++) {
+            for (var yIndex = 0; yIndex < this.xOrderedTiles[xIndex].length; yIndex++) {
+                for (var bodyIndex = 0; bodyIndex < calculatedSizes.length; bodyIndex++) {
+                    var calcs = calculatedSizes[bodyIndex];
+                                       
+
+                }
+            }
+        }
     }
 
 }
