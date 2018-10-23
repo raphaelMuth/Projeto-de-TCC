@@ -34,6 +34,7 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2,
     b2Shape = Box2D.Collision.Shapes.b2Shape;
 
 
+declare var MathExtensions;
 
 module Physics
 {
@@ -63,6 +64,7 @@ module Physics
 
     export const init = (ctx) =>
     {
+        MathExtensions = Math;
         Physics.worldScale = 30;
 
         // Creating our physics world.
@@ -242,25 +244,25 @@ module Physics
     //Converts pixels to physic world measurement
     export const pixelToMeters = (pixels: number) =>
     {
-        return pixels / worldScale;
+        return MathExtensions.div(pixels , worldScale);
     }
 
     //Converts physic world measurement to pixels;
     export const metersToPixels = (meters: number) =>
     {
-        return meters * worldScale;
+        return MathExtensions.mul(meters , worldScale);
     }
 
     //Converts a vector in pixels to physic world measurement
     export const vectorPixelToMeters = (vPixels) =>
     {
-        return new b2Vec2(vPixels.x / worldScale, vPixels.y / worldScale);
+        return new b2Vec2(Physics.pixelToMeters(vPixels.x), Physics.pixelToMeters(vPixels.y));
     }
 
     //Converts a vector in physic world measurement to pixels;
     export const vectorMetersToPixels = (vMeters) =>
     {
-        return new b2Vec2(vMeters.x * worldScale, vMeters.y * worldScale);
+        return new b2Vec2(Physics.metersToPixels(vMeters.x), Physics.metersToPixels(vMeters.y));
     }
 
     export const bodyToDrawingPixelCoordinates = (body) =>

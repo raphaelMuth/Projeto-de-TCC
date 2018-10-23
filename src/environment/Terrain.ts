@@ -11,6 +11,7 @@
 ///<reference path="Waves.ts"/>
 ///<reference path="../Helpers/Grid.ts"/>
 
+declare var MathExtensions;
 class Terrain
 {
     lastExplosionAABB: any;
@@ -28,7 +29,7 @@ class Terrain
     wave: Waves;
 
     boundary: TerrainBoundary;
-    bodyList: any[];
+    topBodies: any[];
 
     //Used to batch the deforms to one draw and one box2d regen
     deformTerrainBatchList = []; 
@@ -37,6 +38,7 @@ class Terrain
 
     constructor (canvas, terrainImage, world, scale)
     {
+        MathExtensions = Math;
         this.terrainImage = terrainImage;
         //this.skyOffset = 350;
         this.world = world;
@@ -65,7 +67,7 @@ class Terrain
 
         this.terrainData = this.bufferCanvasContext.getImageData(this.Offset.x, this.Offset.y, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y);
         this.createTerrainPhysics(0, 0, this.bufferCanvas.width-this.Offset.x, this.bufferCanvas.height-this.Offset.y, this.terrainData.data, world, scale)
-        this.updateBodyList();
+        this.updateTopBodies();
 
         this.bufferCanvasContext.globalCompositeOperation = "destination-out"; // Used for cut out circles
 
@@ -125,14 +127,25 @@ class Terrain
             //    var b = world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
             //    b.SetUserData(this);
             //}
+            
+            //save do que tem abaixo
+            //fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
+            //bodyDef.position.x = Physics.pixelToMeters((xPos / 4) - (rectWidth / 2));
+            //bodyDef.position.y = Physics.pixelToMeters(yPos - rectheight);
 
-            fixDef.shape.SetAsBox((rectWidth / worldScale) / 2, (rectheight / worldScale) / 2);
-            bodyDef.position.x = Physics.pixelToMeters((xPos / 4) - (rectWidth / 2));
-            bodyDef.position.y = Physics.pixelToMeters(yPos - rectheight);
+            //var offset = Physics.vectorPixelToMeters(this.Offset);
+            //bodyDef.position.x += offset.x;
+            //bodyDef.position.y += offset.y;
 
+
+            fixDef.shape.SetAsBox(MathExtensions.div(Physics.pixelToMeters(rectWidth), 2), MathExtensions.div(Physics.pixelToMeters(rectheight), 2));
+            bodyDef.position.x = Physics.pixelToMeters(MathExtensions.sub(MathExtensions.div(xPos, 4),MathExtensions.div(rectWidth, 2)));
+            bodyDef.position.y = Physics.pixelToMeters(MathExtensions.sub(yPos, rectheight));
+            
             var offset = Physics.vectorPixelToMeters(this.Offset);
-            bodyDef.position.x += offset.x;
-            bodyDef.position.y += offset.y;
+            bodyDef.position.x = MathExtensions.add(bodyDef.position.x, offset.x);
+            bodyDef.position.y = MathExtensions.add(bodyDef.position.y, offset.y);
+
 
             var b = world.CreateBody(bodyDef).CreateFixture(fixDef).GetBody();
             b.SetUserData(this);
@@ -146,7 +159,6 @@ class Terrain
 
             for (var xPos = x; xPos <= width; xPos += 4)
             {
-
                 if (data[xPos + (yPos * width) + theAlphaByte] == 255) //if not alpha pixel
                 {
                     rectWidth++;
@@ -268,21 +280,15 @@ class Terrain
         if (this.deformTerrainBatchList.length > 0)
         {
             this.deformRegionBatch();
-            this.updateBodyList();
+            this.updateTopBodies();
         }
 
         //this.wave.update();
     }
 
-    updateBodyList(): any {
-        this.bodyList = null;
-        this.bodyList = Physics.getJustTerrainBodies();
-        this.bodyList
-            .sort((a, b) => {
-                var posA = a.body.GetPosition();
-                var posB = b.body.GetPosition();
-                return posA.x - posB.x || posA.y - posB.y
-            });
+    updateTopBodies(): any {
+        this.topBodies = null;
+        this.topBodies = Physics.terrainTopBodies();
     }
 
     draw(ctx)
