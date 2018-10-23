@@ -279,8 +279,8 @@ class Terrain
         this.bodyList = Physics.getJustTerrainBodies();
         this.bodyList
             .sort((a, b) => {
-                var posA = a.GetPosition();
-                var posB = b.GetPosition();
+                var posA = a.body.GetPosition();
+                var posB = b.body.GetPosition();
                 return posA.x - posB.x || posA.y - posB.y
             });
     }

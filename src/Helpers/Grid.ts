@@ -39,32 +39,11 @@ class Grid {
     }
 
     associateTileToBody(bodiesList: any[]) {
-        var calculatedSizes = [];
-        for (var bodyIndex = 0; bodyIndex < GameInstance.terrain.bodyList.length; bodyIndex++) {
-            var body = GameInstance.terrain.bodyList[bodyIndex];
-
-            var upperLeft = body.GetPosition().Copy();
-            var upperRight = body.GetPosition().Copy();
-            var lowerLeft = body.GetPosition().Copy();
-            var lowerRight = body.GetPosition().Copy();
-
-            var shape = body.GetFixtureList().GetShape();
-            upperLeft.Add(shape.GetVertices()[0]);
-            upperRight.Add(shape.GetVertices()[1]);
-            lowerLeft.Add(shape.GetVertices()[2]);
-            lowerRight.Add(shape.GetVertices()[3]);
-            calculatedSizes.push({
-                upperLeft: Physics.vectorMetersToPixels(upperLeft),
-                upperRight: Physics.vectorMetersToPixels(upperRight),
-                lowerLeft: Physics.vectorMetersToPixels(lowerLeft),
-                lowerRight: Physics.vectorMetersToPixels(lowerRight), body: body
-            });
-        }
 
         for (var xIndex = 0; xIndex < this.xOrderedTiles.length; xIndex++) {
             for (var yIndex = 0; yIndex < this.xOrderedTiles[xIndex].length; yIndex++) {
-                for (var bodyIndex = 0; bodyIndex < calculatedSizes.length; bodyIndex++) {
-                    var calcs = calculatedSizes[bodyIndex];
+                for (var bodyIndex = 0; bodyIndex < bodiesList.length; bodyIndex++) {
+                    var calcs = bodiesList[bodyIndex];
                                        
 
                 }

@@ -279,104 +279,63 @@ module Physics
         return Math.sqrt(Math.pow(q.x - p.x, 2) - Math.pow(q.y - p.y, 2) )
     }
 
-    export const getTerrainAndBodyFixtures = (): any[]  => {
+
+    export const getJustTerrainBodies = (): { upperLeft: any, upperRight: any, lowerLeft: any, lowerRight: any, body: any }[] => {
         var arrFiltered = []
         for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
             if (b.GetUserData() instanceof Terrain) {
+                var pos = b.GetPosition();
 
-                var tt = [];
-                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
-                    tt.push(f);
-                }
-                arrFiltered.push({ body: b, userData: b.GetUserData(), fixtures: tt })
+                var upperLeft = pos.Copy();
+                var upperRight = pos.Copy();
+                var lowerLeft = pos.Copy();
+                var lowerRight = pos.Copy();
+
+                var shape = b.GetFixtureList().GetShape();
+
+                var vertices = shape.GetVertices();
+                upperLeft.Add(vertices[0]);
+                upperRight.Add(vertices[1]);
+                lowerLeft.Add(vertices[2]);
+                lowerRight.Add(vertices[3]);
+
+                arrFiltered.push({
+                    upperLeft: Physics.vectorMetersToPixels(upperLeft),
+                    upperRight: Physics.vectorMetersToPixels(upperRight),
+                    lowerLeft: Physics.vectorMetersToPixels(lowerLeft),
+                    lowerRight: Physics.vectorMetersToPixels(lowerRight),
+                    body: b
+                });
             }
         }
         return arrFiltered;
     }
 
-    export const getBodiesPositionsInPixels = (bodyArr: any[]) => {
-        return bodyArr
-            .map(b => Physics.vectorMetersToPixels(b.GetPosition()))
-            .sort((a, b) => {
-            return a.x - b.x || a.y - b.y
-            });
-    }
-
-    export const getTerrainShapes = () => {
-        return (Physics.getTerrainAndBodyFixtures().map(x => x.fixtures.map(x => x.GetShape())) as any).flatMap(x => x);
-    }
-
-    export const getJustTerrainShapes = (): any[] => {
-        var arrFiltered = []
-        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
-            if (b.GetUserData() instanceof Terrain) {
-                
-                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
-                    arrFiltered.push(f.GetShape());
-                }
-            }
-        }
-        return arrFiltered;
-    }
-
-    export const getJustTerrainBodies = (): any[] => {
-        var arrFiltered = []
-        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
-            if (b.GetUserData() instanceof Terrain) {
-                arrFiltered.push(b);
-            }
-        }
-        return arrFiltered;
-    }
-
-    export const getJustTerrainFixtures = (): any[] => {
-        var arrFiltered = []
-        for (var b = Physics.world.GetBodyList(); b; b = b.GetNext()) {
-            if (b.GetUserData() instanceof Terrain) {
-
-                for (var f = b.GetFixtureList(); f; f = f.GetNext()) {
-                    arrFiltered.push(f);
-                }
-            }
-        }
-        return arrFiltered;
-    }
-
-    export const getVerticesPositionsInMeters = () => {
-        var bodies = Physics.getJustTerrainBodies();
-        var arr = [];
-        bodies.forEach(body => {
-            var obj = {
-                body: body,
-                bodyCenterInMeters: body.GetPosition(),
-                bodyCenterInPixels: Physics.vectorMetersToPixels(body.GetPosition()),
-                verticesPositionsInMeters: [],
-                verticesPositionsInPixels: []
-            };
-            
-            var vertices = body.GetFixtureList().GetShape().GetVertices();
-            vertices.forEach(ver => {
-                var vertexPos = obj.bodyCenterInMeters.Copy();
-                vertexPos.Add(ver);
-                obj.verticesPositionsInMeters.push(vertexPos);
-                obj.verticesPositionsInPixels.push(Physics.vectorMetersToPixels(vertexPos));
-            });
-
-            arr.push(obj);
-            
-        })
-
-        return arr;
-    }
-    export const groupVerticesPositionInYAxis = () => {
-        var list = Physics
-            .getVerticesPositionsInMeters();
-
-        return Physics.groupBy(list, x => x.bodyCenterInMeters.y);
-    }
-
+    // f é um callback
     export const groupBy = (xs, f) => {
         return xs.reduce((r, v, i, a, k = f(v)) => ((r[k] || (r[k] = [])).push(v), r), {});
     }
+
+    export const terrainTopBodies = () => {
+        var bodyLista = Physics.getJustTerrainBodies()
+            .sort((a, b) => {
+                var posA = a.body.GetPosition();
+                var posB = b.body.GetPosition();
+                return posA.x - posB.x || posA.y - posB.y
+            });
+
+        var grouped = Physics.groupBy(bodyLista, c => Math.floor(Physics.vectorMetersToPixels(c.body.GetPosition()).x));
+        var topBodies = [];
+        Object.keys(grouped).forEach(key => {
+
+            var top = grouped[key].reduce((min, p) => p.body.GetPosition().y < min.body.GetPosition().y ? p : min, grouped[key][0]);
+
+            if (top != null)
+                topBodies.push(top);
+        });
+       
+        return topBodies;
+    }
+
     
 }
